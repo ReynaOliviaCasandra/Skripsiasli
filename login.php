@@ -114,7 +114,7 @@ if (isset($_POST['login'])) {
                                     </form>
                                 </div>
                                 <div class="card-footer text-center">
-                                    <div class="small"><a href="register.php">Need an account? Sign up!</a></div>
+                                        <div class="small"><a href="register.php">Need an account? Sign up!</a></div>               
                                 </div>
                             </div>
                         </div>

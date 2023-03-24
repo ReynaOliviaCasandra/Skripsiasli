@@ -532,11 +532,7 @@ if(isset($_POST['updatebarangmasuk'])){
 //         }
 //     }
 // }
-
-
 // TEST barang keluar
-
-
 if(isset($_POST['updatebarangkeluar'])){
     $idk = $_POST['idkeluar']; //iddata
     $idbarang= $_POST['idbarang']; //idbarang

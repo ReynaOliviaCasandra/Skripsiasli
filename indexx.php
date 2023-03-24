@@ -81,12 +81,18 @@
                             <!-- Req Barang -->
                             <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsreq" aria-expanded="false" aria-controls="collapseLayouts">   
                             <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
-                                Req Barang
+                            Permission
                                 <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                             </a>
                             <div class="collapse" id="collapsreq" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav">
-                                    <a class="nav-link" href="reqbarang.php">Req Order Barang </a>
+                                <?php
+                                if($_SESSION['role'] == "owner" || $_SESSION['role'] == "managertoko"){
+                                ?>
+                                <a class="nav-link" href="reqbarang.php">permission </a>
+                                <?php
+                                } 
+                                ?>
                                     <a class="nav-link" href="approval.php">Approval Barang</a>
                                     <!-- <a class="nav-link" href="#!">Laporan Barang Gudang</a> -->
                                 </nav>
@@ -340,8 +346,15 @@
                                             <button type="button" class="btn btn-warning mb-4" data-toggle="modal" data-target="#edit<?=$idbarang;?>">
                                             EDIT
                                             </button>
-                                            <button type="button" class="btn btn-danger mb-4" data-toggle="modal" data-target="#delete<?=$idbarang;?>">
-                                            DELETE
+                                            <?php
+                                            if($_SESSION['role'] == "owner" || $_SESSION['role'] == "managertoko"){
+                                                    echo '
+                                                    <button type="button" class="btn btn-danger mb-4" data-toggle="modal" data-target="#delete<?=$idbarang;?>">
+                                                ';
+                
+                                            } 
+                                            ?>
+                                            <!-- DELETE -->
                                             </td>
                                         </tr>
                                          <!-- Modal stock Gudang -->

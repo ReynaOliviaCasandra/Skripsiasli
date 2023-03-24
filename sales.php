@@ -218,6 +218,7 @@
                                         $ambilsemuadatasales = mysqli_query($conn,"SELECT * FROM sales");
                                         $i=1;
                                         while($data=mysqli_fetch_array($ambilsemuadatasales)){
+                                            $idsales=$data['idsales'];
                                             $nama =$data['nama'];
                                             $usaha =$data['perusahaan'];
                                             $kontak =$data['kontak'];
@@ -252,10 +253,10 @@
                                                 <form method="post">
                                                 <div class="modal-body">
                                                 <div class="form-group">
-                                                <input class="form-control py-4 mb-2" id="inputEmailAddress" name="nama"                 type="text"     placeholder="Nama Sales"                        value="<?=$namasales;?>" required/>
-                                                <input class="form-control py-4 mb-2" id="inputEmailAddress" name="perusahaan"            type="text"     placeholder="Distributir"                       value="<?=$perusahaan;?>" required/>
+                                                <input class="form-control py-4 mb-2" id="inputEmailAddress" name="nama"                 type="text"     placeholder="Nama Sales"                        value="<?=$nama;?>" required/>
+                                                <input class="form-control py-4 mb-2" id="inputEmailAddress" name="perusahaan"            type="text"     placeholder="Distributir"                       value="<?=$usaha;?>" required/>
                                                 <input class="form-control py-4 mb-2" id="inputEmailAddress" name="kontak"               type="text"     placeholder="No handphone"                      value="<?=$kontak;?>" required/>
-                                                <input type="hidden" name="idbarang" value="<?=$idsales;?>">
+                                                <input type="hidden" name="idsales" value="<?=$idsales;?>">
                                                 <button type="submit" class="btn btn-primary" name="updatesales" >Submit</button>
                                                 </div>
                                                 </div>
@@ -281,24 +282,25 @@
                                                 <!-- Content 1 -->
                                                 <form method="POST">
                                                 <div class="modal-body mb-2">
-                                                Apakah anda yakin ingin menghapus  <?=$namasales;?> ?
-                                                <input type="hidden" name=""         value="<?=$idsales;?>">
-                                                <input type="hidden" name=""         value="<?=$qty;?>">
-                                                <input type="hidden" name=""         value="<?=$idm;?>">
+                                                Apakah anda yakin ingin menghapus  <?=$nama;?> perusahaan distributor <?=$usaha;?>?
+                                                <input type="hidden" name="idsales"         value="<?=$idsales;?>">
+                                                <input type="hidden" name="nama"            value="<?=$nama;?>">
+                                                <input type="hidden" name="perusahaan"       value="<?=$usaha;?>">
+                                                <input type="hidden" name="kontak"          value="<?=$kontak;?>">
                                                 <br>
                                                 <br>
-                                                <button type="submit" class="btn btn-danger" name="" >Hapus</button>
+                                                <button type="submit" class="btn btn-danger" name="hapusales" >Hapus</button>
                                                 <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
                                                 </div>
                                                 </div>
                                                 <!-- Modal footer -->
                                                 <div class="modal-footer">
                                                     </form>
+                                                    </div>
                                                 </div>
                                             </div>
-                                            </div>
                                         </div>
-                                        </div>
+                                    </div>
                                         <!-- End aksi Crud -->
                                         <?php
                                         };

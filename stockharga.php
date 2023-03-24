@@ -186,7 +186,7 @@
                         <div class="card mb-4">
                             <div class="card-header">
                                 <i class="fas fa-table mr-1"></i>
-                                Data Harga Barang Cosmetic Modern
+                                Total Asset Barang : <?php $assets = array( "aset1" => 1000, "aset2" => 5000, "aset3" => 7500, "aset4" => 2500 ); $total = 0; foreach ($assets as $asset) { $total += $asset; } echo "Rp" . $total; ?>
                             </div>
                             <div>
                                 <a href="laporanharga.php" id="exportharga" class="btn btn-info mt-2 ml-2">Cetak Laporan</a>
@@ -231,7 +231,7 @@
                                             $jenisbarang =$data['jenisbarang'];
                                             $idbarang = $data['idbarang'];
                                             $hargabarang =$data['Harga'];
-                                            $totalharga = $data['totalharga'];
+                                            // $totalharga = $data['totalharga'];
                                             // $a = $a+intval($harga*$stock);
                                             
                                         ?>
@@ -246,9 +246,17 @@
                                             <!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#edit<?=$idbarang;?>">
                                             Upload
                                             </button> -->
-                                            <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#edit<?=$idbarang;?>">
-                                            EDIT
-                                            </button>
+                                             <!-- Fungsi  Hak Akes Halaman -->
+                                             <?php
+                                            if($_SESSION['role'] == "owner" || $_SESSION['role'] == "manager"){
+                                            ?>
+                                                <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#edit<?=$idbarang;?>">
+                                                EDIT
+                                                </button>
+                                            <?php
+                                        } 
+                                            ?>
+                                            <!-- Fungsi Hak akses user -->
                                             <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#delete<?=$idbarang;?>">
                                             DELETE
                                             </td>

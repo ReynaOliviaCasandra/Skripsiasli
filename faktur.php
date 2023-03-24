@@ -237,6 +237,7 @@
                                         $ambilsemuadatafaktur = mysqli_query($conn,"SELECT * FROM faktur");
                                         $i=1;
                                         while($data=mysqli_fetch_array($ambilsemuadatafaktur)){
+                                            $idsales = $data['idsales'];
                                             $idfaktur = $data['idfaktur'];
                                             $namausaha = $data['supplier'];
                                             $tanggal = $data['tanggal'];
@@ -294,7 +295,7 @@
                                                 <!-- Modal footer -->
                                                 <div class="modal-footer">
                                                 <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                                                </div>
+                                                </div>  
                                                 </form>
                                             </div>
                                             </div>
@@ -383,11 +384,11 @@
                                                 <?php
                                                 $ambilsemuadatanya = mysqli_query($conn,"SELECT * FROM sales");
                                                 while($fetcharray = mysqli_fetch_array($ambilsemuadatanya)){
-                                                        $namasupplier = $fetcharray['perusahaan'];
                                                         $idsales = $fetcharray['idsales'];
+                                                        $namasupplier = $fetcharray['perusahaan'];
                                                     ?>
                                                     <option value="<?=$idsales;?>"><?=$namasupplier;?></option> 
-                                                    <?php
+                                                    <?php 
                                                     };
                                                 ?>
                                                 </select>

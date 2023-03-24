@@ -60,7 +60,6 @@ if(isset($_POST['buttonsales'])){
     $supplier = $_POST['distributor'];
     $contact = $_POST['kontak'];
     $salessekarang = mysqli_query($conn,"INSERT INTO sales (nama,perusahaan,kontak)VALUES('$namasales','$supplier','$contact')");
-    
     if($salessekarang){
         header('location:sales.php');
         
@@ -77,7 +76,7 @@ if(isset($_POST['addnewbarang'])){
     // $keterangan= $_POST['keterangan'];
 
     // Fungsi Menambah Gambar
-    $allowed_extensions= array('png','jpg');
+    $allowed_extensions= array('png','jpg','jpeg');
     $nama= $_FILES['file']['name']; //gambilnama gambar
     $dot = explode(".",$nama);
     $ekstensi = strtolower(end($dot)); //mengambil extensinya
@@ -160,7 +159,8 @@ if(isset($_POST['barangmasuk'])){
 // Menambah faktur
 if(isset($_POST['faktur'])){
     $fakturnya = $_POST['fakturnya'];
-    $addtomasuk = mysqli_query($conn,"INSERT INTO faktur where idfaktur='$fakturnya'(supplier) VALUES('$fakturnya')");
+    $cekfaktur = mysqli_query($conn,"SELECT * FROM sales WHERE idsales='$fakturnya'"); 
+    // $addtomasuk = mysqli_query($conn,"INSERT INTO faktur where idsales='$fakturnya'(supplier) VALUES('$fakturnya')");
     // // Fungsi Menambah Gambar
     $allowed_extensions= array('png','jpg');
     $nama= $_FILES['file']['name']; //gambilnama gambar
@@ -341,6 +341,7 @@ if(isset($_POST['updatesales'])){
         header('location:index.php');
     }
 }
+
 // new Harga Barang
 if(isset($_POST['hargabarang'])){
     $namabarang= $_POST['namabarang'];
@@ -442,10 +443,8 @@ if(isset($_POST['updatebarangmasuk'])){
         //ternyata inputan baru lebih besar jumlah masuknya, maka tambahi lagi stock barang
         $hitungselisih = $qty-$qtyskrg;
         $tambahistock = $stockskrg+$hitungselisih;
-
         $queryx = mysqli_query($conn,"UPDATE stock set stock='$tambahistock' WHERE idbarang='$idbarang'");
         $updatedata1 = mysqli_query($conn,"UPDATE masuk set qty='$qty',penerima='$keterangan',kadarluasa='$exp' WHERE idmasuk='$idm'");
-        
         //cek apakah berhasil
         if ($updatedata1 && $queryx){
             echo " <div class='alert alert-success'>
@@ -716,5 +715,43 @@ if(isset($_POST['tolakbarang'])){
     }else{
         header("Location:indexx.php");
     }
+}
+
+// Edit Sales
+if(isset($_POST['updatesales'])){
+    $nama = $_POST['nama'];
+    $usaha = $_POST['perusahaan'];
+    $kontak = $_POST['kontak'];
+    $addtosales = mysqli_query($conn,"UPDATE sales set nama='$nama',perusahaan='$usaha',kontak='$kontak' WHERE idsales='$idsales'");
+    if($addtosales)
+    {
+        // Berhasil
+        echo'<script>
+        alert("Data Barhasil Update");
+        window.location.href = "sales.php"
+        </script>';
+    }else{
+        echo'<script>
+        alert("Data tidak terupdate");
+        window.location.href = "indexx.php"
+        </script>';
+    }
+}
+// Delete Sales
+// Menghapus Barang stock gudang
+if(isset($_POST['hapusales'])){
+    $nama = $_POST['nama'];
+    $usaha = $_POST['perusahaan'];
+    $kontak = $_POST['kontak'];
+    $idsales = $_POST['idsales'];
+    $hapus = mysqli_query($conn,"DELETE FROM sales WHERE idsales='$idsales'");
+    // die(mysqli_error($conn));
+    if($hapus){
+      // Berhasil
+      echo'<script>
+      alert("Data Barhasil dihapus");
+      window.location.href = "sales.php"
+      </script>';
+    } 
 }
 ?>

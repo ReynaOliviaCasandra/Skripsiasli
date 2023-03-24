@@ -1,8 +1,7 @@
 <?php
 include 'function.php';
-include 'cek.php';
-
-//Check login owner, terdaftar atau tidak
+// include 'cek.php';
+// Check login owner, terdaftar atau tidak
 if (isset($_POST['login'])) {
     $email = $_POST['email'];
     $username = $_POST['username'];
@@ -10,7 +9,8 @@ if (isset($_POST['login'])) {
     $role = $_POST['role'];
     // die(mysqli_error($conn));
     // Cocokan dengan database, cari data
-    $cekdatabase = mysqli_query($conn, "SELECT * FROM login where username='$username' and password='$password'");
+    $_SESSION['isLoggedin']= '1';
+    $cekdatabase = mysqli_query($conn, "SELECT * FROM login WHERE role='$role' AND email= '$email' AND username='$username'AND password='$password'");
     // Hitung jumlah data
     $hitung = mysqli_num_rows($cekdatabase);
     if ($hitung > 0) {
@@ -20,7 +20,7 @@ if (isset($_POST['login'])) {
         $role = $ambildatrole['role'];
         if ($role == 'owner') {
             // Kalau dia owner
-            $_SESSION['log'] = 'Logged';
+            $_SESSION['log']= 'Logged';
             $_SESSION['role'] = 'owner';
             // header('location: indexx.php'); //halaman utama
             echo'<script>
@@ -29,28 +29,33 @@ if (isset($_POST['login'])) {
             </script>';
         } else if ($role == 'manager') {
             // Kalau bukan owner
-            $_SESSION['log'] = 'Logged';
+            $_SESSION['log']= 'Logged';
             $_SESSION['role'] = 'manager';
             // header('location: homemanager.php');
             echo'<script>
             alert("Selamat Datang Manager !!");
-            window.location.href = "homemanager.php"
+            window.location.href = "indexx.php"
             </script>';
         } else if ($role == 'kepalagudang') {
             //Kalau bukan manager
-            $_SESSION['log'] = 'Logged';
+            $_SESSION['log']= 'Logged';
             $_SESSION['role'] = 'kepalagudang';
             // header('location:homegudang.php');
             echo'<script>
             alert("Selamat Datang Kepala gudang,semoga harimu menyenangkan !!");
-            window.location.href = "homekepalagudang.php"
+            window.location.href = "indexx.php"
             </script>';
         } else {
             echo'<script>
-            alert("Data Tidak ditemukan !!");
+            alert("anda tidak ada hak !!");
             window.location.href = "login.php"
             </script>';
         }
+    }else{
+        echo'<script>
+        alert("Data Tidak ditemukan !!");
+        window.location.href = "login.php"
+        </script>';
     }
 };
 ?>
@@ -76,16 +81,16 @@ if (isset($_POST['login'])) {
                         <div class="col-lg-5">
                             <div class="card shadow-lg border-0 rounded-lg mt-5">
                                 <div class="card-header">
-                                    <h3 class="text-center font-weight-light my-4">Login</h3>
+                                    <h3 class="text-center font-weight-light my-4">Selamat Datang <br> Login terlebih Dahulu</h3><img src="./img/Logofix.png" alt="" class="rounded mx-auto d-block">
                                 </div>
                                 <div class="card-body">
-                                    <form method="post" action="login2.php">
+                                    <form method="post">
                                         <div class="form-group">
                                             <label class="small mb-1">Username</label>
                                             <input class="form-control py-4" type="text" placeholder="Username" name="username" required />
                                         </div>
                                         <div class="form-group">
-                                            <label class="small mb-1" for="inputEmailAddress">Email</label>
+                                            <label class="s`mall mb-1" for="inputEmailAddress">Email</label>
                                             <input class="form-control py-4" id="inputEmailAddress" name="email" type="email" placeholder="Enter email address" required />
                                         </div>
                                         <div class="form-group">

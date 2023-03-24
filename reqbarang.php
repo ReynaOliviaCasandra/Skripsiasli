@@ -241,9 +241,9 @@
                                             $mulaitanggal = $_POST['tglmulai'];
                                             $selesaitanggal = $_POST['tglselesai'];
                                             if($mulaitanggal!=null || $selesaitanggal!=null){
-                                                $ambilsemuadatastock = mysqli_query($conn,"SELECT * FROM masuk m, stock s WHERE s.idbarang = m.idbarang AND tanggal BETWEEN '$mulaitanggal' AND DATE_ADD('$selesaitanggal',INTERVAL 1 DAY) ORDER BY idmasuk DESC");
+                                                $ambilsemuadatastock = mysqli_query($conn,"SELECT * FROM req m, stock s WHERE s.idbarang = m.idbarang AND tanggal BETWEEN '$mulaitanggal' AND DATE_ADD('$selesaitanggal',INTERVAL 1 DAY) ORDER BY idmasuk DESC");
                                             }else{
-                                                $ambilsemuadatastock = mysqli_query($conn,"SELECT * FROM masuk m, stock s WHERE s.idbarang = m.idbarang AND tanggal BETWEEN '$mulaitanggal' AND DATE_ADD('$selesaitanggal',INTERVAL 1 DAY) ORDER BY idmasuk DESC");
+                                                $ambilsemuadatastock = mysqli_query($conn,"SELECT * FROM req m, stock s WHERE s.idbarang = m.idbarang AND tanggal BETWEEN '$mulaitanggal' AND DATE_ADD('$selesaitanggal',INTERVAL 1 DAY) ORDER BY idmasuk DESC");
                                             }
                                         }
                                         else{

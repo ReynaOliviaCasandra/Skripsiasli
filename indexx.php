@@ -2,7 +2,6 @@
     include 'function.php';
     include 'cek.php';
     // session_start();
-   	
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -21,7 +20,8 @@
     </head>
     <body class="sb-nav-fixed">
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
-            <a class="navbar-brand" href="indexx.php">Cosmetic Modern</a>
+        <img src="./img/Logofix.png" width="100" height="40" alt="" class="ml-4">
+            <a class="navbar-brand" href="indexx.php"> Semangat Kerjanya</a>
             <button class="btn btn-link btn-sm order-1 order-lg-0" id="sidebarToggle" href="#"><i class="fas fa-bars"></i></button>
             <!-- Navbar Search-->
             <form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
@@ -40,7 +40,7 @@
                         <a class="dropdown-item" href="#">Settings</a>
                         <a class="dropdown-item" href="#">Activity Log</a>
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="login.html">Logout</a>
+                        <a class="dropdown-item" href="logout.php">Logout</a>
                     </div>
                 </li>
             </ul>
@@ -55,9 +55,15 @@
                                 <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                                 Stock Gudang
                             </a>
-                            <a class="nav-link" href="stockharga.php">
-                                <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
-                                List Harga Barang
+                             <!-- Fungsi  Hak Akes Halaman -->
+                            <?php
+                                 if($_SESSION['role'] == "owner" || $_SESSION['role'] == "manager"){
+                            ?>
+                                <a class="nav-link" href="stockharga.php">List Harga barang
+                            <?php
+                                } 
+                            ?>
+                            <!-- Fungsi Hak akses user -->
                             </a>
                             <div class="sb-sidenav-menu-heading">Interface</div>
                             <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
@@ -73,8 +79,8 @@
                                 </nav>
                             </div>
                             <!-- Req Barang -->
-                            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsreq" aria-expanded="false" aria-controls="collapseLayouts">
-                                <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
+                            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsreq" aria-expanded="false" aria-controls="collapseLayouts">   
+                            <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
                                 Req Barang
                                 <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                             </a>
@@ -99,8 +105,23 @@
                                     </a>
                                     <div class="collapse" id="pagesCollapseAuth" aria-labelledby="headingOne" data-parent="#sidenavAccordionPages">
                                         <nav class="sb-sidenav-menu-nested nav">
-                                            <a class="nav-link" href="login.php">Login</a>
-                                            <a class="nav-link" href="register.php">Register</a>
+                                        <?php
+                                            if($_SESSION['role'] == "owner"){
+                                                ?>
+                                                 <a class="nav-link" href="login.php">Login</a>
+                                            <?php
+                                        } 
+                                            ?>
+                                            <!-- Fungsi Hak akses user -->
+                                                <!-- Fungsi  Hak Akes Halaman -->
+                                        <?php
+                                            if($_SESSION['role'] == "owner"){
+                                                ?>
+                                                <a class="nav-link" href="register.php">Register</a>
+                                            <?php
+                                        } 
+                                            ?>
+                                            <!-- Fungsi Hak akses user -->
                                             <a class="nav-link" href="logout.php">logout</a>
                                             <!-- <a class="nav-link" href="password.html">Forgot Password</a> -->
                                         </nav>
@@ -111,7 +132,15 @@
                                     </a>
                                     <div class="collapse" id="pagesCollapseError" aria-labelledby="headingOne" data-parent="#sidenavAccordionPages">
                                         <nav class="sb-sidenav-menu-nested nav">
-                                            <a class="nav-link" href="barangmasuk.php">Barang Masuk</a>
+                                            <!-- Fungsi  Hak Akes Halaman -->
+                                            <?php
+                                            if($_SESSION['role'] == "owner" || $_SESSION['role'] == "kepalagudang"){
+                                            ?>
+                                                <a class="nav-link" href="barangmasuk.php">Barang Masuk</a>
+                                            <?php
+                                        } 
+                                            ?>
+                                            <!-- Fungsi Hak akses user -->
                                             <a class="nav-link" href="BARANGKELUARR.php">Barang Keluar</a>
                                             <a class="nav-link" href="retur.php">Retur Barang</a>
                                             <a class="nav-link" href="sales.php">Daftar Sales</a>
@@ -132,7 +161,18 @@
                         </div>
                     </div>
                     <div class="sb-sidenav-footer">
-                    <div class="High">Logged in as: Owner</div>
+                    
+                    <div class="High">Logged in as 
+                        <?php
+                        if($_SESSION['role'] == "owner"){
+                            echo"Owner Cosmetic Modern";
+                        }elseif( $_SESSION['role'] == "manager"){
+                            echo "Manager Cosmetic Modern";
+                        }elseif($_SESSION['role']== "kepalagudang"){
+                            echo"Kepala Gudang Cosmetic Modern";
+                        }
+                        ?>
+                        </div>
                         <!-- Start Bootstrap -->
                     </div>
                 </nav>
@@ -140,12 +180,12 @@
             <div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid">
-                        <h1 class="mt-4">List Harga Barang</h1>
+                        <h1 class="mt-4">Stock Gudang</h1>
                         <ol class="breadcrumb mb-4">
                             <li class="breadcrumb-item active">Dashboard</li>
                         </ol>
                         <div class="row">
-                            <div class="col-xl-3 col-md-6">
+                            <!-- <div class="col-xl-3 col-md-6">
                                 <div class="card bg-primary text-white mb-4">
                                     <div class="card-body">Primary Card</div>
                                     <div class="card-footer d-flex align-items-center justify-content-between">
@@ -153,12 +193,12 @@
                                         <div class="small text-white"><i class="fas fa-angle-right"></i></div>
                                     </div>
                                 </div>
-                            </div>
+                            </div> -->
                             <div class="col-xl-3 col-md-6">
                                 <div class="card bg-warning text-white mb-4">
-                                    <div class="card-body">Warning Card</div>
+                                    <div class="card-body">Perhatikan Sisa Barang Anda</div>
                                     <div class="card-footer d-flex align-items-center justify-content-between">
-                                        <a class="small text-white stretched-link" href="#">View Details</a>
+                                        <a class="small text-white stretched-link" href="notifperingatan.php">View Details</a>
                                         <div class="small text-white"><i class="fas fa-angle-right"></i></div>
                                     </div>
                                 </div>
@@ -174,7 +214,7 @@
                             </div>
                             <div class="col-xl-3 col-md-6">
                                 <div class="card bg-danger text-white mb-4">
-                                    <div class="card-body">Danger Card</div>
+                                    <div class="card-body">Peringatan barang Anda Sudah Menipis !!</div>
                                     <div class="card-footer d-flex align-items-center justify-content-between">
                                         <a class="small text-white stretched-link" href="#">View Details</a>
                                         <div class="small text-white"><i class="fas fa-angle-right"></i></div>
@@ -182,7 +222,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="row">
+                        <!-- <div class="row">
                             <div class="col-xl-6">
                                 <div class="card mb-4">
                                     <div class="card-header">
@@ -201,7 +241,7 @@
                                     <div class="card-body"><canvas id="myBarChart" width="100%" height="40"></canvas></div>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
                         <div class="card mb-4">
                             <div class="card-header">
                             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#_1">

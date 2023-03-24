@@ -294,11 +294,9 @@
                                                 <form method="post">
                                                 <div class="modal-body">
                                                 <div class="form-group">
-                                                <input class="form-control py-4 mb-2" id="inputEmailAddress" name="namabarang"  type="text"     placeholder="Nama Barang"   value="<?=$namabarang;?>" required/>
-                                                <input class="form-control py-4 mb-2" id="inputEmailAddress" name="jenisbarang" type="text"     placeholder="Jenis Barang"  value="<?=$jenisbarang;?>" required/>
                                                 <input class="form-control py-4 mb-2" id="inputEmailAddress" name="penerima"    type="text"     placeholder="Penerima"      value="<?=$keterangan;?>"/>
                                                 <input class="form-control py-4 mb-2" id="inputEmailAddress" name="qty"         type="number"   placeholder="Jumlah Stock"  value="<?=$qty;?>"required/>
-                                                <input  type="date"   name="kadarluasa"      class="form-control mb-2  "   placeholder="Kadarluasa" required value="<?=$exp;?>  />
+                                                <input  type="date"   name="kadarluasa"      class="form-control mb-2  "   placeholder="Kadarluasa" required value="<?=$exp;?>"/>
                                                 <input type="hidden" name="idbarang" value="<?=$idbarang;?>">
                                                 <input type="hidden" name="idmasuk" value="<?=$idm;?>">
                                                 <button type="submit" class="btn btn-primary" name="updatebarangmasuk" >Submit</button>
@@ -404,7 +402,7 @@
                         };
                        ?>
                     </select>
-                    <input  type="number"  name="qty"            class="form-control mb-2  "  placeholder="Quantity" required  />
+                    <input  type="number" name="qty"            class="form-control mb-2  "  placeholder="Quantity" required  />
                     <input  type="text"   name="penerima"       class="form-control mb-2  "   placeholder="Penerima" required  />
                     <input  type="date"   name="kadarluasa"      class="form-control mb-2  "   placeholder="Kadarluasa" required  />
                     <button type="submit" name="barangmasuk"    class="btn btn-primary" >Submit</button>

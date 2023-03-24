@@ -190,7 +190,7 @@
                                  Tambah Barang keluar
                                 </button>
                                 <!-- End Notifikasi warning -->
-                                <a href="laporanbarangkeluar.php" id="exportmasuk" class="btn btn-info">Exportdata</a>
+                                <a href="laporanstockbarangkeluar.php" id="exportkeluar" class="btn btn-info">Cetak Laporan</a>
                                 <br>
                                 <!-- Validasi Tanggal -->
                                 <br>

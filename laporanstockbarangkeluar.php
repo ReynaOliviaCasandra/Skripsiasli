@@ -30,6 +30,7 @@ include 'cek.php';
                                                 <th>Tanggal</th>
                                                 <th>Penerima</th>
                                                 <th>QTY</th>
+                                                <th>Status</th>
                                                 
                                             </tr>
                                         </thead>
@@ -44,6 +45,7 @@ include 'cek.php';
                                              $jenisbarang =$data['jenisbarang'];
                                              $qty = $data['qty'];
                                              $keterangan = $data['penerima'];
+                                             $status= $data['status'];
                                          ?>
                                          <tr>
                                              <td><?=$i++;?></td>
@@ -52,6 +54,7 @@ include 'cek.php';
                                              <td><?php echo $tanggal;?></td>
                                              <td><?php echo $keterangan;?></td>
                                              <td><?php echo $qty;?></td>
+                                             <td><?php echo $status;?></td>
                                         </tr>
                                         </div>
                                         <!--  -->

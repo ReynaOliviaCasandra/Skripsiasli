@@ -10,22 +10,27 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
         <meta name="author" content="" />
-        <title>Dashboard - SB Admin</title>
-        <link href="./css/styles.css" rel="stylesheet" />
+        <title>Cosmetic Modern</title>
+        <link href="css/custom.css" rel="stylesheet" />
+        <link href="css/styles.css" rel="stylesheet" />
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <link href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css" rel="stylesheet" crossorigin="anonymous" />
         <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/js/all.min.js" crossorigin="anonymous"></script>
+        <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
     </head>
     <body class="sb-nav-fixed">
-        <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark"> 
-            <a class="navbar-brand" href="indexx.php">Cosmetic Modern</a>
+        <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
+        <img src="./img/Logofix.png" width="100" height="40" alt="" class="ml-4">
+            <a class="navbar-brand" href="indexx.php"> Semangat Kerjanya</a>
             <button class="btn btn-link btn-sm order-1 order-lg-0" id="sidebarToggle" href="#"><i class="fas fa-bars"></i></button>
             <!-- Navbar Search-->
             <form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
                 <div class="input-group">
-                    <input class="form-control" type="text" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2" />
+                    <!-- <input class="form-control" type="text" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2" />
                     <div class="input-group-append">
                         <button class="btn btn-primary" type="button"><i class="fas fa-search"></i></button>
-                    </div>
+                    </div> -->
                 </div>
             </form>
             <!-- Navbar-->
@@ -36,7 +41,7 @@
                         <a class="dropdown-item" href="#">Settings</a>
                         <a class="dropdown-item" href="#">Activity Log</a>
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="login.html">Logout</a>
+                        <a class="dropdown-item" href="logout.php">Logout</a>
                     </div>
                 </li>
             </ul>
@@ -48,12 +53,18 @@
                         <div class="nav">
                             <div class="sb-sidenav-menu-heading">Core</div>
                             <a class="nav-link" href="indexx.php">
-                                <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                                <div class="sb-nav-link-icon"><i class="fa-solid fa-warehouse"></i></div>
                                 Stock Gudang
                             </a>
-                            <a class="nav-link" href="stockharga.php">
-                                <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
-                                List Harga Barang
+                             <!-- Fungsi  Hak Akes Halaman -->
+                            <?php
+                                 if($_SESSION['role'] == "owner" || $_SESSION['role'] == "manager"){
+                            ?>
+                                <a class="nav-link" href="stockharga.php"><i class="fa-solid fa-money-check-dollar"></i> &nbsp; List Harga barang
+                            <?php
+                                } 
+                            ?>
+                            <!-- Fungsi Hak akses user -->
                             </a>
                             <div class="sb-sidenav-menu-heading">Interface</div>
                             <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
@@ -63,12 +74,38 @@
                             </a>
                             <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav">
-                                    <a class="nav-link" href="laporanbarangmasuk.php">Laporan  Barang Masuk</a>
+                                <a class="nav-link" href="laporanbarangmasuk.php">Laporan  Barang Masuk</a>
                                     <a class="nav-link" href="laporanstockbarangkeluar.php">Laporan Barang Keluar</a>
                                     <a class="nav-link" href="laporanstockgudang.php">Laporan Barang Gudang</a>
-                                    <a class="nav-link" href="laporanharga.php">Laporan Barang Gudang</a>
+                                    <a class="nav-link" href="laporanharga.php">Laporan Harga Barang</a>
                                 </nav>
                             </div>
+                            <!-- Req Barang -->
+                            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsreq" aria-expanded="false" aria-controls="collapseLayouts">   
+                            <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
+                            Permission
+                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                            </a>
+                            <div class="collapse" id="collapsreq" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
+                                <nav class="sb-sidenav-menu-nested nav">
+                                <?php
+                                if($_SESSION['role'] == "manager"){
+                                ?>
+                                <a class="nav-link" href="reqbarang.php"><i class="fa-solid fa-code-pull-request"></i>Req Barang </a>
+                                <?php
+                                } 
+                                ?>
+                                <?php
+                                if($_SESSION['role'] == "owner"){
+                                ?>
+                                <a class="nav-link" href="approval.php"><i class="fa-solid fa-thumbs-up"></i> &nbsp; Approval Barang</a>
+                                <?php
+                                } 
+                                ?>
+                                    <!-- <a class="nav-link" href="#!">Laporan Barang Gudang</a> -->
+                                </nav>
+                            </div>
+                            <!-- End Req Barang -->
                             <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages">
                                 <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
                                 Master Main
@@ -78,13 +115,29 @@
                                 <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
                                     <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#pagesCollapseAuth" aria-expanded="false" aria-controls="pagesCollapseAuth">
                                         Authentication
-                                    <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                                        <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                                     </a>
                                     <div class="collapse" id="pagesCollapseAuth" aria-labelledby="headingOne" data-parent="#sidenavAccordionPages">
                                         <nav class="sb-sidenav-menu-nested nav">
-                                            <a class="nav-link" href="login.php">Login</a>
-                                            <a class="nav-link" href="register.php">Register</a>
-                                            <a class="nav-link" href="logout.php">Log Out</a>
+                                        <?php
+                                            if($_SESSION['role'] == "owner"){
+                                                ?>
+                                                 <a class="nav-link" href="login.php">Login</a>
+                                            <?php
+                                        } 
+                                            ?>
+                                            <!-- Fungsi Hak akses user -->
+                                                <!-- Fungsi  Hak Akes Halaman -->
+                                        <?php
+                                            if($_SESSION['role'] == "owner"){
+                                                ?>
+                                                <a class="nav-link" href="register.php">Register</a>
+                                            <?php
+                                        } 
+                                            ?>
+                                            <!-- Fungsi Hak akses user -->
+                                            <a class="nav-link" href="logout.php">logout</a>
+                                            <!-- <a class="nav-link" href="password.html">Forgot Password</a> -->
                                         </nav>
                                     </div>
                                     <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#pagesCollapseError" aria-expanded="false" aria-controls="pagesCollapseError">
@@ -93,27 +146,34 @@
                                     </a>
                                     <div class="collapse" id="pagesCollapseError" aria-labelledby="headingOne" data-parent="#sidenavAccordionPages">
                                         <nav class="sb-sidenav-menu-nested nav">
-                                            <a class="nav-link" href="barangmasuk.php">Barang Masuk</a>
-                                            <a class="nav-link" href="barangkeluar.php">Barang Keluar</a>
-                                            <a class="nav-link" href="retur.php">Retur Barang</a>
-                                            <a class="nav-link" href="sales.php">Daftar Sales</a>
+                                            <!-- Fungsi  Hak Akes Halaman -->
+                                            <?php
+                                            if($_SESSION['role'] == "owner" || $_SESSION['role'] == "kepalagudang"){
+                                            ?>
+                                            <a class="nav-link" href="barangmasuk.php"><i class="fa-solid fa-arrow-right-from-bracket"></i> &nbsp; Barang Masuk</a> 
+                                            <?php
+                                        } 
+                                            ?>
+                                            <!-- Fungsi Hak akses user -->
+                                            <a class="nav-link" href="BARANGKELUARR.php"><i class="fa-solid fa-tent-arrow-turn-left"></i>&nbsp; Barang Keluar </a>
+                                            <a class="nav-link" href="retur.php"><i class="fa-solid fa-arrow-right-arrow-left"></i>&nbsp; Retur Barang </a>
+                                            <a class="nav-link" href="sales.php"><i class="fa-solid fa-universal-access"></i></i>&nbsp;  Daftar Sales </a>
+                                            <a class="nav-link" href="faktur.php"><i class="fa-solid fa-file-invoice"></i>&nbsp; Faktur </a>
                                         </nav>
                                     </div>
                                 </nav>
                             </div>
-                            <div class="sb-sidenav-menu-heading">Addons</div>
-                            <a class="nav-link" href="charts.html">
-                                <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
-                                Charts
-                            </a>
-                            <a class="nav-link" href="tables.html">
-                                <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
-                                Tables
-                            </a>
-                        </div>
-                    </div>
                     <div class="sb-sidenav-footer">
-                    <div class="High">Logged in as: Owner</div>
+                    <div class="High">Logged in as 
+                        <?php
+                        if($_SESSION['role'] == "owner"){
+                            echo"Owner Cosmetic Modern";
+                        }elseif( $_SESSION['role'] == "manager"){
+                            echo "Manager Cosmetic Modern";
+                        }elseif($_SESSION['role']== "kepalagudang"){
+                            echo"Kepala Gudang Cosmetic Modern";
+                        }
+                        ?></div>
                         <!-- Start Bootstrap -->
                     </div>
                 </nav>
@@ -121,11 +181,11 @@
             <div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid">
-                        <h1 class="mt-4">Daftar Barang Masuk</h1>
+                        <h1 class="mt-4">Daftar Barang Keluar</h1>
                         <ol class="breadcrumb mb-4">
                             <li class="breadcrumb-item active">Dashboard</li>
                         </ol>
-                        <div class="row">
+                        <!-- <div class="row">
                             <div class="col-xl-3 col-md-6">
                                 <div class="card bg-primary text-white mb-4">
                                     <div class="card-body">Primary Card</div>
@@ -162,8 +222,8 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="row">
+                        </div> -->
+                        <!-- <div class="row">
                             <div class="col-xl-6">
                                 <div class="card mb-4">
                                     <div class="card-header">
@@ -182,7 +242,7 @@
                                     <div class="card-body"><canvas id="myBarChart" width="100%" height="40"></canvas></div>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
                         <div class="card mb-4">
                             <div class="card-header">
                                 <!-- Button to Open the Modal -->
@@ -205,7 +265,7 @@
                                 <!-- End Validasi Tanggal -->
                                 <!-- end Button to Open the Modal  -->
                                 <i class="fas fa-table mr-1"></i>
-                                Data Stock Barang  Masuk Cosmetic Modern
+                                Data Stock Barang  Keluar Cosmetic Modern
                             </div>
                             <div class="card-body">
                                 <div class="table-responsive">
@@ -213,13 +273,14 @@
                                         <thead>
                                             <tr>
                                                 <!-- <th>Id_MasukBarang</th> -->
-                                                <th>Id Masuk</th>
+                                                <th>Id Keluar</th>
                                                 <th>Nama_Barang</th>
                                                 <th>Jenis_Barang</th>
                                                 <th>Tanggal</th>
-                                                <th>Penerima</th>
+                                                <!-- <th>Penerima</th> -->
                                                 <th>QTY</th>
-                                                <th>Status</th>
+                                                <th>Kondisi Barang</th>
+                                                <th>Status Barang</th>
                                                 <th>Aksi</th>
                                             </tr>
                                         </thead>
@@ -257,29 +318,162 @@
                                             $namabarang = $data['namabarang'];
                                             $jenisbarang =$data['jenisbarang'];
                                             $qty = $data['qty'];
-                                            $keterangan = $data['penerima'];
+                                            // $keterangan = $data['penerima'];
                                             $status = $data['status'];
+                                            $statusbarang =$data['statusbarang'];
                                         ?>
                                         <tr>
                                             <td><?=$i++?></td>
                                             <td><?=$namabarang;?></td>
                                             <td><?=$jenisbarang;?></td>
                                             <td><?=$tanggal;?></td>
-                                            <td><?=$keterangan;?></td>
                                             <td><?=$qty;?></td>
                                             <td><?=$status;?></td>
-                                          
+                                            <td><?php
+                                            if($statusbarang ==0){
+                                                echo "Menunggu Dikirimkan";
+                                            }elseif($statusbarang == 1){
+                                                echo"Barang Sedang Dikirim";
+                                            }else if($statusbarang ==2){
+                                                echo "Barang Sudah diterima";
+                                            }else if($statusbarang ==3){
+                                                echo 'Barang Kirim ke supplier';
+                                            }
+                                            ?>
+                                            </td>
                                             <td>
-                                            <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#edit<?=$idbarang;?>">
-                                            EDIT
+                                            <button type="button" class="btn btn-warning mb-2" data-toggle="modal" data-target="#edit<?=$idbarang;?>">
+                                            E
                                             </button>
-                                            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#delete<?=$idbarang;?>">
-                                            DELETE
+                                            <button type="button" class="btn btn-danger mb-2" data-toggle="modal" data-target="#delete<?=$idbarang;?>">
+                                            D
+                                            </button>
+                                            <!-- Aksi Pembatasan akses role -->
+                                            <?php
+                                            if($_SESSION['role'] == "owner" || $_SESSION['role'] == "manager"){
+                                            ?>
+                                                <button type="button" class="btn btn-success mb-2" data-toggle="modal" data-target="#acc<?=$idk;?>">
+                                                diterima
+                                                </button>
+                                            <?php
+                                            } 
+                                            ?>
+                                             <!-- Aksi Pembatasan akses role -->
+                                            <?php
+                                            if($_SESSION['role'] == "owner" || $_SESSION['role'] == "kepalagudang"){
+                                            ?>
+                                                <button type="button" class="btn btn-info mb-2" data-toggle="modal" data-target="#kirim<?=$idk;?>">
+                                                KirimToko
+                                                </button>
+                                            <?php
+                                            } 
+                                            ?>
+                                             <!-- Aksi Pembatasan akses role -->
+                                             <?php
+                                            if($_SESSION['role'] == "owner" || $_SESSION['role'] == "kepalagudang"){
+                                            ?>
+                                                <button type="button" class="btn btn-secondary mb-2" data-toggle="modal" data-target="#kirimsales<?=$idk;?>">
+                                            KirimSales
+                                            </button>
+                                            <?php
+                                            } 
+                                            ?>
+                                            <!-- Selesai Aksi Rolenya -->
                                             </td>
                                         </tr>
                                         <!-- END Selesai Field Table -->
                                         <!-- Aksi CRUD -->
                                         <!-- Modal stock Gudang -->
+                                                <!-- The Barang Sudah Diterima -->
+                                                <div class="modal fade" id="acc<?=$idk;?>">
+                                                <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                <!-- Modal Header -->
+                                                <div class="modal-header">
+                                                <h4 class="modal-title">Status Barang</h4>
+                                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                </div>
+                                                <!-- Modal body -->
+                                                <!-- Content 1 -->
+                                                <form method="post">
+                                                <div class="modal-body">
+                                                <div class="form-group">
+                                                Apakah barang ini sudah sampai ditoko <?=$namabarang;?> Jenis <?=$jenisbarang;?> dengan jumlah <?=$qty;?>
+                                                <input type="hidden" name="idkeluar" value="<?=$idk;?>">
+                                                <br>
+                                                <button type="submit" class="btn btn-primary" name="barangditerima" >Submit</button>
+                                                </div>
+                                                </div>
+                                                <!-- Modal footer -->
+                                                <div class="modal-footer">
+                                                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                                                </div>
+                                                </form>
+                                            </div>
+                                            </div>
+                                        </div>
+                                                <!-- End barang sudah diterima -->
+                                                <!-- Barang Sedang dikirim -->
+                                                <!-- The  delete Modal -->
+                                                <div class="modal fade" id="kirim<?=$idk;?>">
+                                                <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                <!-- Modal Header -->
+                                                <div class="modal-header">
+                                                <h4 class="modal-title"> Sudah Siap Kirim Barang?</h4>
+                                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                </div>
+                                                <!-- Modal body -->
+                                                <!-- Content 1 -->
+                                                <form method="POST">
+                                                <div class="modal-body mb-2">
+                                                Apakah anda  ingin  Memgirim Barang ini <?=$namabarang;?> Jenis <?=$jenisbarang;?> dengan jumlah <?=$qty;?>
+                                                <input type="hidden" name="idkeluar" value="<?=$idk;?>">
+                                                <br>
+                                                <br>
+                                                <button type="submit" class="btn btn-success" name="accbarangkeluar" >Siap Kirim</button>
+                                                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                                                </div>
+                                                </div>
+                                                <!-- Modal footer -->
+                                                <div class="modal-footer">
+                                                </div>
+                                                </form>
+                                            </div>
+                                            </div>
+                                        </div>
+                                        </div>
+                                                <!-- End barang sedang dikirim -->
+                                                <!-- Kirim Barang rusak Ke sales -->
+                                                <div class="modal fade" id="kirimsales<?=$idk;?>">
+                                                <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                <!-- Modal Header -->
+                                                <div class="modal-header">
+                                                <h4 class="modal-title"> Sudah Siap Kirim Barang ke Supplier?</h4>
+                                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                </div>
+                                                <!-- Modal body -->
+                                                <!-- Content 1 -->
+                                                <form method="POST">
+                                                <div class="modal-body mb-2">
+                                                Apakah anda  ingin  Memgirim Barang ini <?=$namabarang;?> Jenis <?=$jenisbarang;?> dengan jumlah <?=$qty;?> Kondisi <?=$status;?>
+                                                <input type="hidden" name="idkeluar" value="<?=$idk;?>">
+                                                <br>
+                                                <br>
+                                                <button type="submit" class="btn btn-success" name="kirimkesales" >Siap Kirim</button>
+                                                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                                                </div>
+                                                </div>
+                                                <!-- Modal footer -->
+                                                <div class="modal-footer">
+                                                </div>
+                                                </form>
+                                            </div>
+                                            </div>
+                                        </div>
+                                        </div>
+                                                <!-- End barang rusak ke sales -->
                                                 <!-- The  Edit Modal -->
                                                 <div class="modal fade" id="edit<?=$idbarang;?>">
                                                 <div class="modal-dialog">
@@ -296,7 +490,6 @@
                                                 <div class="form-group">
                                                 <input class="form-control py-4 mb-2" id="inputEmailAddress" name="namabarang"  type="text"     placeholder="Nama Barang"   value="<?=$namabarang;?>" required/>
                                                 <input class="form-control py-4 mb-2" id="inputEmailAddress" name="jenisbarang" type="text"     placeholder="Jenis Barang"  value="<?=$jenisbarang;?>" required/>
-                                                <input class="form-control py-4 mb-2" id="inputEmailAddress" name="penerima"    type="text"     placeholder="Penerima"      value="<?=$keterangan;?>"/>
                                                 <input class="form-control py-4 mb-2" id="inputEmailAddress" name="qty"         type="number"   placeholder="Jumlah Stock"  value="<?=$qty;?>"required/>
                                                 <input class="form-control py-4 mb-2" id="inputEmailAddress" name="status"      type="text"   placeholder=" Status Barang"  value="<?=$status;?>"required/>
                                                 <input type="hidden" name="idbarang" value="<?=$idbarang;?>">
@@ -405,7 +598,7 @@
                        ?>
                     </select>
                     <input  type="number"  name="qty"            class="form-control mb-2  "  placeholder="Quantity" required  />
-                    <input  type="text"   name="penerima"       class="form-control mb-2  "   placeholder="Penerima" required  />
+                    <!-- <input  type="text"   name="penerima"       class="form-control mb-2  "   placeholder="Penerima" required  /> -->
                     <input  type="text"   name="status"       class="form-control mb-2  "   placeholder="Statusbarang" required  />
                     <!-- <input  type="text"   name="harga"          class="form-control mb-2  "   placeholder="Hargabarang" required  /> -->
                     <button type="submit" name="barangkeluar"    class="btn btn-primary" >Submit</button>

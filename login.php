@@ -67,7 +67,7 @@ if (isset($_POST['login'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <title>Page Title - SB Admin</title>
+    <title>Cosmetic Modern</title>
     <link href="css/styles.css" rel="stylesheet" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/js/all.min.js" crossorigin="anonymous"></script>
 </head>
@@ -108,13 +108,13 @@ if (isset($_POST['login'])) {
                                             </div>
                                         </div>
                                         <div class="form-group d-flex align-items-center justify-content-between mt-4 mb-0">
-                                            <a class="small" href="password.html">Forgot Password?</a>
+                                            <!-- <a class="small" href="password.html">Forgot Password?</a> -->
                                             <button class="btn btn-primary" name="login">Login</button>
                                         </div>
                                     </form>
                                 </div>
-                                <div class="card-footer text-center">
-                                        <div class="small"><a href="register.php">Need an account? Sign up!</a></div>               
+                                <div class="card-footer text-center">                                    
+                                        <!-- <div class="small"><a href="register.php">Need an account? Sign up!</a></div>                -->
                                 </div>
                             </div>
                         </div>

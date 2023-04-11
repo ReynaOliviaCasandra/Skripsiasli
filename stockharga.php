@@ -10,22 +10,27 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
         <meta name="author" content="" />
-        <title>Dashboard - SB Admin</title>
+        <title>Cosmetic Modern</title>
+        <link href="css/custom.css" rel="stylesheet" />
         <link href="css/styles.css" rel="stylesheet" />
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <link href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css" rel="stylesheet" crossorigin="anonymous" />
         <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/js/all.min.js" crossorigin="anonymous"></script>
+        <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
     </head>
     <body class="sb-nav-fixed">
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
-            <a class="navbar-brand" href="indexx.php">Cosmetic Modern</a>
+        <img src="./img/Logofix.png" width="100" height="40" alt="" class="ml-4">
+            <a class="navbar-brand" href="indexx.php"> Semangat Kerjanya</a>
             <button class="btn btn-link btn-sm order-1 order-lg-0" id="sidebarToggle" href="#"><i class="fas fa-bars"></i></button>
             <!-- Navbar Search-->
             <form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
                 <div class="input-group">
-                    <input class="form-control" type="text" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2" />
+                    <!-- <input class="form-control" type="text" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2" />
                     <div class="input-group-append">
                         <button class="btn btn-primary" type="button"><i class="fas fa-search"></i></button>
-                    </div>
+                    </div> -->
                 </div>
             </form>
             <!-- Navbar-->
@@ -36,7 +41,7 @@
                         <a class="dropdown-item" href="#">Settings</a>
                         <a class="dropdown-item" href="#">Activity Log</a>
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="login.html">Logout</a>
+                        <a class="dropdown-item" href="logout.php">Logout</a>
                     </div>
                 </li>
             </ul>
@@ -48,12 +53,18 @@
                         <div class="nav">
                             <div class="sb-sidenav-menu-heading">Core</div>
                             <a class="nav-link" href="indexx.php">
-                                <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                                <div class="sb-nav-link-icon"><i class="fa-solid fa-warehouse"></i></div>
                                 Stock Gudang
                             </a>
-                            <a class="nav-link" href="stockharga.php">
-                                <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
-                                List Harga Barang
+                             <!-- Fungsi  Hak Akes Halaman -->
+                            <?php
+                                 if($_SESSION['role'] == "owner" || $_SESSION['role'] == "manager"){
+                            ?>
+                                <a class="nav-link" href="stockharga.php"><i class="fa-solid fa-money-check-dollar"></i> &nbsp; List Harga barang
+                            <?php
+                                } 
+                            ?>
+                            <!-- Fungsi Hak akses user -->
                             </a>
                             <div class="sb-sidenav-menu-heading">Interface</div>
                             <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
@@ -63,11 +74,38 @@
                             </a>
                             <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav">
-                                    <a class="nav-link" href="transaksimasuk.php">Laporan  Barang Masuk</a>
+                                <a class="nav-link" href="laporanbarangmasuk.php">Laporan  Barang Masuk</a>
                                     <a class="nav-link" href="laporanstockbarangkeluar.php">Laporan Barang Keluar</a>
                                     <a class="nav-link" href="laporanstockgudang.php">Laporan Barang Gudang</a>
+                                    <a class="nav-link" href="laporanharga.php">Laporan Harga Barang</a>
                                 </nav>
                             </div>
+                            <!-- Req Barang -->
+                            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsreq" aria-expanded="false" aria-controls="collapseLayouts">   
+                            <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
+                            Permission
+                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                            </a>
+                            <div class="collapse" id="collapsreq" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
+                                <nav class="sb-sidenav-menu-nested nav">
+                                <?php
+                                if($_SESSION['role'] == "manager"){
+                                ?>
+                                <a class="nav-link" href="reqbarang.php"><i class="fa-solid fa-code-pull-request"></i>Req Barang </a>
+                                <?php
+                                } 
+                                ?>
+                                <?php
+                                if($_SESSION['role'] == "owner"){
+                                ?>
+                                <a class="nav-link" href="approval.php"><i class="fa-solid fa-thumbs-up"></i> &nbsp; Approval Barang</a>
+                                <?php
+                                } 
+                                ?>
+                                    <!-- <a class="nav-link" href="#!">Laporan Barang Gudang</a> -->
+                                </nav>
+                            </div>
+                            <!-- End Req Barang -->
                             <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages">
                                 <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
                                 Master Main
@@ -81,8 +119,23 @@
                                     </a>
                                     <div class="collapse" id="pagesCollapseAuth" aria-labelledby="headingOne" data-parent="#sidenavAccordionPages">
                                         <nav class="sb-sidenav-menu-nested nav">
-                                            <a class="nav-link" href="login.php">Login</a>
-                                            <a class="nav-link" href="register.php">Register</a>
+                                        <?php
+                                            if($_SESSION['role'] == "owner"){
+                                                ?>
+                                                 <a class="nav-link" href="login.php">Login</a>
+                                            <?php
+                                        } 
+                                            ?>
+                                            <!-- Fungsi Hak akses user -->
+                                                <!-- Fungsi  Hak Akes Halaman -->
+                                        <?php
+                                            if($_SESSION['role'] == "owner"){
+                                                ?>
+                                                <a class="nav-link" href="register.php">Register</a>
+                                            <?php
+                                        } 
+                                            ?>
+                                            <!-- Fungsi Hak akses user -->
                                             <a class="nav-link" href="logout.php">logout</a>
                                             <!-- <a class="nav-link" href="password.html">Forgot Password</a> -->
                                         </nav>
@@ -93,27 +146,34 @@
                                     </a>
                                     <div class="collapse" id="pagesCollapseError" aria-labelledby="headingOne" data-parent="#sidenavAccordionPages">
                                         <nav class="sb-sidenav-menu-nested nav">
-                                            <a class="nav-link" href="barangmasuk.php">Barang Masuk</a>
-                                            <a class="nav-link" href="BARANGKELUARR.php">Barang Keluar</a>
-                                            <a class="nav-link" href="retur.php">Retur Barang</a>
-                                            <a class="nav-link" href="sales.php">Daftar Sales</a>
+                                            <!-- Fungsi  Hak Akes Halaman -->
+                                            <?php
+                                            if($_SESSION['role'] == "owner" || $_SESSION['role'] == "kepalagudang"){
+                                            ?>
+                                            <a class="nav-link" href="barangmasuk.php"><i class="fa-solid fa-arrow-right-from-bracket"></i> &nbsp; Barang Masuk</a> 
+                                            <?php
+                                        } 
+                                            ?>
+                                            <!-- Fungsi Hak akses user -->
+                                            <a class="nav-link" href="BARANGKELUARR.php"><i class="fa-solid fa-tent-arrow-turn-left"></i>&nbsp; Barang Keluar </a>
+                                            <a class="nav-link" href="retur.php"><i class="fa-solid fa-arrow-right-arrow-left"></i>&nbsp; Retur Barang </a>
+                                            <a class="nav-link" href="sales.php"><i class="fa-solid fa-universal-access"></i></i>&nbsp;  Daftar Sales </a>
+                                            <a class="nav-link" href="faktur.php"><i class="fa-solid fa-file-invoice"></i>&nbsp; Faktur </a>
                                         </nav>
                                     </div>
                                 </nav>
                             </div>
-                            <div class="sb-sidenav-menu-heading">Addons</div>
-                            <a class="nav-link" href="charts.html">
-                                <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
-                                Charts
-                            </a>
-                            <a class="nav-link" href="tables.html">
-                                <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
-                                Tables
-                            </a>
-                        </div>
-                    </div>
                     <div class="sb-sidenav-footer">
-                    <div class="High">Logged in as: Owner</div>
+                    <div class="High">Logged in as 
+                        <?php
+                        if($_SESSION['role'] == "owner"){
+                            echo"Owner Cosmetic Modern";
+                        }elseif( $_SESSION['role'] == "manager"){
+                            echo "Manager Cosmetic Modern";
+                        }elseif($_SESSION['role']== "kepalagudang"){
+                            echo"Kepala Gudang Cosmetic Modern";
+                        }
+                        ?></div>
                         <!-- Start Bootstrap -->
                     </div>
                 </nav>
@@ -125,7 +185,7 @@
                         <ol class="breadcrumb mb-4">
                             <li class="breadcrumb-item active">Dashboard</li>
                         </ol>
-                        <div class="row">
+                        <!-- <div class="row">
                             <div class="col-xl-3 col-md-6">
                                 <div class="card bg-primary text-white mb-4">
                                     <div class="card-body">Primary Card</div>
@@ -162,31 +222,10 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-xl-6">
-                                <div class="card mb-4">
-                                    <div class="card-header">
-                                        <i class="fas fa-chart-area mr-1"></i>
-                                        Area Chart Example
-                                    </div>
-                                    <div class="card-body"><canvas id="myAreaChart" width="100%" height="40"></canvas></div>
-                                </div>
-                            </div>
-                            <div class="col-xl-6">
-                                <div class="card mb-4">
-                                    <div class="card-header">
-                                        <i class="fas fa-chart-bar mr-1"></i>
-                                        Bar Chart Example
-                                    </div>
-                                    <div class="card-body"><canvas id="myBarChart" width="100%" height="40"></canvas></div>
-                                </div>
-                            </div>
-                        </div>
+                        </div> -->
                         <div class="card mb-4">
                             <div class="card-header">
                                 <i class="fas fa-table mr-1"></i>
-                                Total Asset Barang : <?php $assets = array( "aset1" => 1000, "aset2" => 5000, "aset3" => 7500, "aset4" => 2500 ); $total = 0; foreach ($assets as $asset) { $total += $asset; } echo "Rp" . $total; ?>
                             </div>
                             <div>
                                 <a href="laporanharga.php" id="exportharga" class="btn btn-info mt-2 ml-2">Cetak Laporan</a>
@@ -250,14 +289,14 @@
                                              <?php
                                             if($_SESSION['role'] == "owner" || $_SESSION['role'] == "manager"){
                                             ?>
-                                                <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#edit<?=$idbarang;?>">
+                                                <button type="button" class="btn btn-warning mb-2" data-toggle="modal" data-target="#edit<?=$idbarang;?>">
                                                 EDIT
                                                 </button>
                                             <?php
                                         } 
                                             ?>
                                             <!-- Fungsi Hak akses user -->
-                                            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#delete<?=$idbarang;?>">
+                                            <button type="button" class="btn btn-danger mb-2" data-toggle="modal" data-target="#delete<?=$idbarang;?>">
                                             DELETE
                                             </td>
                                         </tr>
@@ -270,7 +309,7 @@
                                                 <div class="modal-content">
                                                 <!-- Modal Header -->
                                                 <div class="modal-header">
-                                                <h4 class="modal-title">Edit Barang</h4>
+                                                <h4 class="modal-title">Edit  Harga Barang</h4>
                                                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                                                 </div>
                                                 <!-- Modal body -->
@@ -301,7 +340,7 @@
                                                 <div class="modal-content">
                                                 <!-- Modal Header -->
                                                 <div class="modal-header">
-                                                <h4 class="modal-title">Hapus Barang ?</h4>
+                                                <h4 class="modal-title">Hapus HargaBarang ?</h4>
                                                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                                                 </div>
                                                 <!-- Modal body -->

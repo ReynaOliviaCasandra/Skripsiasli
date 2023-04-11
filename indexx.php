@@ -11,12 +11,14 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
         <meta name="author" content="" />
-        <title>Dashboard - SB Admin</title>
+        <title>Cosmetic Modern</title>
         <link href="css/custom.css" rel="stylesheet" />
         <link href="css/styles.css" rel="stylesheet" />
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <link href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css" rel="stylesheet" crossorigin="anonymous" />
         <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/js/all.min.js" crossorigin="anonymous"></script>
+        <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
     </head>
     <body class="sb-nav-fixed">
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
@@ -26,10 +28,10 @@
             <!-- Navbar Search-->
             <form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
                 <div class="input-group">
-                    <input class="form-control" type="text" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2" />
+                    <!-- <input class="form-control" type="text" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2" />
                     <div class="input-group-append">
                         <button class="btn btn-primary" type="button"><i class="fas fa-search"></i></button>
-                    </div>
+                    </div> -->
                 </div>
             </form>
             <!-- Navbar-->
@@ -52,14 +54,14 @@
                         <div class="nav">
                             <div class="sb-sidenav-menu-heading">Core</div>
                             <a class="nav-link" href="indexx.php">
-                                <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                                <div class="sb-nav-link-icon"><i class="fa-solid fa-warehouse"></i></div>
                                 Stock Gudang
                             </a>
                              <!-- Fungsi  Hak Akes Halaman -->
                             <?php
                                  if($_SESSION['role'] == "owner" || $_SESSION['role'] == "manager"){
                             ?>
-                                <a class="nav-link" href="stockharga.php">List Harga barang
+                                <a class="nav-link" href="stockharga.php"><i class="fa-solid fa-money-check-dollar"></i> &nbsp; List Harga barang
                             <?php
                                 } 
                             ?>
@@ -67,7 +69,7 @@
                             </a>
                             <div class="sb-sidenav-menu-heading">Interface</div>
                             <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
-                                <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
+                                <div class="sb-nav-link-icon"><i class="fa-solid fa-file-circle-check"></i></div>
                                 Laporan
                                 <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                             </a>
@@ -76,6 +78,7 @@
                                     <a class="nav-link" href="laporanbarangmasuk.php">Laporan  Barang Masuk</a>
                                     <a class="nav-link" href="laporanstockbarangkeluar.php">Laporan Barang Keluar</a>
                                     <a class="nav-link" href="laporanstockgudang.php">Laporan Barang Gudang</a>
+                                    <a class="nav-link" href="laporanharga.php">Laporan Harga Barang</a>
                                 </nav>
                             </div>
                             <!-- Req Barang -->
@@ -87,13 +90,19 @@
                             <div class="collapse" id="collapsreq" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav">
                                 <?php
-                                if($_SESSION['role'] == "owner" || $_SESSION['role'] == "managertoko"){
+                                if($_SESSION['role'] == "manager"){
                                 ?>
-                                <a class="nav-link" href="reqbarang.php">permission </a>
+                                <a class="nav-link" href="reqbarang.php"><i class="fa-solid fa-code-pull-request"></i>Req Barang </a>
                                 <?php
                                 } 
                                 ?>
-                                    <a class="nav-link" href="approval.php">Approval Barang</a>
+                                <?php
+                                if($_SESSION['role'] == "owner"){
+                                ?>
+                                <a class="nav-link" href="approval.php"><i class="fa-solid fa-thumbs-up"></i> &nbsp; Approval Barang</a>
+                                <?php
+                                } 
+                                ?>
                                     <!-- <a class="nav-link" href="#!">Laporan Barang Gudang</a> -->
                                 </nav>
                             </div>
@@ -142,20 +151,20 @@
                                             <?php
                                             if($_SESSION['role'] == "owner" || $_SESSION['role'] == "kepalagudang"){
                                             ?>
-                                                <a class="nav-link" href="barangmasuk.php">Barang Masuk</a>
+                                            <a class="nav-link" href="barangmasuk.php"><i class="fa-solid fa-arrow-right-from-bracket"></i> &nbsp; Barang Masuk</a> 
                                             <?php
                                         } 
                                             ?>
                                             <!-- Fungsi Hak akses user -->
-                                            <a class="nav-link" href="BARANGKELUARR.php">Barang Keluar</a>
-                                            <a class="nav-link" href="retur.php">Retur Barang</a>
-                                            <a class="nav-link" href="sales.php">Daftar Sales</a>
-                                            <a class="nav-link" href="faktur.php">Faktur</a>
+                                            <a class="nav-link" href="BARANGKELUARR.php"><i class="fa-solid fa-tent-arrow-turn-left"></i>&nbsp; Barang Keluar </a>
+                                            <a class="nav-link" href="retur.php"><i class="fa-solid fa-arrow-right-arrow-left"></i>&nbsp; Retur Barang </a>
+                                            <a class="nav-link" href="sales.php"><i class="fa-solid fa-universal-access"></i></i>&nbsp;  Daftar Sales </a>
+                                            <a class="nav-link" href="faktur.php"><i class="fa-solid fa-file-invoice"></i>&nbsp; Faktur </a>
                                         </nav>
                                     </div>
                                 </nav>
                             </div>
-                            <div class="sb-sidenav-menu-heading">Addons</div>
+                            <!-- <div class="sb-sidenav-menu-heading">Addons</div>
                             <a class="nav-link" href="charts.html">
                                 <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
                                 Charts
@@ -165,7 +174,7 @@
                                 Tables
                             </a>
                         </div>
-                    </div>
+                    </div> -->
                     <div class="sb-sidenav-footer">
                     
                     <div class="High">Logged in as 
@@ -187,9 +196,9 @@
                 <main>
                     <div class="container-fluid">
                         <h1 class="mt-4">Stock Gudang</h1>
-                        <ol class="breadcrumb mb-4">
-                            <li class="breadcrumb-item active">Dashboard</li>
-                        </ol>
+                        <!-- <ol class="breadcrumb mb-4">
+                        <i class="fa-solid fa-warehouse"></i> Dashboard
+                        </ol> -->
                         <div class="row">
                             <!-- <div class="col-xl-3 col-md-6">
                                 <div class="card bg-primary text-white mb-4">
@@ -228,26 +237,6 @@
                                 </div>
                             </div>
                         </div>
-                        <!-- <div class="row">
-                            <div class="col-xl-6">
-                                <div class="card mb-4">
-                                    <div class="card-header">
-                                        <i class="fas fa-chart-area mr-1"></i>
-                                        Area Chart Example
-                                    </div>
-                                    <div class="card-body"><canvas id="myAreaChart" width="100%" height="40"></canvas></div>
-                                </div>
-                            </div>
-                            <div class="col-xl-6">
-                                <div class="card mb-4">
-                                    <div class="card-header">
-                                        <i class="fas fa-chart-bar mr-1"></i>
-                                        Bar Chart Example
-                                    </div>
-                                    <div class="card-body"><canvas id="myBarChart" width="100%" height="40"></canvas></div>
-                                </div>
-                            </div>
-                        </div> -->
                         <div class="card mb-4">
                             <div class="card-header">
                             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#_1">
@@ -260,7 +249,7 @@
                             <div class="card-body">
                             <!-- Notifikasi Danger-->
                             <?php 
-                                $ambilsemuadatastock = mysqli_query($conn,"SELECT * FROM stock WHERE stock <5");
+                                $ambilsemuadatastock = mysqli_query($conn,"SELECT * FROM stock WHERE stock <1");
                                 while($fetch=mysqli_fetch_array($ambilsemuadatastock)){
                                     $barang = $fetch['namabarang'];
                                     $jumlah = $fetch['stock'];
@@ -275,7 +264,7 @@
                                 <!-- End Notifikasi Danger -->
                                 <!-- Notifikasi Warning-->
                             <?php 
-                                $ambilsemuadatastock = mysqli_query($conn,"SELECT * FROM stock WHERE stock <20");
+                                $ambilsemuadatastock = mysqli_query($conn,"SELECT * FROM stock WHERE stock <10 AND stock >0"); //jika stock kurang dari 10 dan lebih dari 0
                                 while($fetch=mysqli_fetch_array($ambilsemuadatastock)){
                                     $barang = $fetch['namabarang'];
                                     $jumlah = $fetch['stock'];
@@ -301,16 +290,6 @@
                                                 <th>Aksi</th>
                                             </tr>
                                         </thead>
-                                        <!-- <tfoot>
-                                            <tr>
-                                                <th>Name</th>
-                                                <th>Position</th>
-                                                <th>Office</th>
-                                                <th>Age</th>
-                                                <th>Start date</th>
-                                                <th>Salary</th>
-                                            </tr>
-                                        </tfoot> -->
                                         <!-- Mulai Field Table -->
                                         <tbody>
                                         <?php
@@ -348,13 +327,12 @@
                                             </button>
                                             <?php
                                             if($_SESSION['role'] == "owner" || $_SESSION['role'] == "managertoko"){
-                                                    echo '
-                                                    <button type="button" class="btn btn-danger mb-4" data-toggle="modal" data-target="#delete<?=$idbarang;?>">
-                                                ';
-                
-                                            } 
                                             ?>
-                                            <!-- DELETE -->
+                                                    <button type="button" class="btn btn-danger mb-4" data-toggle="modal" data-target="#delete<?=$idbarang;?>">
+                                                    DELETE
+                                            <?php
+                                            };
+                                            ?>
                                             </td>
                                         </tr>
                                          <!-- Modal stock Gudang -->
@@ -408,7 +386,7 @@
                                                 <input class="form-control py-4 mb-2" id="inputEmailAddress" name="jenisbarang" type="text"     placeholder="Jenis Barang" value="<?=$jenisbarang;?>" required/>
                                                 <input type="file"name="file" class="form-control" >
                                                 <input type="hidden" name="idbarang" value="<?=$idbarang;?>">
-                                                <button type="submit" class="btn btn-primary" name="updatebarang" >Submit</button>
+                                                <button type="submit" class="btn btn-primary mt-2" name="updatebarang" >Submit</button>
                                                 </div>
                                                 </div>
                                                 <!-- Modal footer -->

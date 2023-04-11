@@ -28,10 +28,9 @@ include 'cek.php';
                                                 <th>Nama Barang</th>
                                                 <th>Jenis Barang</th>
                                                 <th>Tanggal</th>
-                                                <th>Penerima</th>
                                                 <th>QTY</th>
                                                 <th>Status</th>
-                                                
+                                                <!-- <th>Status Barang</th> --> 
                                             </tr>
                                         </thead>
                                         <!-- Mulai Field Table -->
@@ -44,15 +43,14 @@ include 'cek.php';
                                              $namabarang = $data['namabarang'];
                                              $jenisbarang =$data['jenisbarang'];
                                              $qty = $data['qty'];
-                                             $keterangan = $data['penerima'];
                                              $status= $data['status'];
+                                            //  $statusbarang = $data['statusbarang'];
                                          ?>
                                          <tr>
                                              <td><?=$i++;?></td>
                                              <td><?php echo $namabarang;?></td>
                                              <td><?php echo $jenisbarang;?></td>
                                              <td><?php echo $tanggal;?></td>
-                                             <td><?php echo $keterangan;?></td>
                                              <td><?php echo $qty;?></td>
                                              <td><?php echo $status;?></td>
                                         </tr>

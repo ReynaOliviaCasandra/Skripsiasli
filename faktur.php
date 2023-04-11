@@ -200,7 +200,7 @@
                                     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                         <thead>
                                             <tr>
-                                                <th>Id faktur</th>
+                                                <th>Idfaktur</th>
                                                 <th>Supplier</th>
                                                 <th>Tanggal</th>
                                                 <th>Gambar</th>
@@ -220,7 +220,7 @@
                                         <!-- Mulai Field Table -->
                                         <tbody>
                                         <?php
-                                        $ambilsemuadatafaktur = mysqli_query($conn,"SELECT * FROM faktur");
+                                        $ambilsemuadatafaktur = mysqli_query($conn,"SELECT * FROM faktur f,supplier s WHERE f.supplier = s.idsupplier");
                                         $i=1;
                                         while($data=mysqli_fetch_array($ambilsemuadatafaktur)){
                                             $idsales = $data['supplier'];
@@ -268,10 +268,21 @@
                                                 <form method="POST" enctype="multipart/form-data">
                                                 <div class="modal-body">
                                                 <div class="form-group">
-                                                <input class="form-control py-4 mb-2" id="inputEmailAddress" name="namausaha"  type="text"     placeholder="Supplier"  value="<?=$namausaha;?>" required/>
+                                                <select name="faktur" class="form-control mb-2">
+                                                <?php
+                                                $ambilsemuadatanya = mysqli_query($conn,"SELECT * FROM supplier");
+                                                while($fetcharray = mysqli_fetch_array($ambilsemuadatanya)){
+                                                        $idsales = $fetcharray['idsupplier'];
+                                                        $namasupplier = $fetcharray['supplier'];
+                                                    ?>
+                                                    <option value="<?=$idsales;?>"><?=$namasupplier;?></option> 
+                                                    <?php 
+                                                    };
+                                                ?>
+                                                </select>
                                                 <input type="file"name="file" class="form-control" >
-                                                <input type="hidden" name="idbarang" value="<?=$idbarang;?>">
-                                                <button type="submit" class="btn btn-primary mt-2" name="updatebarang" >Submit</button>
+                                                <input type="hidden" name="idfaktur"    value="<?=$idfaktur;?>">
+                                                <button type="submit" class="btn btn-primary mt-2" name="updatefaktur" >Submit</button>
                                                 </div>
                                                 </div>
                                                 <!-- Modal footer -->

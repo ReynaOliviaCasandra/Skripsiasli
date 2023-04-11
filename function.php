@@ -124,8 +124,7 @@ if(isset($_POST['barangmasuk'])){
 // Menambah faktur
 if(isset($_POST['faktur'])){
     $fakturnya = $_POST['fakturnya'];
-    $cekfaktur = mysqli_query($conn,"SELECT * FROM sales WHERE idsales='$fakturnya'"); 
-    // $addtomasuk = mysqli_query($conn,"INSERT INTO faktur where idsales='$fakturnya'(supplier) VALUES('$fakturnya')");
+    $cekfaktur = mysqli_query($conn,"SELECT * FROM supplier WHERE idsupplier='$fakturnya'"); 
     // // Fungsi Menambah Gambar
     $allowed_extensions= array('png','jpg');
     $nama= $_FILES['file']['name']; //gambilnama gambar
@@ -133,10 +132,8 @@ if(isset($_POST['faktur'])){
     $ekstensi = strtolower(end($dot)); //mengambil extensinya
     $ukuran = $_FILES['file']['size']; //ngambil size filenya
     $file_tmp= $_FILES['file']['tmp_name']; //ngamil lokasi filenya
-
     // Penamaan file untuk di encryption
     $image = md5(uniqid($nama,true)). time().'.'.$ekstensi; //mengabungkan nama file yang di enyrip dnegna ekstensinya
-
     if($hitung<1){
     // // Jika belom ada
     // Proses Upload Gambar
@@ -145,6 +142,7 @@ if(isset($_POST['faktur'])){
             if($ukuran <15000000){
             move_uploaded_file($file_tmp,'img/'.$image);
                 $addtotable = mysqli_query($conn,"INSERT INTO faktur (supplier,gambar) VALUES ('$fakturnya','$image')");
+                // die(mysqli_error($conn));
             if($addtotable){
                 echo'<script>
                 alert("faktur Sukses Masuk");
@@ -180,6 +178,61 @@ if(isset($_POST['faktur'])){
     }
     
 };
+// Hapus Faktur
+if(isset($_POST['hapusfaktur'])){
+    $idfaktur = $_POST['idfaktur'];
+    $lihatstock = mysqli_query($conn,"SELECT * FROM faktur WHERE idfaktur='$idfaktur'");
+    $del = mysqli_query($conn,"DELETE FROM faktur WHERE idfaktur='$idfaktur'");
+    // die(mysqli_error($conn));
+    //cek apakah berhasil
+    if ($del){
+        echo " <div class='alert alert-success'>
+            <strong>Success!</strong> Redirecting you back in 1 seconds.
+          </div>
+        <meta http-equiv='refresh' content='1; url= faktur.php'/>  ";
+        } else { echo "<div class='alert alert-warning'>
+            <strong>Failed!</strong> Redirecting you back in 1 seconds.
+          </div>
+         <meta http-equiv='refresh' content='1; url= indexx.php'/> ";
+        }
+};
+// Edit Faktur
+if(isset($_POST['updatefaktur'])){
+    $idfaktur = $_POST['idfaktur'];
+    $fakturnya = $_POST['faktur'];
+    $img   = 'img/'.$get['gambar'];
+    // Fungsi Menambah Gambar
+    $allowed_extensions= array('png','jpg');
+    $nama= $_FILES['file']['name']; //gambilnama gambar
+    $dot = explode(".",$nama);
+    $ekstensi = strtolower(end($dot)); //mengambil extensinya
+    $ukuran = $_FILES['file']['size']; //ngambil size filenya
+    $file_tmp= $_FILES['file']['tmp_name']; //ngamil lokasi filenya
+    // Penamaan file untuk di encryption
+    $image = md5(uniqid($nama,true)). time().'.'.$ekstensi; //mengabungkan nama file yang di enyrip dnegna ekstensinya
+    if($ukuran==0){
+        // Jika tidak ingin upload
+        $update = mysqli_query($conn,"UPDATE faktur set supplier='$fakturnya',gambar='$image' WHERE idfaktur='$idfaktur'");
+        if($update){
+            header('location:faktur.php');
+        } else {
+            echo 'gagal';
+            header('location:indexx.php');
+        }
+    }else{
+        // Jika ingin Upload
+        move_uploaded_file($file_tmp,'img/'.$image);
+        $update = mysqli_query($conn,"UPDATE faktur set  supplier='$fakturnya',gambar='$image' WHERE idfaktur='$idfaktur'");
+    }if($update){
+        //  die(mysqli_error($conn));
+        header('location:faktur.php');
+    } else {
+        echo 'gagal';
+        header('location:indexx.php');
+    }
+   
+}
+
 //Menambah Barang keluar
 if(isset($_POST['barangkeluar'])){
     $barangnya = $_POST['barangnya'];
@@ -520,24 +573,17 @@ if(isset($_POST['hapusbarangkeluar'])){
 if(isset($_POST['hapusbarangmasuk'])){
     $idbarang = $_POST['idbarang'];
     $idm = $_POST['idmasuk'];
-
     $lihatstock = mysqli_query($conn,"SELECT * FROM stock WHERE idbarang='$idbarang'"); //lihat stock barang itu saat ini
     $stocknya = mysqli_fetch_array($lihatstock); //ambil datanya
     $stockskrg = $stocknya['stock'];//jumlah stocknya skrg
-
     $lihatdataskrg = mysqli_query($conn,"SELECT * FROM masuk WHERE idmasuk='$idm'"); //lihat qty saat ini
     $preqtyskrg = mysqli_fetch_array($lihatdataskrg); 
     $qtyskrg = $preqtyskrg['qty'];//jumlah skrg
-
     $adjuststock = $stockskrg-$qtyskrg;
-
     $queryx = mysqli_query($conn,"UPDATE stock SET stock='$adjuststock' WHERE idbarang='$idbarang'");
     $del = mysqli_query($conn,"DELETE FROM masuk WHERE idmasuk='$idm'");
-
-    
     //cek apakah berhasil
     if ($queryx && $del){
-
         echo " <div class='alert alert-success'>
             <strong>Success!</strong> Redirecting you back in 1 seconds.
           </div>
@@ -548,9 +594,7 @@ if(isset($_POST['hapusbarangmasuk'])){
          <meta http-equiv='refresh' content='1; url= indexx.php'/> ";
         }
 };
-
 // Req order Barang Barang Masuk
-
 if(isset($_POST['req'])){
     $barangnya = $_POST['barangnya'];
     $penerima = $_POST['penerima'];

@@ -557,7 +557,6 @@ if(isset($_POST['hapusbarangkeluar'])){
     
     //cek apakah berhasil
     if ($queryx && $del){
-
         echo " <div class='alert alert-success'>
             <strong>Success!</strong> Redirecting you back in 1 seconds.
           </div>

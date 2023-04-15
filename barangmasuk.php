@@ -446,7 +446,7 @@
                     <div class="modal-body">
                     <select name="barangnya" class="form-control mb-2">
                        <?php
-                       $ambilsemuadatanya = mysqli_query($conn,"SELECT * FROM stock");
+                       $ambilsemuadatanya = mysqli_query($conn,"SELECT * FROM stock ORDER BY namabarang ASC");
                        while($fetcharray = mysqli_fetch_array($ambilsemuadatanya)){
                             $namabarangnya = $fetcharray['namabarang'];
                             $idbarangnya = $fetcharray['idbarang'];

@@ -279,7 +279,6 @@
                                                 <th>Tanggal</th>
                                                 <!-- <th>Penerima</th> -->
                                                 <th>QTY</th>
-                                                <th>Kondisi Barang</th>
                                                 <th>Status Barang</th>
                                                 <th>Aksi</th>
                                             </tr>
@@ -318,8 +317,6 @@
                                             $namabarang = $data['namabarang'];
                                             $jenisbarang =$data['jenisbarang'];
                                             $qty = $data['qty'];
-                                            // $keterangan = $data['penerima'];
-                                            $status = $data['status'];
                                             $statusbarang =$data['statusbarang'];
                                         ?>
                                         <tr>
@@ -328,7 +325,7 @@
                                             <td><?=$jenisbarang;?></td>
                                             <td><?=$tanggal;?></td>
                                             <td><?=$qty;?></td>
-                                            <td><?=$status;?></td>
+                                           
                                             <td><?php
                                             if($statusbarang ==0){
                                                 echo "Menunggu Dikirimkan";
@@ -587,7 +584,7 @@
                     <div class="modal-body">
                     <select name="barangnya" class="form-control mb-2">
                        <?php
-                       $ambilsemuadatanya = mysqli_query($conn,"SELECT * FROM stock");
+                       $ambilsemuadatanya = mysqli_query($conn,"SELECT * FROM stock  ORDER BY namabarang ASC");
                        while($fetcharray = mysqli_fetch_array($ambilsemuadatanya)){
                             $namabarangnya = $fetcharray['namabarang'];
                             $idbarangnya = $fetcharray['idbarang'];
@@ -598,9 +595,6 @@
                        ?>
                     </select>
                     <input  type="number"  name="qty"            class="form-control mb-2  "  placeholder="Quantity" required  />
-                    <!-- <input  type="text"   name="penerima"       class="form-control mb-2  "   placeholder="Penerima" required  /> -->
-                    <input  type="text"   name="status"       class="form-control mb-2  "   placeholder="Statusbarang" required  />
-                    <!-- <input  type="text"   name="harga"          class="form-control mb-2  "   placeholder="Hargabarang" required  /> -->
                     <button type="submit" name="barangkeluar"    class="btn btn-primary" >Submit</button>
                     </div>
                     <!-- Modal footer -->

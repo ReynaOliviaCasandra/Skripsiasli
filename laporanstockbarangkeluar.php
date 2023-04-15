@@ -29,7 +29,6 @@ include 'cek.php';
                                                 <th>Jenis Barang</th>
                                                 <th>Tanggal</th>
                                                 <th>QTY</th>
-                                                <th>Status</th>
                                                 <!-- <th>Status Barang</th> --> 
                                             </tr>
                                         </thead>
@@ -43,7 +42,8 @@ include 'cek.php';
                                              $namabarang = $data['namabarang'];
                                              $jenisbarang =$data['jenisbarang'];
                                              $qty = $data['qty'];
-                                             $status= $data['status'];
+                                            //  $statusbarang = $data['statusbarang'];
+                                            //  $status= $data['status'];
                                             //  $statusbarang = $data['statusbarang'];
                                          ?>
                                          <tr>
@@ -52,7 +52,6 @@ include 'cek.php';
                                              <td><?php echo $jenisbarang;?></td>
                                              <td><?php echo $tanggal;?></td>
                                              <td><?php echo $qty;?></td>
-                                             <td><?php echo $status;?></td>
                                         </tr>
                                         </div>
                                         <!--  -->

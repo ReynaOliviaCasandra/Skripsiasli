@@ -1,7 +1,7 @@
 <?php
 session_start();
 // Membuat koneksi database
-$conn = mysqli_connect("localhost:33012","root","","db_stockcosmetic");
+$conn = mysqli_connect("localhost:33013","root","","db_stockcosmetic");
 // Registrasi akun Owner
 if(isset($_POST['registrasi'])){
     $email = $_POST['email'];
@@ -238,14 +238,13 @@ if(isset($_POST['barangkeluar'])){
     $barangnya = $_POST['barangnya'];
     // $penerima = $_POST['penerima'];
     $qty = $_POST['qty'];
-    $status = $_POST['status'];
     $cekstocksekarang = mysqli_query($conn,"SELECT * FROM stock WHERE idbarang='$barangnya'"); 
     $ambildatanya = mysqli_fetch_array($cekstocksekarang);
     $stocksekarang= $ambildatanya['stock'];
     if($stocksekarang >= $qty){
         // Jika barangnya cukup untuk keluar
         $tambahkanstocksekarangdenganquantity = $stocksekarang-$qty;
-        $addtokeluar = mysqli_query($conn," INSERT INTO keluar (idbarang,qty,status) VALUES ('$barangnya','$qty','$status')");
+        $addtokeluar = mysqli_query($conn," INSERT INTO keluar (idbarang,qty) VALUES ('$barangnya','$qty')");
         $updatestokmasuk = mysqli_query($conn," UPDATE stock set stock='$tambahkanstocksekarangdenganquantity' WHERE idbarang='$barangnya'");
         // die(mysqli_error($conn));
         if($addtokeluar && $updatestokmasuk){
@@ -540,21 +539,16 @@ if(isset($_POST['updatebarangkeluar'])){
 if(isset($_POST['hapusbarangkeluar'])){
     $idk = $_POST['idkeluar'];
     $idbarang = $_POST['idbarang'];
-
     $lihatstock = mysqli_query($conn,"SELECT * FROM stock WHERE idbarang='$idbarang'"); //lihat stock barang itu saat ini
     $stocknya = mysqli_fetch_array($lihatstock); //ambil datanya
     $stockskrg = $stocknya['stock'];//jumlah stocknya skrg
-
     $lihatdataskrg = mysqli_query($conn,"SELECT * FROM keluar WHERE idkeluar='$idk'"); //lihat qty saat ini
     $preqtyskrg = mysqli_fetch_array($lihatdataskrg); 
     $qtyskrg = $preqtyskrg['qty'];//jumlah skrg
-
     $adjuststock = $stockskrg+$qtyskrg;
-
     $queryx = mysqli_query($conn,"UPDATE stock set stock='$adjuststock' WHERE idbarang='$idbarang'");
     $del = mysqli_query($conn,"DELETE FROM keluar WHERE idkeluar='$idk'");
 
-    
     //cek apakah berhasil
     if ($queryx && $del){
         echo " <div class='alert alert-success'>
@@ -608,7 +602,7 @@ if(isset($_POST['req'])){
     }
 }
 
-// Menghapus barang masuk 
+// Menghapus barang req
 if(isset($_POST['hapusbarangreq'])){
     $idbarang = $_POST['idbarang'];
     $idrq = $_POST['idreq'];
@@ -632,10 +626,7 @@ if(isset($_POST['hapusbarangreq'])){
 
 // Req Approval Barang 1
 if(isset($_POST['approval'])){
-    // $barangnya = $_POST['barangnya'];
-    // $penerima = $_POST['penerima'];
     $idrq = $_POST['idreq'];
-    // $qty = $_POST['qty'];
     $cekreq = mysqli_query($conn,"UPDATE req SET status=1 WHERE  idreq='$idrq'");
     // die(mysqli_error($conn));
     if($cekreq){    

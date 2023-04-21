@@ -279,8 +279,8 @@
                                             <td><?=$namabarang;?></td>
                                             <td><?=$jenisbarang;?></td>
                                             <td><?=$stock;?></td>
-                                            <td>Rp<?=$hargabarang;?></td>
-                                            <td>Rp<?=$hargabarang*$stock;?></td>
+                                            <td><?=rupiah($hargabarang);?></td>
+                                            <td><?=rupiah($hargabarang*$stock);?></td>
                                             <td>
                                             <!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#edit<?=$idbarang;?>">
                                             Upload

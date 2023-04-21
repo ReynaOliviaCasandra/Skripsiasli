@@ -37,7 +37,7 @@ include 'cek.php';
                                         <!-- Mulai Field Table -->
                                         <tbody>
                                         <?php
-                                         $ambilsemuadatastock = mysqli_query($conn,"SELECT * FROM retur k, stock s WHERE s.idbarang = k.idbarang");
+                                         $ambilsemuadatastock = mysqli_query($conn,"SELECT * FROM retur k, stock s, supplier r WHERE r.idsupplier = k.penerima and s.idbarang = k.idbarang");
                                          $i=1;
                                          while($data=mysqli_fetch_array($ambilsemuadatastock)){
                                              $idr =$data['idretur'];
@@ -45,7 +45,7 @@ include 'cek.php';
                                              $namabarang = $data['namabarang'];
                                              $jenisbarang =$data['jenisbarang'];
                                              $qty = $data['qty'];
-                                             $keterangan = $data['penerima'];
+                                             $keterangan = $data['nama'];
                                              $status = $data['status'];
                                          ?>
                                          <tr>

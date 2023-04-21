@@ -2,7 +2,7 @@
 session_start();
 // Membuat koneksi database
 $conn = mysqli_connect("localhost:33013","root","","db_stockcosmetic");
-// Registrasi akun Owner
+// Registrasi akun pengguna
 if(isset($_POST['registrasi'])){
     $email = $_POST['email'];
     $username = $_POST['username'];
@@ -110,7 +110,7 @@ if(isset($_POST['barangmasuk'])){
     $addtomasuk = mysqli_query($conn,"INSERT INTO masuk (idbarang,kadarluasa,penerima,qty) VALUES ('$barangnya','$exp','$penerima','$qty')");
     $updatestokmasuk = mysqli_query($conn," UPDATE stock set stock='$tambahkanstocksekarangdenganquantity' WHERE idbarang='$barangnya'");
     if($addtomasuk && $updatestokmasuk){
-        die(mysqli_error($conn));
+        // die(mysqli_error($conn));
         echo'<script>
         alert("Sukses Memasukan Barang !");
         window.location.href = "barangmasuk.php"
@@ -343,7 +343,7 @@ if(isset($_POST['updatesales'])){
 //Menambah Barang Retur
 if(isset($_POST['barangretur'])){
     $barangnya = $_POST['barangnya'];
-    $penerima = $_POST['penerima'];
+    $keterangan = $_POST['penerima'];
     $qty = $_POST['qty'];
     $status = $_POST['status'];
     $cekstocksekarang = mysqli_query($conn,"SELECT * FROM stock WHERE idbarang='$barangnya'"); 
@@ -352,7 +352,7 @@ if(isset($_POST['barangretur'])){
     if($stocksekarang >= $qty){
         // Jika barangnya cukup untuk keluar
         $tambahkanstocksekarangdenganquantity = $stocksekarang-$qty;
-        $addtokeluar = mysqli_query($conn," INSERT INTO retur (idbarang,qty,status,penerima) VALUES ('$barangnya','$qty','$status','$penerima')");
+        $addtokeluar = mysqli_query($conn," INSERT INTO retur (idbarang,qty,status,penerima) VALUES ('$barangnya','$qty','$status','$keterangan')");
         $updatestokmasuk = mysqli_query($conn," UPDATE stock set stock='$tambahkanstocksekarangdenganquantity' WHERE idbarang='$barangnya'");
         die(mysqli_error($conn));
         if($addtokeluar && $updatestokmasuk){
@@ -680,17 +680,15 @@ if(isset($_POST['accbarangkeluar'])){
 
 // Proses barang sedang dikirim ke sales atau supplier
 if(isset($_POST['kirimkesales'])){
-    // $barangnya = $_POST['barangnya'];
-    // $penerima = $_POST['penerima'];
-    $idk = $_POST['idkeluar'];
+    $idr = $_POST['idretur'];
     // $qty = $_POST['qty'];
-    $cekreq = mysqli_query($conn,"UPDATE keluar SET statusbarang=3 WHERE  idkeluar='$idk'");
+    $cekreq = mysqli_query($conn,"UPDATE retur SET statusbarang=1 WHERE  idretur='$idr'");
     // die(mysqli_error($conn));
     if($cekreq){    
         // berhasil
         echo'<script>
         alert(" Barang Sedang Dikirim ke supplier, klick tombol ok untuk melanjutkan ");
-        window.location.href = "BARANGKELUARR.php"
+        window.location.href = "retur.php"
         </script>';
     }else{
         header("Location:indexx.php");
@@ -698,8 +696,6 @@ if(isset($_POST['kirimkesales'])){
 }
 // Proses barang Sudah diterima 2
 if(isset($_POST['barangditerima'])){
-    // $barangnya = $_POST['barangnya'];
-    // $penerima = $_POST['penerima'];
     $idk = $_POST['idkeluar'];
     // $qty = $_POST['qty'];
     $cekreq = mysqli_query($conn,"UPDATE keluar SET statusbarang=2  WHERE  idkeluar='$idk'");
@@ -752,5 +748,11 @@ if(isset($_POST['hapusales'])){
       window.location.href = "sales.php"
       </script>';
     } 
+}
+
+function rupiah($angka)
+{
+    $hasilrupiah = "Rp". number_format($angka,2,',','.');
+    return $hasilrupiah;
 }
 ?>

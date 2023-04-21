@@ -329,7 +329,7 @@
                                             <?php
                                            if($status ==0){
                                             ?>
-                                            <button type="button" class="btn btn-success" data-toggle="modal" data-target="#acc<?=$idrq;?>">
+                                            <button type="button" class="btn btn-success mb-2" data-toggle="modal" data-target="#acc<?=$idrq;?>">
                                             Setuju
                                             </button>
                                             <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#decline<?=$idrq;?>">

@@ -254,7 +254,8 @@
                                                 <th>Jenis Barang</th>
                                                 <th>Tanggal</th>
                                                 <th>QTY</th>
-                                                <th>Status Barang</th>
+                                                <th>Status</th>
+                                                <th>StatusBarang</th>
                                                 <th>Penerima</th>
                                                 <th>Aksi</th>   
                                             </tr>
@@ -283,18 +284,20 @@
                                             }
                                         }
                                         else{
-                                            $ambilsemuadatastock = mysqli_query($conn,"SELECT * FROM retur k, stock s WHERE s.idbarang = k.idbarang");
+                                            $ambilsemuadatastock = mysqli_query($conn,"SELECT * FROM retur k, stock s, supplier r WHERE r.idsupplier = k.penerima and s.idbarang = k.idbarang");
                                         }
                                         // $ambilsemuadatastock = mysqli_query($conn,"SELECT * FROM keluar k, stock s WHERE s.idbarang = k.idbarang");
                                         $i=1;
                                         while($data=mysqli_fetch_array($ambilsemuadatastock)){
                                             $idr =$data['idretur'];
+                                            $idbarang = $data['idbarang'];
                                             $tanggal = $data['tanggal'];
                                             $namabarang = $data['namabarang'];
                                             $jenisbarang =$data['jenisbarang'];
                                             $qty = $data['qty'];
-                                            $keterangan = $data['penerima'];
+                                            $keterangan = $data['nama'];
                                             $status = $data['status'];
+                                            $statusbarang =$data['statusbarang'];
                                         ?>
                                         <tr>
                                         <td><?=$i++;?></td>
@@ -303,9 +306,63 @@
                                             <td><?=$tanggal;?></td>
                                             <td><?=$qty;?></td>
                                             <td><?=$status;?></td>
+                                            <td><?php
+                                            if($statusbarang ==0){
+                                                echo "Menunggu Dikirimkan";
+                                            }elseif($statusbarang == 1){
+                                                 echo "Barang Sedang dikirim ke sales";
+                                            };
+                                            ?>
+                                            </td>
                                             <td><?=$keterangan;?></td>
-                                            <td><button type="button" class="btn btn-success" data-toggle="modal" onclick="window.location.href='https://www.whatsapp.com/';">
-                                            WhatShap</td>
+                                            <td>
+                                            <button type="button" class="btn btn-success mb-1 ml-2" data-toggle="modal" onclick="window.location.href='https://www.whatsapp.com/';">
+                                            WhatShap
+                                            <!-- Aksi Pembatasan akses role -->
+                                            <?php
+                                            if($_SESSION ['role'] == "owner" || $_SESSION ['role'] == "kepalagudang"){
+                                            ?> 
+                                            <!-- Batasan yang boleh chat -->
+                                            <button type="button" class="btn btn-secondary mb-1 ml-2" data-toggle="modal" data-target="#kirimsales<?=$idr;?>">
+                                            KirimSales
+                                            </button>
+                                            <?php
+                                            };
+                                            ?>
+                                             <!-- Selesai Aksi Rolenya -->
+                                             </td>
+                                             </tr>
+                                            <!-- Selesai Aksi Rolenya -->
+                                            <!-- Kirim Barang rusak Ke sales -->
+                                             <div class="modal fade" id="kirimsales<?=$idr;?>">
+                                             <div class="modal-dialog">
+                                             <div class="modal-content">
+                                             <!-- Modal Header -->
+                                            <div class="modal-header">
+                                            <h4 class="modal-title"> Sudah Siap Kirim Barang ke Supplier?</h4>
+                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                </div>
+                                                <!-- Modal body -->
+                                                <!-- Content 1 -->
+                                                <form method="POST">
+                                                <div class="modal-body mb-2">
+                                                Apakah anda  ingin  Memgirim Barang ini <?=$namabarang;?> Jenis <?=$jenisbarang;?> dengan jumlah <?=$qty;?> Kondisi <?=$status;?>
+                                                <input type="hidden" name="idretur" value="<?=$idr;?>">
+                                                <br>
+                                                <br>
+                                                <button type="submit" class="btn btn-success" name="kirimkesales" >Siap Kirim</button>
+                                                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                                                </div>
+                                                </div>
+                                                <!-- Modal footer -->
+                                                <div class="modal-footer">
+                                                </div>
+                                                </form>
+                                            </div>
+                                            </div>
+                                        </div>
+                                        </div>
+                                        </td>
                                         </tr>
                                         <?php
                                         };
@@ -368,7 +425,21 @@
                     </select>
                     <input type="number"  name="qty" class="form-control mb-2" placeholder="Quantity" required  />
                     <input class="form-control py-4 mb-2"  name="status" type="text" placeholder="Status Barang" required />
-                    <input class="form-control py-4 mb-2"  name="penerima" type="text" placeholder="Sales" required  />
+                    <!-- <input class="form-control py-4 mb-2"  name="penerima" type="text" placeholder="Sales" required  /> -->
+                    <select name="penerima" class="form-control mb-2">
+                    <?php
+                       $ambilsemuadatanya = mysqli_query($conn,"SELECT * FROM supplier");
+                       while($fetcharray = mysqli_fetch_array($ambilsemuadatanya)){
+                            $namasales = $fetcharray['nama'];
+                            $idsupplier = $fetcharray['idsupplier'];
+                        ?>
+                        <option value="<?=$idsupplier;?>"><?=$namasales;?></option> 
+                        <?php
+                            };
+                       ?>
+                    </select>
+                    <input type="hidden" name="idretur" value="<?=$idr;?>">
+                    <input type="hidden" name="idbarang" value="<?=$idbarang;?>">
                     <button type="submit" name="barangretur"class="btn btn-primary" >Submit</button>
                     </div>
                     <!-- Modal footer -->
@@ -381,4 +452,5 @@
             </div>
             </div>
             <!-- Selesai modal barang Keluar -->
+            <!-- End barang sedang dikirim -->
 </html>

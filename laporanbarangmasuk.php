@@ -35,14 +35,14 @@ include 'cek.php';
                                         <!-- Mulai Field Table -->
                                         <tbody>
                                         <?php
-                                         $ambilsemuadatastock = mysqli_query($conn,"SELECT * FROM masuk m, stock s WHERE s.idbarang = m.idbarang");
+                                         $ambilsemuadatastock = mysqli_query($conn,"SELECT * FROM masuk m, stock s, login l WHERE l.iduser= m.penerima and s.idbarang = m.idbarang");
                                          $i=1;
                                          while($data=mysqli_fetch_array($ambilsemuadatastock)){
                                              $tanggal = $data['tanggal'];
                                              $namabarang = $data['namabarang'];
                                              $jenisbarang =$data['jenisbarang'];
                                              $qty = $data['qty'];
-                                             $keterangan = $data['penerima'];
+                                             $keterangan = $data['username'];
                                          ?>
                                          <tr>
                                              <td><?=$i++;?></td>

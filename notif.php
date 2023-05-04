@@ -1,4 +1,4 @@
-<h2>Test</h2>
+<h2 class="text-center">Barang Masuk Yang sukses</h2>
 <?php
     include 'function.php';
     include 'cek.php';
@@ -36,6 +36,3 @@
                                 <!-- End Notifikasi succes -->
 </body>
 </html>
-                                   
-                                   
-                                   

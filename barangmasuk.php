@@ -39,8 +39,8 @@
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" id="userDropdown" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
-                        <a class="dropdown-item" href="#">Settings</a>
-                        <a class="dropdown-item" href="#">Activity Log</a>
+                        <!-- <a class="dropdown-item" href="#">Settings</a> -->
+                        <!-- <a class="dropdown-item" href="#">Activity Log</a> -->
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="logout.php">Logout</a>
                     </div>
@@ -193,7 +193,7 @@
                                  Tambah Barang Masuk
                                 </button>
                                 <!-- End Notifikasi warning -->
-                                <a href="laporanbarangmasuk.php" id="exportmasuk" class="btn btn-info">Exportdata</a>
+                                <a href="laporanbarangmasuk.php" id="exportmasuk" class="btn btn-info mb-2">Cetak Laporan</a>
                                 <br>
                                 <!-- Validasi Tanggal -->
                                 <br>
@@ -227,17 +227,6 @@
                                                 <th>Aksi</th>
                                             </tr>
                                         </thead>
-                                        <!-- <tfoot>
-                                            <tr>
-                                                <th>Name</th>
-                                                <th>Position</th>
-                                                <th>Office</th>
-                                                <th>Age</th>
-                                                <th>Start date</th>
-                                                <th>Salary</th>
-                                            </tr>
-                                        </tfoot> -->
-                                        <!-- Mulai Field Table -->
                                         <tbody>
                                         <?php
                                         // Fungsi Filter tanggal

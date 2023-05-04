@@ -38,8 +38,8 @@
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" id="userDropdown" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
-                        <a class="dropdown-item" href="#">Settings</a>
-                        <a class="dropdown-item" href="#">Activity Log</a>
+                        <!-- <a class="dropdown-item" href="#">Settings</a>
+                        <a class="dropdown-item" href="#">Activity Log</a> -->
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="logout.php">Logout</a>
                     </div>
@@ -192,7 +192,7 @@
                                  Tambah Barang keluar
                                 </button>
                                 <!-- End Notifikasi warning -->
-                                <a href="laporanstockbarangkeluar.php" id="exportkeluar" class="btn btn-info">Cetak Laporan</a>
+                                <a href="laporanstockbarangkeluar.php" id="exportkeluar" class="btn btn-info mb-2">Cetak Laporan</a>
                                 <br>
                                 <!-- Validasi Tanggal -->
                                 <br>

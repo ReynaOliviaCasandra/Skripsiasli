@@ -25,7 +25,7 @@ if(isset($_POST['buttonsales'])){
     $supplier = $_POST['distributor'];
     $contact = $_POST['kontak'];
     $salessekarang = mysqli_query($conn,"INSERT INTO supplier (nama,supplier,kontak)VALUES('$namasales','$supplier','$contact')");
-    die(mysqli_error($conn));
+    // die(mysqli_error($conn));
     if($salessekarang){
         header('location:sales.php');
         
@@ -355,7 +355,7 @@ if(isset($_POST['barangretur'])){
         $tambahkanstocksekarangdenganquantity = $stocksekarang-$qty;
         $addtokeluar = mysqli_query($conn," INSERT INTO retur (idbarang,qty,status,penerima) VALUES ('$barangnya','$qty','$status','$keterangan')");
         $updatestokmasuk = mysqli_query($conn," UPDATE stock set stock='$tambahkanstocksekarangdenganquantity' WHERE idbarang='$barangnya'");
-        die(mysqli_error($conn));
+        // die(mysqli_error($conn));
         if($addtokeluar && $updatestokmasuk){
             header('location: retur.php');
         } else {
@@ -504,7 +504,7 @@ if(isset($_POST['updatebarangkeluar'])){
             echo " <div class='alert alert-success'>
                 <strong>Success!</strong> Redirecting you back in 1 seconds.
             </div>
-            <meta http-equiv='refresh' content='1; url=  barangkeluarr.php'/>  ";
+            <meta http-equiv='refresh' content='1; url=  'barangkeluarr.php'/>  ";
             } else { echo "<div class='alert alert-warning'>
                 <strong>Failed!</strong> Redirecting you back in 3 seconds.
             </div>
@@ -554,7 +554,7 @@ if(isset($_POST['hapusbarangkeluar'])){
         echo " <div class='alert alert-success'>
             <strong>Success!</strong> Redirecting you back in 1 seconds.
           </div>
-        <meta http-equiv='refresh' content='1; url= barangkeluarr.php'/>  ";
+        <meta http-equiv='refresh' content='1; url= 'barangkeluarr.php'/>  ";
         } else { echo "<div class='alert alert-warning'>
             <strong>Failed!</strong> Redirecting you back in 1 seconds.
           </div>
@@ -610,7 +610,7 @@ if(isset($_POST['hapusbarangreq'])){
     $stocknya = mysqli_fetch_array($lihatstock); //ambil datanya
     $stockskrg = $stocknya['stock'];//jumlah stocknya skrg
     $del = mysqli_query($conn,"DELETE FROM req WHERE idreq='$idrq'");
-    die(mysqli_error($conn));
+    // die(mysqli_error($conn));
     //cek apakah berhasil
     if ($queryx && $del){
         echo " <div class='alert alert-success'>
@@ -646,7 +646,7 @@ if(isset($_POST['tolakbarang'])){
     $idrq = $_POST['idreq'];
     // $qty = $_POST['qty'];
     $cekreq = mysqli_query($conn,"UPDATE req SET status=2  WHERE  idreq='$idrq'");
-    die(mysqli_error($conn));
+    // die(mysqli_error($conn));
     if($cekreq){
         // berhasil
         // header("Location:approval.php");
@@ -699,7 +699,7 @@ if(isset($_POST['barangditerima'])){
     $idk = $_POST['idkeluar'];
     // $qty = $_POST['qty'];
     $cekreq = mysqli_query($conn,"UPDATE keluar SET statusbarang=2  WHERE  idkeluar='$idk'");
-    die(mysqli_error($conn));
+    // die(mysqli_error($conn));
     if($cekreq){
         // berhasil
         // header("Location:approval.php");

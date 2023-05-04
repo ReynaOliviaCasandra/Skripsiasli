@@ -1,0 +1,13 @@
+---
+deployment : 
+  task:
+    - export DEPLOYPATH=/home/coms2497/public_html/
+    - /bin/cp indexx.php $DEPLOYPATH
+    - /bin/cp approval.php $DEPLOYPATH
+    - /bin/cp BARANGKELUARR.php $DEPLOYPATH
+    - /bin/cp cek.php $DEPLOYPATH
+    - /bin/cp faktur.php $DEPLOYPATH
+    - /bin/cp function.php $DEPLOYPATH 
+    - /bin/cp laporanbarangmasuk.php $DEPLOYPATH
+    - /bin/cp laporanharga.php $DEPLOYPATH
+    

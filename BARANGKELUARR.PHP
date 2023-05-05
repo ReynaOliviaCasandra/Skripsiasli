@@ -280,19 +280,31 @@
                                             <?php
                                             if($_SESSION['role'] == "owner" || $_SESSION['role'] == "manager"){
                                             ?>
+                                            <?php
+                                            if($statusbarang==1){
+                                            ?>
                                                 <button type="button" class="btn btn-success mb-2" data-toggle="modal" data-target="#acc<?=$idk;?>">
                                                 diterima
                                                 </button>
                                             <?php
                                             } 
                                             ?>
+                                            <?php
+                                            }
+                                            ?>
                                              <!-- Aksi Pembatasan akses role -->
                                             <?php
                                             if($_SESSION['role'] == "owner" || $_SESSION['role'] == "kepalagudang"){
                                             ?>
+                                            <?php
+                                            if($statusbarang==0){
+                                            ?>
                                                 <button type="button" class="btn btn-info mb-2" data-toggle="modal" data-target="#kirim<?=$idk;?>">
                                                 KirimToko
                                                 </button>
+                                            <?php
+                                            } 
+                                            ?>
                                             <?php
                                             } 
                                             ?>
@@ -406,8 +418,7 @@
                                                 <form method="post">
                                                 <div class="modal-body">
                                                 <div class="form-group">
-                                                <input class="form-control py-4 mb-2" id="inputEmailAddress" name="namabarang"  type="text"     placeholder="Nama Barang"   value="<?=$namabarang;?>" required/>
-                                                <input class="form-control py-4 mb-2" id="inputEmailAddress" name="jenisbarang" type="text"     placeholder="Jenis Barang"  value="<?=$jenisbarang;?>" required/>
+                                                <p>Masukan Jumlah Qty</p>
                                                 <input class="form-control py-4 mb-2" id="inputEmailAddress" name="qty"         type="number"   placeholder="Jumlah Stock"  value="<?=$qty;?>"required/>
                                                 <input type="hidden" name="idbarang" value="<?=$idbarang;?>">
                                                 <input type="hidden" name="idkeluar" value="<?=$idk;?>">

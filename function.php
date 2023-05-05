@@ -1,8 +1,8 @@
 <?php
 session_start();
 // Membuat koneksi database
-// $conn = mysqli_connect("localhost:33013","root","","db_stockcosmetic");
-$conn = mysqli_connect("localhost","coms2497_cosmetic","Rtx20601060","coms2497_db_stockcosmetic");
+$conn = mysqli_connect("localhost:33013","root","","db_stockcosmetic");
+// $conn = mysqli_connect("localhost","coms2497_cosmetic","Rtx20601060","coms2497_db_stockcosmetic");
 // Registrasi akun pengguna
 if(isset($_POST['registrasi'])){
     $email = $_POST['email'];
@@ -479,8 +479,8 @@ if(isset($_POST['updatebarangkeluar'])){
     $idk = $_POST['idkeluar']; //iddata
     $idbarang= $_POST['idbarang']; //idbarang
     $qty = $_POST['qty'];
-    $keterangan = $_POST['penerima'];
-    $status = $_POST['status'];
+    // $keterangan = $_POST['penerima'];
+    // $status = $_POST['status'];
 
     $lihatstock = mysqli_query($conn,"SELECT * from stock where idbarang='$idbarang'"); //lihat stock barang itu saat ini
     $stocknya = mysqli_fetch_array($lihatstock); //ambil datanya
@@ -496,11 +496,11 @@ if(isset($_POST['updatebarangkeluar'])){
         $kurangistock = $stockskrg-$hitungselisih;
 
         $queryx = mysqli_query($conn,"UPDATE stock set stock='$kurangistock' where idbarang='$idbarang'");
-        $updatedata1 = mysqli_query($conn,"UPDATE keluar set qty='$qty',penerima='$keterangan',status='$status' where idkeluar='$idk'");
+        $updatedata1 = mysqli_query($conn,"UPDATE keluar set qty='$qty' where idkeluar='$idk'");
+        // die(mysqli_error($conn));
         
         //cek apakah berhasil
         if ($updatedata1 && $queryx){
-
             echo " <div class='alert alert-success'>
                 <strong>Success!</strong> Redirecting you back in 1 seconds.
             </div>
@@ -518,7 +518,7 @@ if(isset($_POST['updatebarangkeluar'])){
 
         $query1 = mysqli_query($conn,"update stock set stock='$tambahistock' where idbarang='$idbarang'");
 
-        $updatedata = mysqli_query($conn,"update keluar set  qty='$qty', penerima='$keterangan',status='$status' where idkeluar='$idk'");
+        $updatedata = mysqli_query($conn,"update keluar set  qty='$qty' where idkeluar='$idk'");
         
         //cek apakah berhasil
         if ($query1 && $updatedata){
@@ -526,7 +526,7 @@ if(isset($_POST['updatebarangkeluar'])){
             echo " <div class='alert alert-success'>
                 <strong>Success!</strong> Redirecting you back in 1 seconds.
             </div>
-            <meta http-equiv='refresh' content='1; url=  BARANGKELUARR.ph'/>  ";
+            <meta http-equiv='refresh' content='1; url=  'barangkularr.php'/>  ";
             } else { echo "<div class='alert alert-warning'>
                 <strong>Failed!</strong> Redirecting you back in 3 seconds.
             </div>
@@ -558,7 +558,7 @@ if(isset($_POST['hapusbarangkeluar'])){
         } else { echo "<div class='alert alert-warning'>
             <strong>Failed!</strong> Redirecting you back in 1 seconds.
           </div>
-         <meta http-equiv='refresh' content='1; url= indexx.php'/> ";
+         <meta http-equiv='refresh' content='1; url= 'indexx.php'/> ";
         }
 };
 
@@ -580,11 +580,11 @@ if(isset($_POST['hapusbarangmasuk'])){
         echo " <div class='alert alert-success'>
             <strong>Success!</strong> Redirecting you back in 1 seconds.
           </div>
-        <meta http-equiv='refresh' content='1; url= barangmasuk.php'/>  ";
+        <meta http-equiv='refresh' content='1; url= 'barangmasuk.php'/>  ";
         } else { echo "<div class='alert alert-warning'>
             <strong>Failed!</strong> Redirecting you back in 1 seconds.
           </div>
-         <meta http-equiv='refresh' content='1; url= indexx.php'/> ";
+         <meta http-equiv='refresh' content='1; url= 'indexx.php'/> ";
         }
 };
 // Req order Barang Barang Masuk
@@ -616,11 +616,11 @@ if(isset($_POST['hapusbarangreq'])){
         echo " <div class='alert alert-success'>
             <strong>Success!</strong> Redirecting you back in 1 seconds.
           </div>
-        <meta http-equiv='refresh' content='1; url= reqbarang.php'/>  ";
+        <meta http-equiv='refresh' content='1; url= 'reqbarang.php'/>  ";
         } else { echo "<div class='alert alert-warning'>
             <strong>Failed!</strong> Redirecting you back in 1 seconds.
           </div>
-         <meta http-equiv='refresh' content='1; url= indexx.php'/> ";
+         <meta http-equiv='refresh' content='1; url= 'indexx.php'/> ";
         }
 };
 
@@ -671,7 +671,7 @@ if(isset($_POST['accbarangkeluar'])){
         // berhasil
         echo'<script>
         alert(" Barang Sedang Dikirim, klick tombol ok untuk melanjutkan ");
-        window.location.href = "BARANGKELUARR.php"
+        window.location.href = "barangkeluarr.php"
         </script>';
     }else{
         header("Location:indexx.php");

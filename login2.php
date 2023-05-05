@@ -35,8 +35,6 @@ include ("function.php");
 //     } else if ($_SESSION['role'] == 'kepalagudang'){
 //         header('location:kepalagudang.php');
 //     }
-
-	
 // } else {
 // 	header('location:login.php?error=Anda Belum Terdaftar!');
 // }

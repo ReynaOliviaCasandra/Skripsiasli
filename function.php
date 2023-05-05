@@ -13,10 +13,19 @@ if(isset($_POST['registrasi'])){
     $cekdatabase = mysqli_query($conn,"INSERT INTO login (username,email,password,role) VALUES ('$username','$email','$password','$role')");
     // Hitung jumlah data
     if($cekdatabase){
-        header('location:login.php');
+        // header('location:login.php');
+        echo" <div class='alert alert-success'>
+                <strong>Success!</strong> Redirecting you back in 1 seconds.
+            </div>
+            <meta http-equiv='refresh' content='1; url= login.php'/>  ";
+                ;
         
     }else{
-        header('location:register.php');
+        echo" <div class='alert alert-success'>
+                <strong>Success!</strong> Redirecting you back in 1 seconds.
+            </div>
+            <meta http-equiv='refresh' content='1; url= register.php'/>  ";
+                ;
     }
 }
 // Menambah Data Sales 

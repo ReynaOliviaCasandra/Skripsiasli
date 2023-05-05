@@ -537,5 +537,5 @@
                 </div>
             </div>
             </div>
-            <!-- Selesai modal barang masuk -->
+            <!-- Selesai modal barang Keluar -->
 </html>

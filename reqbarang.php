@@ -39,8 +39,6 @@
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" id="userDropdown" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
-                        <a class="dropdown-item" href="#">Settings</a>
-                        <a class="dropdown-item" href="#">Activity Log</a>
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="logout.php">Logout</a>
                     </div>
@@ -271,12 +269,23 @@
                                             }
                                             ?></td>   
                                             <td>
-                                            <!-- <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#edit<?=$idbarang;?>">
-                                            EDIT
-                                            </button> -->
+                                            <?php
+                                            if($status == 1) {
+                                            ?>
+                                             <button type="button" class="btn btn-success mb-1 ml-2" data-toggle="modal" onclick="window.location.href='https://www.whatsapp.com/';">
+                                            WhatShap
+                                            <?php
+                                            }
+                                            ?>
+                                             <?php
+                                            if($status == 0 || $status == 2) {
+                                            ?>
                                             <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#delete<?=$idbarang;?>">
                                             DELETE
                                             </button>
+                                            <?php
+                                            }
+                                            ?>
                                             </td> 
                                         </tr>
                                         <!-- END Selesai Field Table -->

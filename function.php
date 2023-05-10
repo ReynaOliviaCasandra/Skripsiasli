@@ -342,7 +342,7 @@ if(isset($_POST['updatesales'])){
         // header('location:sales.php');
         echo'<script>
         alert(" Selamat Data Sudah terupdate!");
-        window.location.href = "Sales.php"
+        window.location.href = "sales.php"
         </script>';
     } else {
         echo 'gagal';
@@ -764,4 +764,4 @@ function rupiah($angka)
     $hasilrupiah = "Rp". number_format($angka,2,',','.');
     return $hasilrupiah;
 }
-?>
+

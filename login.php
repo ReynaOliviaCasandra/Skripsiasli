@@ -1,6 +1,7 @@
 <?php
 include 'function.php';
 // include 'cek.php';
+// include 'cek.php';
 // Check login owner, terdaftar atau tidak
 if (isset($_POST['login'])) {
     $email = $_POST['email'];
@@ -109,7 +110,6 @@ if (isset($_POST['login'])) {
                                             </div>
                                         </div>
                                         <div class="form-group d-flex align-items-center justify-content-between mt-4 mb-0">
-                                            <!-- <a class="small" href="password.html">Forgot Password?</a> -->
                                             <button class="btn btn-primary" name="login">Login</button>
                                         </div>
                                     </form>

@@ -20,15 +20,14 @@
 <body>
                                 <!-- Notifikasi succes-->
                                 <?php 
-                                $ambilsemuadatastock = mysqli_query($conn,"SELECT * FROM stock WHERE stock >20");
+                                $ambilsemuadatastock = mysqli_query($conn,"SELECT * FROM stock  WHERE stock >20");
                                 while($_POST=mysqli_fetch_array($ambilsemuadatastock)){
                                     $barang = $_POST['namabarang'];
                                     $jumlah = $_POST['stock'];
-                                
                                 ?>
                             <div class="alert alert-success alert-dismissible fade show" role="alert">
                                 <button type="button" class="close" data-dismiss="alert">&times;</button>
-                                <strong>Success!</strong> Barang masuk yaitu <?=$barang;?> dengan jumlah <?=$jumlah;?>.
+                                <strong>Success!</strong> Barang masuk yaitu <?=$barang;?> dengan jumlah <?=$jumlah;?>
                             </div>
                                 <?php 
                                 };

@@ -317,8 +317,7 @@
                                             </td>
                                             <td><?=$keterangan;?></td>
                                             <td>
-                                            <button type="button" class="btn btn-success mb-1 ml-2" data-toggle="modal" onclick="window.location.href='https://www.whatsapp.com/';">
-                                            WhatShap
+                                            <button type="button" class="btn btn-success mb-1 ml-2" data-toggle="modal" onclick="window.location.href='https://wa.me/';">whatshapp</button>
                                             <!-- Aksi Pembatasan akses role -->
                                             <?php
                                             if($_SESSION ['role'] == "owner" || $_SESSION ['role'] == "kepalagudang"){

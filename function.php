@@ -765,3 +765,12 @@ function rupiah($angka)
     return $hasilrupiah;
 }
 
+// if(isset($_POST['wa'])){
+//     $barangnya = $_POST['barangnya'];
+//     // $keterangan = $_POST['penerima'];
+//     $qty = $_POST['qty'];
+//     $status = $_POST['status'];
+//     $ambilsemuadatastock = mysqli_query($conn,"SELECT * FROM retur k, stock s, supplier r WHERE r.idsupplier = k.penerima and s.idbarang = k.idbarang");
+//     $stocksekarang= $ambildatanya['stock'];    
+//     header("location:https://api.whatsapp.com/send?phone=")
+?>

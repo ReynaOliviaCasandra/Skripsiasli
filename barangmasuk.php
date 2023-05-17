@@ -100,6 +100,7 @@
                                 <?php
                                 if($_SESSION['role'] == "owner"){
                                 ?>
+                                <a class="nav-link" href="user.php"><i class="fa-solid fa-user-tie"></i></i> &nbsp; User</a>
                                 <a class="nav-link" href="approval.php"><i class="fa-solid fa-thumbs-up"></i> &nbsp; Approval Barang</a>
                                 <?php
                                 } 

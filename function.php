@@ -1,7 +1,7 @@
 <?php
 session_start();
 // Membuat koneksi database
-$conn = mysqli_connect("localhost:33013","root","","db_stockcosmetic");
+$conn = mysqli_connect("localhost:3306","root","","db_stockcosmetic");
 // $conn = mysqli_connect("localhost","coms2497_cosmetic","Rtx20601060","coms2497_db_stockcosmetic");
 // Registrasi akun pengguna
 if(isset($_POST['registrasi'])){
@@ -765,12 +765,44 @@ function rupiah($angka)
     return $hasilrupiah;
 }
 
-// if(isset($_POST['wa'])){
-//     $barangnya = $_POST['barangnya'];
-//     // $keterangan = $_POST['penerima'];
-//     $qty = $_POST['qty'];
-//     $status = $_POST['status'];
-//     $ambilsemuadatastock = mysqli_query($conn,"SELECT * FROM retur k, stock s, supplier r WHERE r.idsupplier = k.penerima and s.idbarang = k.idbarang");
-//     $stocksekarang= $ambildatanya['stock'];    
-//     header("location:https://api.whatsapp.com/send?phone=")
+// Update User
+// Edit Sales
+if(isset($_POST['updateuser'])){
+    $username = $_POST['username'];
+    $email = $_POST['email'];
+    $password = $_POST['password'];
+    $role = $_POST['role'];
+    $iduser = $_POST['iduser'];
+    $addtouser = mysqli_query($conn,"UPDATE login set username='$username',email='$email',password='$password',role='$role' WHERE iduser='$iduser'");
+    if($addtouser)
+    {
+        // Berhasil
+        echo'<script>
+        alert("Data Barhasil Update");
+        window.location.href = "user.php"
+        </script>';
+    }else{
+        echo'<script>
+        alert("Data tidak terupdate");
+        window.location.href = "indexx.php"
+        </script>';
+    }
+}
+// Delete User
+if(isset($_POST['hapususer'])){
+    $username = $_POST['username'];
+    $email = $_POST['email'];
+    $password = $_POST['password'];
+    $role = $_POST['role'];
+    $iduser = $_POST['iduser'];
+    $hapususer = mysqli_query($conn,"DELETE FROM login WHERE iduser='$iduser'");
+    // die(mysqli_error($conn));
+    if($hapususer){
+      // Berhasil
+      echo'<script>
+      alert("Data Barhasil dihapus");
+      window.location.href = "user.php"
+      </script>';
+    } 
+}
 ?>

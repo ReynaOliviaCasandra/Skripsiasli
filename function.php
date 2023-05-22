@@ -766,7 +766,6 @@ function rupiah($angka)
 }
 
 // Update User
-// Edit Sales
 if(isset($_POST['updateuser'])){
     $username = $_POST['username'];
     $email = $_POST['email'];
@@ -791,10 +790,16 @@ if(isset($_POST['updateuser'])){
 // Delete User
 if(isset($_POST['hapususer'])){
     $username = $_POST['username'];
-    $email = $_POST['email'];
-    $password = $_POST['password'];
     $role = $_POST['role'];
     $iduser = $_POST['iduser'];
+    if($role ==='owner'){
+        // Tampilkan pesan error jika pengguna adalah owner
+        echo '<script>
+        alert("Anda tidak diizinkan menghapus pengguna ini");
+        window.location.href = "user.php";
+        </script>';
+        exit; // Menghentikan eksekusi lebih lanjut jika pengguna adalah owner
+    }
     $hapususer = mysqli_query($conn,"DELETE FROM login WHERE iduser='$iduser'");
     // die(mysqli_error($conn));
     if($hapususer){
@@ -803,6 +808,11 @@ if(isset($_POST['hapususer'])){
       alert("Data Barhasil dihapus");
       window.location.href = "user.php"
       </script>';
-    } 
+    }else{
+        echo'<script>
+        alert("Kamu tidak berhak hapus !!!");
+        window.location.href = "user.php"
+        </script>';
+    }
 }
 ?>

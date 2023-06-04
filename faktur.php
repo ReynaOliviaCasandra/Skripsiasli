@@ -238,8 +238,8 @@
                                             <button type="button" class="btn btn-warning mb-4" data-toggle="modal" data-target="#edit<?=$idfaktur;?>">
                                             EDIT
                                             </button>
-                                            <button type="button" class="btn btn-danger mb-4" data-toggle="modal" data-target="#delete<?=$idfaktur;?>">
-                                            DELETE
+                                            <!-- <button type="button" class="btn btn-danger mb-4" data-toggle="modal" data-target="#delete<?=$idfaktur;?>">
+                                            DELETE -->
                                             </td>
                                         </tr>
                                          

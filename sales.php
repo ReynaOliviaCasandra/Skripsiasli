@@ -233,12 +233,19 @@
                                             <td><?=$usaha;?></td>
                                             <td><?=$kontak;?></td>
                                             <td>
+                                             <!-- Fungsi  Hak Akes Halaman -->
+                                             <?php
+                                            if($_SESSION['role'] == "owner" || $_SESSION['role'] == "manager"){
+                                            ?>
                                             <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#edit<?=$idsales;?>">
                                             EDIT
                                             </button>
-                                            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#delete<?=$idsales;?>">
+                                            <?php
+                                            }
+                                            ?>
+                                            <!-- <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#delete<?=$idsales;?>">
                                             DELETE
-                                            </td>
+                                            </td> -->
                                         </tr>
                                         <!-- END Selesai Field Table -->
                                         <!-- Aksi CRUD -->

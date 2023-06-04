@@ -26,7 +26,8 @@ include 'cek.php';
                 <table class="table table-bordered" id="exportharga" width="100%" cellspacing="0">
                                         <thead>
                                             <tr>
-                                                <th>Id Barang</th>
+                                                <th>ID Harga</th>
+                                                <th>ID Barang</th>
                                                 <th>Nama Barang</th>
                                                 <th>jenis Barang</th>
                                                 <th>Stock</th>
@@ -49,6 +50,7 @@ include 'cek.php';
                                         ?>
                                          <tr>
                                             <td><?=$i++;?></td>
+                                            <td><?=$idbarang?></td>
                                             <td><?=$namabarang;?></td>
                                             <td><?=$jenisbarang;?></td>
                                             <td><?=$stock;?></td>
@@ -64,6 +66,16 @@ include 'cek.php';
                                     </table>
 				                    </div>
                                 </div>
+                                <div class="d-flex justify-content-center">
+                                    <button class="btn btn-primary" onclick="goBack()">Kembali</button>
+                                </div>
+                                <!-- Function kembali -->
+                                <script>
+                                function goBack() {
+                                window.history.back();
+                                }
+                                </script>
+                                <!--  -->
         <script>
         $(document).ready(function() {
             $('#exportharga').DataTable( {

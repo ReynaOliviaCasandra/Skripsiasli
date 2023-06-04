@@ -251,7 +251,9 @@
                                     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                         <thead>
                                             <tr>
-                                                <th>id_Retur</th>
+                                                <th>ID Retur</th>
+                                                <th>ID Barang</th>
+                                                <th>ID Faktur</th>
                                                 <th>Nama Barang</th>
                                                 <th>Jenis Barang</th>
                                                 <th>Tanggal</th>
@@ -262,16 +264,6 @@
                                                 <th>Aksi</th>   
                                             </tr>
                                         </thead>
-                                        <!-- <tfoot>
-                                            <tr>
-                                                <th>Name</th>
-                                                <th>Position</th>
-                                                <th>Office</th>
-                                                <th>Age</th>
-                                                <th>Start date</th>
-                                                <th>Salary</th>
-                                            </tr>
-                                        </tfoot> -->
                                         <!-- Mulai Field Table -->
                                         <tbody>
                                         <?php
@@ -286,13 +278,14 @@
                                             }
                                         }
                                         else{
-                                            $ambilsemuadatastock = mysqli_query($conn,"SELECT * FROM retur k, stock s, supplier r WHERE r.idsupplier = k.penerima and s.idbarang = k.idbarang");
+                                            $ambilsemuadatastock = mysqli_query($conn,"SELECT * FROM retur k, stock s, supplier r, faktur f WHERE f.idfaktur=k.idfaktur and r.idsupplier = k.penerima and s.idbarang = k.idbarang");
                                         }
                                         // $ambilsemuadatastock = mysqli_query($conn,"SELECT * FROM keluar k, stock s WHERE s.idbarang = k.idbarang");
                                         $i=1;
                                         while($data=mysqli_fetch_array($ambilsemuadatastock)){
                                             $idr =$data['idretur'];
                                             $idbarang = $data['idbarang'];
+                                            $idfaktur = $data['idfaktur'];
                                             $tanggal = $data['tanggal'];
                                             $namabarang = $data['namabarang'];
                                             $jenisbarang =$data['jenisbarang'];
@@ -303,6 +296,8 @@
                                         ?>
                                         <tr>
                                         <td><?=$i++;?></td>
+                                            <td><?=$idbarang?></td>
+                                            <td><?=$idfaktur?></td>
                                             <td><?=$namabarang;?></td>
                                             <td><?=$jenisbarang;?></td>
                                             <td><?=$tanggal;?></td>
@@ -330,10 +325,50 @@
                                             <?php
                                             };
                                             ?>
+                                            <?php
+                                            if($_SESSION ['role'] == "owner" || $_SESSION ['role'] == "kepalagudang" || $_SESSION ['role'] == "manager"){
+                                            ?> 
+                                            <!-- Batasan yang boleh chat -->
+                                            <button type="button" class="btn btn-warning mb-1 ml-2" data-toggle="modal" data-target="#edit<?=$idr;?>">
+                                            Edit
+                                            </button>
+                                            <?php
+                                            };
+                                            ?>
                                              <!-- Selesai Aksi Rolenya -->
                                              </td>
                                              </tr>
                                             <!-- Selesai Aksi Rolenya -->
+                                             <!-- End barang rusak ke sales -->
+                                                <!-- The  Edit Modal -->
+                                                <div class="modal fade" id="edit<?=$idr;?>">
+                                                <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                <!-- Modal Header -->
+                                                <div class="modal-header">
+                                                <h4 class="modal-title">Edit Barang</h4>
+                                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                </div>
+                                                <!-- Modal body -->
+                                                <!-- Content 1 -->
+                                                <form method="post">
+                                                <div class="modal-body">
+                                                <div class="form-group">
+                                                <p>Masukan Jumlah Qty</p>
+                                                <input class="form-control py-4 mb-2"  name="qty"  type="number" min="1"   placeholder="Jumlah Stock"  value="<?=$qty;?>"required/>
+                                                <input type="hidden" name="idbarang" value="<?=$idbarang;?>">
+                                                <input type="hidden" name="idretur" value="<?=$idr;?>">
+                                                <button type="submit" class="btn btn-primary" name="updatebarangretur" >Submit</button>
+                                                </div>
+                                                </div>
+                                                <!-- Modal footer -->
+                                                <div class="modal-footer">
+                                                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                                                </div>
+                                                </form>
+                                            </div>
+                                            </div>
+                                        </div>
                                             <!-- Kirim Barang rusak Ke sales -->
                                              <div class="modal fade" id="kirimsales<?=$idr;?>">
                                              <div class="modal-dialog">
@@ -412,11 +447,24 @@
                     <!-- Modal body -->
                     <form method="POST">
                     <div class="modal-body">
+                    <p>Pilih Fakturnya</p>
+                    <select name="fakturnya" class="form-control mb-2">
+                       <?php
+                       $ambilsemuadatanya = mysqli_query($conn,"SELECT * FROM faktur");
+                       while($fetcharray = mysqli_fetch_array($ambilsemuadatanya)){
+                            // $supplier = $fetcharray['supplier'];
+                            $idfaktur = $fetcharray['idfaktur'];
+                        ?>
+                        <option value="<?=$idfaktur;?>"><?=$idfaktur;?></option> 
+                        <?php
+                        };
+                       ?>
+                    </select>
                     <select name="barangnya" class="form-control mb-2">
                        <?php
                        $ambilsemuadatanya = mysqli_query($conn,"SELECT * FROM stock  ORDER BY namabarang ASC");
                        while($fetcharray = mysqli_fetch_array($ambilsemuadatanya)){
-                            $namabarangnya = $fetcharray['namabarang'];
+                            $namabarangnya = $fetcharray['namabarang']; 
                             $idbarangnya = $fetcharray['idbarang'];
                         ?>
                         <option value="<?=$idbarangnya;?>"><?=$namabarangnya;?></option> 
@@ -424,7 +472,7 @@
                             }
                        ?>
                     </select>
-                    <input type="number"  name="qty" class="form-control mb-2" placeholder="Quantity" required  />
+                    <input type="number"  name="qty" min="1" class="form-control mb-2" placeholder="Quantity" required  />
                     <input class="form-control py-4 mb-2"  name="status" type="text" placeholder="Status Barang" required />
                     <!-- <input class="form-control py-4 mb-2"  name="penerima" type="text" placeholder="Sales" required  /> -->
                     <select name="penerima" class="form-control mb-2">
@@ -441,6 +489,7 @@
                     </select>
                     <input type="hidden" name="idretur" value="<?=$idr;?>">
                     <input type="hidden" name="idbarang" value="<?=$idbarang;?>">
+                    <input type="hidden" name="fakturnya" value="<?=$idfaktur;?>">
                     <button type="submit" name="barangretur"class="btn btn-primary" >Submit</button>
                     </div>
                     <!-- Modal footer -->

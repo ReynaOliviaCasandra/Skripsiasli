@@ -59,6 +59,16 @@ include 'cek.php';
                                     </table>
 				                    </div>
                                 </div>
+                                <div class="d-flex justify-content-center">
+                                    <button class="btn btn-primary" onclick="goBack()">Kembali</button>
+                                </div>
+                                <!-- Function kembali -->
+                                <script>
+                                function goBack() {
+                                window.history.back();
+                                }
+                                </script>
+                                <!-- Enf Function Kembali -->
         <script>
         $(document).ready(function() {
             $('#pindahexport').DataTable( {

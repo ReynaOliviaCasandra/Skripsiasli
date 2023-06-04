@@ -3,62 +3,135 @@ include 'function.php';
 // include 'cek.php';
 // include 'cek.php';
 // Check login owner, terdaftar atau tidak
+// if (isset($_POST['login'])) {
+//     $email = $_POST['email'];
+//     $username = $_POST['username'];
+//     $password = $_POST['password'];
+//     $role = $_POST['role'];
+//     // die(mysqli_error($conn));
+//     // Cocokan dengan database, cari data
+//     $_SESSION['isLoggedin']= '1';
+//     $cekdatabase = mysqli_query($conn, "SELECT * FROM login WHERE role='$role' AND email= '$email' AND username='$username'AND password='$password'");
+//     // Hitung jumlah data
+//     $hitung = mysqli_num_rows($cekdatabase);
+//     if ($hitung > 0) {
+//         // Kalau data ditemukan
+//         // $_SESSION['log']= 'TRUE';
+//         $ambildatrole = mysqli_fetch_array($cekdatabase);
+//         $role = $ambildatrole['role'];
+//         if ($role == 'owner') {
+//             // Kalau dia owner
+//             $_SESSION['log']= 'Logged';
+//             $_SESSION['role'] = 'owner';
+//             // header('location: indexx.php'); //halaman utama
+//             echo'<script>
+//             alert("Selamat Datang Owner !!");
+//             window.location.href = "indexx.php"
+//             </script>';
+//         } else if ($role == 'manager') {
+//             // Kalau bukan owner
+//             $_SESSION['log']= 'Logged';
+//             $_SESSION['role'] = 'manager';
+//             // header('location: homemanager.php');
+//             echo'<script>
+//             alert("Selamat Datang Manager !!");
+//             window.location.href = "indexx.php"
+//             </script>';
+//         } else if ($role == 'kepalagudang') {
+//             //Kalau bukan manager
+//             $_SESSION['log']= 'Logged';
+//             $_SESSION['role'] = 'kepalagudang';
+//             // header('location:homegudang.php');
+//             echo'<script>
+//             alert("Selamat Datang Kepala gudang,semoga harimu menyenangkan !!");
+//             window.location.href = "indexx.php"
+//             </script>';
+//         }elseif($role=='invalid'){
+//             echo'<script>
+//             alert("anda sudah di pecat GOBLOK!!");
+//             window.location.href = "logout.php"
+//             </script>';
+//         }
+//         else {
+//             echo'<script>
+//             alert("anda tidak ada hak !!");
+//             window.location.href = "login.php"
+//             </script>';
+//         }
+//     }else{
+//         echo'<script>
+//         alert("Data Tidak ditemukan !!");
+//         window.location.href = "login.php"
+//         </script>';
+//     }
+// };
 if (isset($_POST['login'])) {
     $email = $_POST['email'];
     $username = $_POST['username'];
     $password = $_POST['password'];
-    $role = $_POST['role'];
-    // die(mysqli_error($conn));
     // Cocokan dengan database, cari data
-    $_SESSION['isLoggedin']= '1';
-    $cekdatabase = mysqli_query($conn, "SELECT * FROM login WHERE role='$role' AND email= '$email' AND username='$username'AND password='$password'");
+    $cekdatabase = mysqli_query($conn, "SELECT * FROM login WHERE email= '$email' AND username='$username' AND password='$password'");
     // Hitung jumlah data
     $hitung = mysqli_num_rows($cekdatabase);
     if ($hitung > 0) {
-        // Kalau data ditemukan
-        // $_SESSION['log']= 'TRUE';
+        // Data ditemukan
         $ambildatrole = mysqli_fetch_array($cekdatabase);
         $role = $ambildatrole['role'];
-        if ($role == 'owner') {
-            // Kalau dia owner
-            $_SESSION['log']= 'Logged';
-            $_SESSION['role'] = 'owner';
-            // header('location: indexx.php'); //halaman utama
-            echo'<script>
-            alert("Selamat Datang Owner !!");
-            window.location.href = "indexx.php"
-            </script>';
-        } else if ($role == 'manager') {
-            // Kalau bukan owner
-            $_SESSION['log']= 'Logged';
-            $_SESSION['role'] = 'manager';
-            // header('location: homemanager.php');
-            echo'<script>
-            alert("Selamat Datang Manager !!");
-            window.location.href = "indexx.php"
-            </script>';
-        } else if ($role == 'kepalagudang') {
-            //Kalau bukan manager
-            $_SESSION['log']= 'Logged';
-            $_SESSION['role'] = 'kepalagudang';
-            // header('location:homegudang.php');
-            echo'<script>
-            alert("Selamat Datang Kepala gudang,semoga harimu menyenangkan !!");
-            window.location.href = "indexx.php"
+        $status = $ambildatrole['status'];
+
+        // Set session
+        $_SESSION['isLoggedin'] = true;
+        $_SESSION['log'] = 'Logged';
+        $_SESSION['role'] = $role;
+
+        if ($status == 1) {
+            // Jika status akun aktif
+            if ($role == 'owner') {
+                // Jika role adalah owner
+                echo '<script>
+                    alert("Selamat Datang Owner!!");
+                    window.location.href = "indexx.php";
+                </script>';
+            } else if ($role == 'manager') {
+                // Jika role adalah manager
+                echo '<script>
+                    alert("Selamat Datang Manager!!");
+                    window.location.href = "indexx.php";
+                </script>';
+            } else if ($role == 'kepalagudang') {
+                // Jika role adalah kepala gudang
+                echo '<script>
+                    alert("Selamat Datang Kepala Gudang!!");
+                    window.location.href = "indexx.php";
+                </script>';
+            } else {
+                // Jika role tidak valid
+                echo '<script>
+                    alert("Anda tidak memiliki hak akses!!");
+                    window.location.href = "login.php";
+                </script>';
+            }
+        } else if ($status == 2) {
+            // Jika status akun mati
+            echo '<script>
+                alert("Akun Anda telah dinonaktifkan!!");
+                window.location.href = "login.php";
             </script>';
         } else {
-            echo'<script>
-            alert("anda tidak ada hak !!");
-            window.location.href = "login.php"
+            // Jika status akun tidak valid
+            echo '<script>
+                alert("Status akun tidak valid!!");
+                window.location.href = "login.php";
             </script>';
         }
-    }else{
-        echo'<script>
-        alert("Data Tidak ditemukan !!");
-        window.location.href = "login.php"
+    } else {
+        // Data tidak ditemukan
+        echo '<script>
+            alert("Data tidak ditemukan!!");
+            window.location.href = "login.php";
         </script>';
     }
-};
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">

@@ -125,7 +125,7 @@
                                         <?php
                                             if($_SESSION['role'] == "owner"){
                                                 ?>
-                                                 <a class="nav-link" href="login.php">Login</a>
+                                                 <!-- <a class="nav-link" href="login.php">Login</a> -->
                                             <?php
                                         } 
                                             ?>
@@ -241,9 +241,16 @@
                         </div>
                         <div class="card mb-4">
                             <div class="card-header">
-                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#_1">
-                                 Tambah barang
-                            </button>
+                            <?php
+                            if($_SESSION ['role'] == "owner"){
+                                ?> 
+                                <!-- Batasan yang boleh chat -->
+                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#_1">
+                                Tambah barang
+                                </button>
+                                <?php
+                                };
+                                ?>
                             <a href="laporanstockgudang.php" id="pindahexport" class="btn btn-info">Exportdata</a>
                             <i class="fas fa-table mr-1"></i>
                             Data Harga Barang Cosmetic Modern
@@ -258,7 +265,7 @@
                                 ?>
                             <div class="alert alert-danger alert-dismissible fade show">
                                 <button type="button" class="close" data-dismiss="alert">&times;</button>
-                                <strong>Woy!</strong> Mohon dilihat <?=$barang;?> tinggal segiini <?=$jumlah;?> 
+                                <strong>Perhatian!</strong> Mohon dilihat <?=$barang;?> tinggal segiini <?=$jumlah;?> 
                             </div>
                                 <?php 
                                 };
@@ -274,7 +281,7 @@
                                 ?>
                             <div class="alert alert-warning alert-dismissible fade show">
                                 <button type="button" class="close" data-dismiss="alert">&times;</button>
-                                <strong>Warning!</strong> Mohon dilihat <?=$barang;?> tinggal segiini <?=$jumlah;?>
+                                <strong>Perhatikan!</strong> Mohon dilihat <?=$barang;?> tinggal segiini <?=$jumlah;?>
                             </div>
                                 <?php 
                                 };
@@ -330,8 +337,8 @@
                                             <?php
                                             if($_SESSION['role'] == "owner" || $_SESSION['role'] == "managertoko"){
                                             ?>
-                                                    <button type="button" class="btn btn-danger mb-4" data-toggle="modal" data-target="#delete<?=$idbarang;?>">
-                                                    DELETE
+                                            <!-- <button type="button" class="btn btn-danger mb-4" data-toggle="modal" data-target="#delete<?=$idbarang;?>">
+                                            DELETE -->
                                             <?php
                                             };
                                             ?>
@@ -354,7 +361,7 @@
                                                 <div class="form-group">
                                                 <input class="form-control py-4 mb-2" id="inputEmailAddress" name="namabarang"  type="text"     placeholder="Nama Barang"  value="" required/>
                                                 <input class="form-control py-4 mb-2" id="inputEmailAddress" name="jenisbarang" type="text"     placeholder="Jenis Barang" value="" required/>
-                                                <input class="form-control py-4 mb-2" id="inputEmailAddress" name="stock"       type="number"   placeholder="Jumlah Stock"  value=""required/>
+                                                <!-- <input class="form-control py-4 mb-2" id="inputEmailAddress" name="stock"       type="number"   placeholder="Jumlah Stock"  value=""required/> -->
                                                 <input type="file" name="file" class="form-control mb-2">
                                                 <button type="submit" class="btn btn-primary mt-4" name="addnewbarang" >Submit</button>
                                                 </div>

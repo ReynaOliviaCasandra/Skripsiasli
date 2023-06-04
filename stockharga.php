@@ -239,7 +239,8 @@
                                     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                         <thead>
                                             <tr>
-                                                <th>Id Barang</th>
+                                                <th>ID Harga</th>
+                                                <th>ID Barang</th>
                                                 <th>Nama Barang</th>
                                                 <th>jenis Barang</th>
                                                 <th>Stock</th>
@@ -278,6 +279,7 @@
                                         ?>
                                         <tr>
                                             <td><?=$i++;?></td>
+                                            <td><?=$idbarang;?></td>
                                             <td><?=$namabarang;?></td>
                                             <td><?=$jenisbarang;?></td>
                                             <td><?=$stock;?></td>
@@ -298,9 +300,9 @@
                                         } 
                                             ?>
                                             <!-- Fungsi Hak akses user -->
-                                            <button type="button" class="btn btn-danger mb-2" data-toggle="modal" data-target="#delete<?=$idbarang;?>">
+                                            <!-- <button type="button" class="btn btn-danger mb-2" data-toggle="modal" data-target="#delete<?=$idbarang;?>">
                                             DELETE
-                                            </td>
+                                            </td> -->
                                         </tr>
                                         <!-- END Selesai Field Table -->
                                         <!-- Aksi CRUD -->
@@ -319,9 +321,10 @@
                                                 <form method="post">
                                                 <div class="modal-body">
                                                 <div class="form-group">
-                                                <input class="form-control py-4 mb-2" id="inputEmailAddress" name="namabarang"  type="text"     placeholder="Nama Barang"  value="<?=$namabarang;?>" required/>
-                                                <input class="form-control py-4 mb-2" id="inputEmailAddress" name="jenisbarang" type="text"     placeholder="Jenis Barang" value="<?=$jenisbarang;?>" required/>
-                                                <input class="form-control py-4 mb-2" id="inputEmailAddress" name="Harga"       type="text"     placeholder="Harga Barang" value="<?=$hargabarang;?>" required/>
+                                                <input class="form-control py-4 mb-2" id="inputEmailAddress" name="namabarang"  type="hidden"     placeholder="Nama Barang"  value="<?=$namabarang;?>" required/>
+                                                <input class="form-control py-4 mb-2" id="inputEmailAddress" name="jenisbarang" type="hidden"     placeholder="Jenis Barang" value="<?=$jenisbarang;?>" required/>
+                                                <p>Masukan Harga Barang</p>
+                                                <input class="form-control py-4 mb-2" id="inputEmailAddress" name="Harga"       type="text"    placeholder="Harga Barang" value="<?=$hargabarang;?>" required/>
                                                 <input type="hidden" name="idbarang" value="<?=$idbarang;?>">
                                                 <input type="hidden" name="idmasuk" value="<?=$idm;?>">
                                                 <button type="submit" class="btn btn-primary" name="updatehargabarang" >Submit</button>

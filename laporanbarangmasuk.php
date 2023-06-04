@@ -24,7 +24,9 @@ include 'cek.php';
                 <table class="table table-bordered" id="exportmasuk" width="100%" cellspacing="0">
                                         <thead>
                                             <tr>
-                                            <th>id_keluar</th>
+                                            <th>ID Keluar</th>
+                                            <th>ID Barang</th>
+                                            <!-- <th>ID Faktur</th> -->
                                                 <th>Nama Barang</th>
                                                 <th>Jenis Barang</th>
                                                 <th>Tanggal</th>
@@ -39,6 +41,7 @@ include 'cek.php';
                                          $ambilsemuadatastock = mysqli_query($conn,"SELECT * FROM masuk m, stock s, login l WHERE l.iduser= m.penerima and s.idbarang = m.idbarang");
                                          $i=1;
                                          while($data=mysqli_fetch_array($ambilsemuadatastock)){
+                                            $idbarang = $data['idbarang'];
                                              $tanggal = $data['tanggal'];
                                              $namabarang = $data['namabarang'];
                                              $jenisbarang =$data['jenisbarang'];
@@ -47,6 +50,7 @@ include 'cek.php';
                                          ?>
                                          <tr>
                                              <td><?=$i++;?></td>
+                                             <td><?=$idbarang;?></td>
                                              <td><?php echo $namabarang;?></td>
                                              <td><?php echo $jenisbarang;?></td>
                                              <td><?php echo $tanggal;?></td>
@@ -62,16 +66,27 @@ include 'cek.php';
                                     </table>
 				                    </div>
                                 </div>
-        <script>
-        $(document).ready(function() {
-            $('#exportmasuk').DataTable( {
-                dom: 'Bfrtip',
-                buttons: [
-                    'copy','csv','excel', 'pdf', 'print'
-                ]
-            } );
-        } );
-        </script>
+                                <div class="d-flex justify-content-center">
+                                    <button class="btn btn-primary" onclick="goBack()">Kembali</button>
+                                </div>
+                                <!-- Function kembali -->
+                                <script>
+                                function goBack() {
+                                window.history.back();
+                                }
+                                </script>
+                                <!--  -->
+                                <!-- Export -->
+                                <script>
+                                $(document).ready(function() {
+                                    $('#exportmasuk').DataTable( {
+                                        dom: 'Bfrtip',
+                                        buttons: [
+                                            'copy','csv','excel', 'pdf', 'print'
+                                        ]
+                                    } );
+                                } );
+                                </script>
 <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
 <script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/buttons/1.6.5/js/dataTables.buttons.min.js"></script>

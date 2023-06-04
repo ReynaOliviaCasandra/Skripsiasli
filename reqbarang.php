@@ -216,11 +216,11 @@
                                         <thead>
                                             <tr>
                                                 <!-- <th>Id_MasukBarang</th> -->
-                                                <th>Id Req</th>
+                                                <th>ID Req</th>
+                                                <th>ID Barang</th>
                                                 <th>Nama_Barang</th>
                                                 <th>Jenis_Barang</th>
                                                 <th>Tanggal</th>
-                                                <th>Penerima</th>
                                                 <th>QTY</th>
                                                 <th>Status</th>
                                                 <th>AKSi</th>
@@ -250,15 +250,14 @@
                                             $namabarang = $data['namabarang'];
                                             $jenisbarang =$data['jenisbarang'];
                                             $qty = $data['qty'];
-                                            $keterangan = $data['penerima'];
                                             $status = $data['status'];
                                         ?>
                                         <tr>
                                             <td><?=$i++?></td>
+                                            <td><?=$idbarang;?></td>
                                             <td><?=$namabarang;?></td>
                                             <td><?=$jenisbarang;?></td>
                                             <td><?=$tanggal;?></td>
-                                            <td><?=$keterangan;?></td>
                                             <td><?=$qty;?></td>
                                             <td><?php
                                             if($status == 0) {
@@ -281,24 +280,33 @@
                                              <?php
                                             if($status == 0 || $status == 2) {
                                             ?>
-                                            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#delete<?=$idbarang;?>">
+                                            <button type="button" class="btn btn-danger mt-2" data-toggle="modal" data-target="#delete<?=$idrq;?>">
                                             DELETE
+                                            </button>
+                                            <?php
+                                            if($status == 0) {
+                                            ?>
+                                            <button type="button" class="btn btn-warning mt-2" data-toggle="modal" data-target="#edit<?=$idrq;?>">
+                                            Edit
                                             </button>
                                             <?php
                                             }
                                             ?>
-                                            </td> 
+                                            <?php
+                                            }
+                                            ?>
+                                            </td>
                                         </tr>
                                         <!-- END Selesai Field Table -->
                                         <!-- Aksi CRUD -->
                                         <!-- Modal stock Gudang -->
                                                 <!-- The  Edit Modal -->
-                                                <div class="modal fade" id="edit<?=$idbarang;?>">
+                                                <div class="modal fade" id="edit<?=$idrq;?>">
                                                 <div class="modal-dialog">
                                                 <div class="modal-content">
                                                 <!-- Modal Header -->
                                                 <div class="modal-header">
-                                                <h4 class="modal-title">Edit Barang</h4>
+                                                <h4 class="modal-title">Edit Barang Req</h4>
                                                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                                                 </div>
                                                 <!-- Modal body -->
@@ -306,11 +314,8 @@
                                                 <form method="post">
                                                 <div class="modal-body">
                                                 <div class="form-group">
-                                                <input class="form-control py-4 mb-2" id="inputEmailAddress" name="namabarang"  type="text"     placeholder="Nama Barang"   value="<?=$namabarang;?>" required/>
-                                                <input class="form-control py-4 mb-2" id="inputEmailAddress" name="jenisbarang" type="text"     placeholder="Jenis Barang"  value="<?=$jenisbarang;?>" required/>
-                                                <input class="form-control py-4 mb-2" id="inputEmailAddress" name="penerima"    type="text"     placeholder="Penerima"      value="<?=$keterangan;?>"/>
-                                                <input class="form-control py-4 mb-2" id="inputEmailAddress" name="qty"         type="number"   placeholder="Jumlah Stock"  value="<?=$qty;?>"required/>
-                                                <input  type="date"   name="kadarluasa"      class="form-control mb-2  "   placeholder="Kadarluasa" required value="<?=$exp;?>"/>
+                                                <p>Masukan Jumlah QTY</p>
+                                                <input class="form-control py-4 mb-2" id="inputEmailAddress" name="qty"         type="number"  min="1"  placeholder="Jumlah Stock"  value="<?=$qty;?>"required/>
                                                 <input  type="hidden" name="idbarang" value="<?=$idbarang;?>">
                                                 <input type="hidden" name="idreq" value="<?=$idrq;?>">
                                                 <button type="submit" class="btn btn-primary" name="updatebarangreq" >Submit</button>
@@ -326,7 +331,7 @@
                                         </div>
                                                 <!-- Modal stock Gudang -->
                                                 <!-- The  delete Modal -->
-                                                <div class="modal fade" id="delete<?=$idbarang;?>">
+                                                <div class="modal fade" id="delete<?=$idrq?>">
                                                 <div class="modal-dialog">
                                                 <div class="modal-content">
                                                 <!-- Modal Header -->
@@ -338,7 +343,7 @@
                                                 <!-- Content 1 -->
                                                 <form method="POST">
                                                 <div class="modal-body mb-2">
-                                                Apakah anda yakin ingin menghapus Barang <?=$namabarang;?> Jenis <?=$jenisbarang;?> ?
+                                                Apakah anda yakin ingin menghapus reques Barang  <?=$namabarang;?> Jenis <?=$jenisbarang;?> ?
                                                 <input type="hidden" name="idbarang"    value="<?=$idbarang;?>">
                                                 <input type="hidden" name="qty"         value="<?=$qty;?>">
                                                 <input type="hidden" name="idreq"     value="<?=$idrq;?>">
@@ -406,7 +411,7 @@
                     <div class="modal-body">
                     <select name="barangnya" class="form-control mb-2">
                        <?php
-                       $ambilsemuadatanya = mysqli_query($conn,"SELECT * FROM stock");
+                        $ambilsemuadatanya = mysqli_query($conn,"SELECT * FROM stock  ORDER BY namabarang asc");
                        while($fetcharray = mysqli_fetch_array($ambilsemuadatanya)){
                             $namabarangnya = $fetcharray['namabarang'];
                             $idbarangnya = $fetcharray['idbarang'];
@@ -416,8 +421,8 @@
                         };
                        ?>
                     </select>
-                    <input  type="number"  name="qty"            class="form-control mb-2  "  placeholder="Quantity" required  />
-                    <input  type="text"   name="penerima"       class="form-control mb-2  "   placeholder="Penerima" required  />
+                    <input  type="number"  name="qty"            class="form-control mb-2 " min="1"  placeholder="Quantity" required  />
+                    <!-- <input  type="text"   name="penerima"       class="form-control mb-2  "   placeholder="Penerima" required  /> -->
                     <button type="submit" name="req"            class="btn btn-primary" >Submit</button>
                     </div>
                     <!-- Modal footer -->

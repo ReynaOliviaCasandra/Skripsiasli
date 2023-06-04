@@ -218,6 +218,7 @@
                                             <tr>
                                                 <!-- <th>Id_MasukBarang</th> -->
                                                 <th>Id Keluar</th>
+                                                <th>Id Barang</th>
                                                 <th>Nama_Barang</th>
                                                 <th>Jenis_Barang</th>
                                                 <th>Tanggal</th>
@@ -255,6 +256,7 @@
                                         ?>
                                         <tr>
                                             <td><?=$i++?></td>
+                                            <td><?=$idbarang?></td>
                                             <td><?=$namabarang;?></td>
                                             <td><?=$jenisbarang;?></td>
                                             <td><?=$tanggal;?></td>
@@ -272,12 +274,12 @@
                                             ?>
                                             </td>
                                             <td>
-                                            <button type="button" class="btn btn-warning mb-2" data-toggle="modal" data-target="#edit<?=$idbarang;?>">
-                                            E
+                                            <button type="button" class="btn btn-warning mb-2" data-toggle="modal" data-target="#edit<?=$idk;?>">
+                                            Edit
                                             </button>
-                                            <button type="button" class="btn btn-danger mb-2" data-toggle="modal" data-target="#delete<?=$idbarang;?>">
+                                            <!-- <button type="button" class="btn btn-danger mb-2" data-toggle="modal" data-target="#delete<?=$idk;?>">
                                             D
-                                            </button>
+                                            </button> -->
                                             <!-- Aksi Pembatasan akses role -->
                                             <?php
                                             if($_SESSION['role'] == "owner" || $_SESSION['role'] == "manager"){
@@ -407,7 +409,7 @@
                                         </div>
                                                 <!-- End barang rusak ke sales -->
                                                 <!-- The  Edit Modal -->
-                                                <div class="modal fade" id="edit<?=$idbarang;?>">
+                                                <div class="modal fade" id="edit<?=$idk;?>">
                                                 <div class="modal-dialog">
                                                 <div class="modal-content">
                                                 <!-- Modal Header -->
@@ -421,7 +423,7 @@
                                                 <div class="modal-body">
                                                 <div class="form-group">
                                                 <p>Masukan Jumlah Qty</p>
-                                                <input class="form-control py-4 mb-2" id="inputEmailAddress" name="qty"         type="number"   placeholder="Jumlah Stock"  value="<?=$qty;?>"required/>
+                                                <input class="form-control py-4 mb-2"  name="qty"  type="number" min="1"  placeholder="Jumlah Stock"  value="<?=$qty;?>"required/>
                                                 <input type="hidden" name="idbarang" value="<?=$idbarang;?>">
                                                 <input type="hidden" name="idkeluar" value="<?=$idk;?>">
                                                 <button type="submit" class="btn btn-primary" name="updatebarangkeluar" >Submit</button>
@@ -437,7 +439,7 @@
                                         </div>
                                                 <!-- Modal stock Gudang -->
                                                 <!-- The  delete Modal -->
-                                                <div class="modal fade" id="delete<?=$idbarang;?>">
+                                                <div class="modal fade" id="delete<?=$idk;?>">
                                                 <div class="modal-dialog">
                                                 <div class="modal-content">
                                                 <!-- Modal Header -->
@@ -517,7 +519,7 @@
                     <div class="modal-body">
                     <select name="barangnya" class="form-control mb-2">
                        <?php
-                       $ambilsemuadatanya = mysqli_query($conn,"SELECT * FROM stock  ORDER BY namabarang ASC");
+                       $ambilsemuadatanya = mysqli_query($conn,"SELECT * FROM stock  ORDER BY namabarang DESC");
                        while($fetcharray = mysqli_fetch_array($ambilsemuadatanya)){
                             $namabarangnya = $fetcharray['namabarang'];
                             $idbarangnya = $fetcharray['idbarang'];
@@ -527,7 +529,7 @@
                         };
                        ?>
                     </select>
-                    <input  type="number"  name="qty"            class="form-control mb-2  "  placeholder="Quantity" required  />
+                    <input  type="number"  name="qty"            class="form-control mb-2" min="1"  placeholder="Quantity" required  />
                     <button type="submit" name="barangkeluar"    class="btn btn-primary" >Submit</button>
                     </div>
                     <!-- Modal footer -->

@@ -25,7 +25,8 @@ include 'cek.php';
                 <table class="table table-bordered" id="exportkeluar" width="100%" cellspacing="0">
                                         <thead>
                                             <tr>
-                                            <th>id_keluar</th>
+                                            <th>ID Keluar</th>
+                                            <th>ID Barang</th>
                                                 <th>Nama Barang</th>
                                                 <th>Jenis Barang</th>
                                                 <th>Tanggal</th>
@@ -43,12 +44,14 @@ include 'cek.php';
                                              $namabarang = $data['namabarang'];
                                              $jenisbarang =$data['jenisbarang'];
                                              $qty = $data['qty'];
+                                             $idbarang = $data['idbarang'];
                                             //  $statusbarang = $data['statusbarang'];
                                             //  $status= $data['status'];
                                             //  $statusbarang = $data['statusbarang'];
                                          ?>
                                          <tr>
                                              <td><?=$i++;?></td>
+                                             <td><?=$idbarang;?></td>
                                              <td><?php echo $namabarang;?></td>
                                              <td><?php echo $jenisbarang;?></td>
                                              <td><?php echo $tanggal;?></td>
@@ -63,6 +66,16 @@ include 'cek.php';
                                     </table>
 				                    </div>
                                 </div>
+                                <div class="d-flex justify-content-center">
+                                    <button class="btn btn-primary" onclick="goBack()">Kembali</button>
+                                </div>
+                                <!-- Function kembali -->
+                                <script>
+                                function goBack() {
+                                window.history.back();
+                                }
+                                </script>
+                                <!--  -->
         <script>
         $(document).ready(function() {
             $('#exportkeluar').DataTable( {

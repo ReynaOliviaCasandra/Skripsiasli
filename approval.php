@@ -215,11 +215,11 @@
                                         <thead>
                                             <tr>
                                                 <!-- <th>Id_MasukBarang</th> -->
-                                                <th>Id req</th>
+                                                <th>ID Req</th>
+                                                <th>ID Barang</th>
                                                 <th>Nama_Barang</th>
                                                 <th>Jenis_Barang</th>
                                                 <th>Tanggal</th>
-                                                <th>Penerima</th>
                                                 <th>QTY</th>
                                                 <th>Status</th>
                                                 <th>AKSi</th>
@@ -248,15 +248,15 @@
                                             $namabarang = $data['namabarang'];
                                             $jenisbarang =$data['jenisbarang'];
                                             $qty = $data['qty'];
-                                            $keterangan = $data['penerima'];
+                                            // $keterangan = $data['penerima'];
                                             $status = $data['status'];
                                         ?>
                                         <tr>
                                             <td><?=$i++?></td>
+                                            <td><?=$idbarang;?></td>
                                             <td><?=$namabarang;?></td>
                                             <td><?=$jenisbarang;?></td>
                                             <td><?=$tanggal;?></td>
-                                            <td><?=$keterangan;?></td>
                                             <td><?=$qty;?></td>
                                             <td><?php
                                             if($status == 0) {
@@ -274,7 +274,7 @@
                                             <button type="button" class="btn btn-success mb-2" data-toggle="modal" data-target="#acc<?=$idrq;?>">
                                             Setuju
                                             </button>
-                                            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#decline<?=$idrq;?>">
+                                            <button type="button" class="btn btn-danger mb-2" data-toggle="modal" data-target="#decline<?=$idrq;?>">
                                             Tidak Setuju
                                             </button>
                                             <?php

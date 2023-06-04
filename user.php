@@ -221,6 +221,7 @@
                                                 <th>User</th>
                                                 <th>Email</th>
                                                 <th>Password</th>
+                                                <th>role</th>
                                                 <th>Status</th>
                                                 <th>Aksi</th>
                                             </tr>
@@ -235,6 +236,7 @@
                                             $email =$data['email'];
                                             $password = $data['password'];
                                             $role = $data['role'];
+                                            $status = $data['status'];
                                         ?>
                                         <tr>
                                             <td><?=$iduser;?></td>
@@ -242,18 +244,87 @@
                                             <td><?=$email;?></td>
                                             <td ><?=$password;?></td>
                                             <td><?=$role;?></td>
+                                            <td><?php
+                                            if($status == '1'){
+                                                echo "aktif";
+                                            }elseif($status == '2'){
+                                                echo "akun tidak aktif";
+                                            }
+                                            ?></td>   
                                             <td>
                                             <button type="button" class="btn btn-warning mb-2" data-toggle="modal" data-target="#edit<?=$iduser;?>">
                                             EDIT
                                             </button>
-                                            <button type="button" class="btn btn-danger mb-2" data-toggle="modal" data-target="#delete<?=$iduser?>">
-                                            DELETE
+                                            <button type="button" class="btn btn-success mb-2" data-toggle="modal" data-target="#acc<?=$iduser;?>">
+                                            Aktive
+                                            </button>
+                                            <button type="button" class="btn btn-danger mb-2" data-toggle="modal" data-target="#dec<?=$iduser;?>">
+                                            Non-Aktive
                                             </button>
                                             </td> 
                                         </tr>
                                         <!-- END Selesai Field Table -->
                                         <!-- Aksi CRUD -->
                                         <!-- Modal stock Gudang -->
+                                        <!-- The  Edit Modal -->
+                                        <div class="modal fade" id="acc<?=$iduser;?>">
+                                                <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                <!-- Modal Header -->
+                                                <div class="modal-header">
+                                                <h4 class="modal-title">Status User</h4>
+                                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                </div>
+                                                <!-- Modal body -->
+                                                <!-- Content 1 -->
+                                                <form method="post">
+                                                <div class="modal-body">
+                                                <div class="form-group">
+                                                Apakah anda yakin ingin aktifkan role <?=$role;?>
+                                                <input type="hidden" name="role" value="<?=$role;?>">
+                                                <input type="hidden" name="iduser" value="<?=$iduser;?>">
+                                                <input type="hidden" name="status" value="<?=$status;?>">
+                                                <br>
+                                                <button type="submit" class="btn btn-primary" name="aktifrole" >Submit</button>
+                                                </div>
+                                                </div>
+                                                <!-- Modal footer -->
+                                                <div class="modal-footer">
+                                                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                                                </div>
+                                                </form>
+                                            </div>
+                                            </div>
+                                        </div>
+                                        <div class="modal fade" id="dec<?=$iduser;?>">
+                                                <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                <!-- Modal Header -->
+                                                <div class="modal-header">
+                                                <h4 class="modal-title">Status User</h4>
+                                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                </div>
+                                                <!-- Modal body -->
+                                                <!-- Content 1 -->
+                                                <form method="post">
+                                                <div class="modal-body">
+                                                <div class="form-group">
+                                                Apakah anda yakin ingin Matikan role <?=$role;?>
+                                                <input type="hidden" name="role" value="<?=$role;?>">
+                                                <input type="hidden" name="iduser" value="<?=$iduser;?>">
+                                                <input type="hidden" name="status" value="<?=$status;?>">
+                                                <br>
+                                                <button type="submit" class="btn btn-primary" name="matikanrole" >Submit</button>
+                                                </div>
+                                                </div>
+                                                <!-- Modal footer -->
+                                                <div class="modal-footer">
+                                                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                                                </div>
+                                                </form>
+                                            </div>
+                                            </div>
+                                        </div>
                                                 <!-- The  Edit Modal -->
                                                 <div class="modal fade" id="edit<?=$iduser;?>">
                                                 <div class="modal-dialog">

@@ -35,6 +35,16 @@
                                 };
                                 ?>
                                 <!-- End Notifikasi succes -->
+                                <div class="d-flex justify-content-center">
+                                    <button class="btn btn-primary" onclick="goBack()">Kembali</button>
+                                </div>
+                                <!-- Function kembali -->
+                                <script>
+                                function goBack() {
+                                window.history.back();
+                                }
+                                </script>
+                                <!--  -->
 </body>
 </html>
                                    

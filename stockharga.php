@@ -324,7 +324,24 @@
                                                 <input class="form-control py-4 mb-2" id="inputEmailAddress" name="namabarang"  type="hidden"     placeholder="Nama Barang"  value="<?=$namabarang;?>" required/>
                                                 <input class="form-control py-4 mb-2" id="inputEmailAddress" name="jenisbarang" type="hidden"     placeholder="Jenis Barang" value="<?=$jenisbarang;?>" required/>
                                                 <p>Masukan Harga Barang</p>
-                                                <input class="form-control py-4 mb-2" id="inputEmailAddress" name="Harga"       type="text"    placeholder="Harga Barang" value="<?=$hargabarang;?>" required/>
+                                                <input class="form-control py-4 mb-2" id="inputEmailAddress" name="Harga" type="text" placeholder="Harga Barang" onkeyup="formatCurrency(this)" required/>
+                                                <script>
+                                                function formatCurrency(input) {
+                                                // Menghilangkan karakter selain angka dan koma
+                                                let value = input.value.replace(/[^\d,]/g, '');
+                                                // Memisahkan angka dengan koma dan mengambil dua digit di belakang koma
+                                                let parts = value.split(',');
+                                                if (parts.length > 1) {
+                                                    parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+                                                    parts[1] = parts[1].substr(0, 2);
+                                                    value = parts.join(',');
+                                                } else {
+                                                    value = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+                                                }
+                                                // Menyimpan hasil format ke dalam input
+                                                input.value = value;
+                                                }
+                                                </script>
                                                 <input type="hidden" name="idbarang" value="<?=$idbarang;?>">
                                                 <input type="hidden" name="idmasuk" value="<?=$idm;?>">
                                                 <button type="submit" class="btn btn-primary" name="updatehargabarang" >Submit</button>

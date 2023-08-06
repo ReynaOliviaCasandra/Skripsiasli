@@ -434,7 +434,7 @@
         <script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js" crossorigin="anonymous"></script>
         <script src="assets/demo/datatables-demo.js"></script>
     </body>
-    <!-- Modal Barang keluar -->
+    <!-- Modal Barang keluar -->    
                 <!-- The Modal -->
                 <div class="modal fade" id="myModal">
                 <div class="modal-dialog">

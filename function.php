@@ -903,7 +903,7 @@ if(isset($_POST['hapusales'])){
 
 function rupiah($angka)
 {
-    $hasilrupiah = "Rp". number_format($angka,2,',','.');
+    $hasilrupiah = "Rp". number_format($angka,3,',','.');
     return $hasilrupiah;
 }
 
@@ -915,7 +915,7 @@ if(isset($_POST['updateuser'])){
     $role = $_POST['role'];
     $iduser = $_POST['iduser'];
     $addtouser = mysqli_query($conn,"UPDATE login set username='$username',email='$email',password='$password',role='$role' WHERE iduser='$iduser'");
-    die(mysqli_error($conn));
+    // die(mysqli_error($conn));
     if($addtouser)
     {
         // Berhasil
@@ -958,4 +958,184 @@ if(isset($_POST['hapususer'])){
         </script>';
     }
 }
+
+//Import PHPMailer classes into the global namespace
+//These must be at the top of your script, not inside a function
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\SMTP;
+use PHPMailer\PHPMailer\Exception;
+
+function forgot($data){
+    global $conn;
+    $email =htmlspecialchars($data["email"]);
+    //$query= mysqli_query($conn,"SELECT iduser FROM login WHERE email='$email'");
+    $result = mysqli_query($conn,"SELECT iduser FROM login WHERE email='$email'");
+    if($result)
+    {
+        // die(mysqli_error($conn));
+        $row = mysqli_fetch_assoc($result);
+        $id= $row["iduser"];
+
+        //date exp
+        $expFormat = mktime(date("H"), date("i"), date("s"), date("m") ,date("d")+1, date("Y"));
+        $expDate = date("Y-m-d H:i:s",$expFormat);
+
+        //token
+        $key = md5(2418*2+(int)$email);
+        $addKey = substr(md5(uniqid(rand(),1)),3,10);
+        $key = $key . $addKey;
+
+        // Insert Temp Table
+        $query = "INSERT INTO restart_token
+                        VALUES 
+                        ('', '$id', '$key', '$expDate')
+                    ";
+        mysqli_query($conn, $query);
+        $output='<p>Dear user,</p>';
+        $output.='<p>Please click on the following link to reset your password.</p>';
+        $output.='<p>-------------------------------------------------------------</p>';
+        // Buat halaman lupa password
+        $output.='<p><a href="localhost/stockbarang-template/reset.php?key='.$key.'&id='.$id.'&action=reset" target="_blank">
+        https://localhost/stockbarang-template/reset.php?key='.$key.'&id='.$id.'&action=reset</a></p>';
+         // Buat halaman lupa password
+        $output.='<p>-------------------------------------------------------------</p>';
+        $output.='<p>Please be sure to copy the entire link into your browser.
+        The link will expire after 1 day for security reason.</p>';
+        $output.='<p>If you did not request this forgotten password email, no action 
+        is needed, your password will not be reset. However, you may want to log into 
+        your account and change your security password as someone may have guessed it.</p>';
+        $output.='<p>Thanks,</p>';
+        $output.='<p>LocalHost Team</p>';
+        $body = $output; 
+        $subject = "Password Recovery - LocalHost";
+
+        //Load Composer's autoloader
+        require 'PHPMailer/src/Exception.php';
+        require 'PHPMailer/src/PHPMailer.php';
+        require 'PHPMailer/src/SMTP.php';
+
+        //Create an instance; passing `true` enables exceptions
+        $mail = new PHPMailer(true);
+        try 
+        {
+            //$fromserver = "noreply@localhost.com"; 
+            $mail->SMTPDebug = SMTP::DEBUG_SERVER;
+            $mail->Host = "smtp.mail.yahoo.com"; // Enter your host here
+            $mail->isSMTP();
+            $mail->SMTPAuth = true;
+            $mail->Username = "pertusrafael@yahoo.com"; // Enter your email here
+            $mail->Password = "llrtlkoibmdwpaqk"; //Enter your password here
+            $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
+            $mail->Port = 465;
+            
+            $mail->setFrom('pertusrafael@yahoo.com', 'LocalHost');
+            $mail->addAddress($email);
+            //$mail->Sender = $fromserver; // indicates ReturnPath header
+
+            $mail->isHTML(true);
+            $mail->Subject = $subject;
+            $mail->Body = $body;
+            
+            if(!$mail->send())
+            {
+                echo "Mailer Error: " . $mail->ErrorInfo;
+                return false;
+            }
+            else
+            {
+                echo "<script> 
+                        alert('Tolong verify email anda yang kami telah kirim!');
+                        document.location.href = 'login.php';
+                        </script>";
+            }
+        } 
+        catch (Exception $e) 
+        {
+            echo "<script> alert('Message could not be sent. Mailer Error: {$mail->ErrorInfo}')</script>";
+            return false;
+        }
+    }
+}
+
+function change_password($data)
+    {
+        global $conn;
+
+        $n_password = mysqli_real_escape_string($conn, $data["new_password"]);
+        $r_password = mysqli_real_escape_string($conn, $data["confirm_password"]);
+
+        if($data["email"]!="")
+        {
+            $id = htmlspecialchars($data["email"]);
+
+            if($n_password == $r_password)
+            {
+                // enkripsi password
+                //$n_password = password_hash($n_password, PASSWORD_DEFAULT);
+
+                //$query insert data
+                $query = "UPDATE login SET
+                    password = '$n_password'
+                    WHERE iduser = '$id'
+                ";
+                mysqli_query($conn, $query);
+                mysqli_query($conn,"DELETE FROM restart_token WHERE email='$id'");
+                
+                return mysqli_affected_rows($conn);
+            }
+            else
+            {
+                echo "<script> alert('Password Tidak Sama!')</script>";
+                return false;
+            }
+        }
+        else
+        {
+            $username = $_SESSION["username"];
+            // ambil data dari tial elemen dalam form
+            $password = mysqli_real_escape_string($conn, $data["password"]);
+            //cek username sudah ada atau belum
+            $result = mysqli_query($conn, "SELECT PASSWORD FROM login WHERE username = '$username'");
+            $row = mysqli_fetch_assoc($result);
+            $o_password = $row["password"];
+
+            if(password_verify($password, $o_password))
+            {
+                if(password_verify($password, $o_password))
+                {
+                    echo "<script> alert('Password Sudah Dipakai!')</script>";
+                    return false;   
+                }
+                else
+                {
+                    if($password == $r_password)
+                    {
+                        // enkripsi password
+                        // $password = password_hash($password, PASSWORD_DEFAULT);
+
+                        //$query insert data
+                        $query = "UPDATE login SET
+                            password = '$password'
+                            WHERE username = '$username'
+                        ";
+                        mysqli_query($conn, $query);
+
+                        
+                        return mysqli_affected_rows($conn);
+                    }
+                    else
+                    {
+                        echo "<script> alert('Password Tidak Sama!')</script>";
+                        return false;
+                    }
+                }
+            }
+            else
+            {
+                echo "<script> alert('Password Salah!')</script>";
+                return false;
+            }
+
+        }
+    }
 ?>

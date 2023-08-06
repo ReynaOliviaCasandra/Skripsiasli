@@ -258,15 +258,16 @@
                                             <!-- Fungsi  Hak Akes Halaman -->
                                             <?php
                                             if($role !="owner"){
-                                                    if($status==1){?>
+                                                    if($status==2){?>
                                             <button type="button" class="btn btn-success mb-2" data-toggle="modal" data-target="#acc<?=$iduser;?>">
                                             Aktive
                                             </button>
-                                            <?php } elseif($status==2){?>
+                                            <?php } elseif($status==1){?>
                                             <button type="button" class="btn btn-danger mb-2" data-toggle="modal" data-target="#dec<?=$iduser;?>">
                                             Non-Aktive
                                             </button>
-                                            <?php }}; ?>            
+                                            <?php 
+                                            }}; ?>            
                                              <!-- Fungsi Hak akses user -->
                                             
                                             </td> 

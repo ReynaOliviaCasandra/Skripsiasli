@@ -2,7 +2,6 @@
 <?php
 
     require 'function.php';
-
 	if (isset($_GET["key"]) && isset($_GET["id"]) && isset($_GET["action"]) && ($_GET["action"]=="reset") && !isset($_POST["action"]))
 	{
 		$key = $_GET["key"];

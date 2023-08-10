@@ -1,5 +1,6 @@
 <?php
-include 'function.php';
+// include 'function.php';
+include'function.php';
 // include 'cek.php';
 // include 'cek.php';
 // Check login owner, terdaftar atau tidak

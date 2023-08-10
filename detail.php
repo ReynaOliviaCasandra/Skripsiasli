@@ -1,7 +1,6 @@
 <?php
-    include 'function.php';
-    include 'cek.php';
-    // session_start();
+     include 'function.php';
+     include 'cek.php';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -13,8 +12,9 @@
         <meta name="description" content="" />
         <meta name="author" content="" />
         <title>Cosmetic Modern</title>
-        <link href="css/custom.css" rel="stylesheet" />
-        <link href="css/styles.css" rel="stylesheet" />
+        <link href="css/custom.css" rel="stylesheet"/>
+        <link href="css/styles.css" rel="stylesheet"/>
+        <link href="" rel="shortcut icon"/>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <link href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css" rel="stylesheet" crossorigin="anonymous" />
@@ -40,8 +40,8 @@
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" id="userDropdown" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
-                        <!-- <a class="dropdown-item" href="#">Settings</a>
-                        <a class="dropdown-item" href="#">Activity Log</a> -->
+                        <!-- <a class="dropdown-item" href="#">Settings</a> -->
+                        <!-- <a class="dropdown-item" href="#">Activity Log</a> -->
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="logout.php">Logout</a>
                     </div>
@@ -70,17 +70,16 @@
                             </a>
                             <div class="sb-sidenav-menu-heading">Interface</div>
                             <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
-                                <div class="sb-nav-link-icon"><i class="fa-solid fa-file-circle-check"></i></div>
+                                <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
                                 Laporan
                                 <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                             </a>
                             <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav">
-                                    <a class="nav-link" href="laporanbarangmasuk.php">Laporan  Barang Masuk</a>
+                                <a class="nav-link" href="laporanbarangmasuk.php">Laporan  Barang Masuk</a>
                                     <a class="nav-link" href="laporanstockbarangkeluar.php">Laporan Barang Keluar</a>
                                     <a class="nav-link" href="laporanstockgudang.php">Laporan Barang Gudang</a>
                                     <a class="nav-link" href="laporanharga.php">Laporan Harga Barang</a>
-                                    <a class="nav-link" href="laporanexp.php">Laporan Barang Expired</a>
                                 </nav>
                             </div>
                             <!-- Req Barang -->
@@ -163,23 +162,12 @@
                                             <a class="nav-link" href="retur.php"><i class="fa-solid fa-arrow-right-arrow-left"></i>&nbsp; Retur Barang </a>
                                             <a class="nav-link" href="sales.php"><i class="fa-solid fa-universal-access"></i></i>&nbsp;  Daftar Sales </a>
                                             <a class="nav-link" href="faktur.php"><i class="fa-solid fa-file-invoice"></i>&nbsp; Faktur </a>
+                                            <a class="nav-link" href="detail.php"><i class="fa-solid fa-file-invoice"></i>&nbsp; Faktur </a>
                                         </nav>
                                     </div>
                                 </nav>
                             </div>
-                            <!-- <div class="sb-sidenav-menu-heading">Addons</div>
-                            <a class="nav-link" href="charts.html">
-                                <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
-                                Charts
-                            </a>
-                            <a class="nav-link" href="tables.html">
-                                <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
-                                Tables
-                            </a>
-                        </div>
-                    </div> -->
                     <div class="sb-sidenav-footer">
-                    
                     <div class="High">Logged in as 
                         <?php
                         if($_SESSION['role'] == "owner"){
@@ -189,8 +177,7 @@
                         }elseif($_SESSION['role']== "kepalagudang"){
                             echo"Kepala Gudang Cosmetic Modern";
                         }
-                        ?>
-                        </div>
+                        ?></div>
                         <!-- Start Bootstrap -->
                     </div>
                 </nav>
@@ -198,189 +185,102 @@
             <div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid">
-                        <h1 class="mt-4">Stock Gudang</h1>
-                        <!-- <ol class="breadcrumb mb-4">
-                        <i class="fa-solid fa-warehouse"></i> Dashboard
-                        </ol> -->
-                        <div class="row">
-                            <!-- <div class="col-xl-3 col-md-6">
-                                <div class="card bg-primary text-white mb-4">
-                                    <div class="card-body">Primary Card</div>
-                                    <div class="card-footer d-flex align-items-center justify-content-between">
-                                        <a class="small text-white stretched-link" href="#">View Details</a>
-                                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
-                                    </div>
-                                </div>
-                            </div> -->
-                            <div class="col-xl-3 col-md-6">
-                                <div class="card bg-warning text-white mb-4">
-                                    <div class="card-body">Perhatikan Sisa Barang Anda</div>
-                                    <div class="card-footer d-flex align-items-center justify-content-between">
-                                        <a class="small text-white stretched-link" href="notifperingatan.php">View Details</a>
-                                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-3 col-md-6">
-                                <div class="card bg-success text-white mb-4">
-                                    <div class="card-body">Notifikasi Barang Sukses Masuk</div>
-                                    <div class="card-footer d-flex align-items-center justify-content-between">
-                                        <a class="small text-white stretched-link" href="notif.php">Lihat Lebih Detail</a>
-                                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- <div class="col-xl-3 col-md-6">
-                                <div class="card bg-danger text-white mb-4">
-                                    <div class="card-body">Peringatan barang Anda Sudah Menipis !!</div>
-                                    <div class="card-footer d-flex align-items-center justify-content-between">
-                                        <a class="small text-white stretched-link" href="#">View Details</a>
-                                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
-                                    </div>
-                                </div>
-                            </div> -->
-                        </div>
+                        <h1 class="mt-4">Detail Barang </h1>
+                        <ol class="breadcrumb mb-4">
+                            <li class="breadcrumb-item active">Dashboard</li>
+                        </ol>
                         <div class="card mb-4">
                             <div class="card-header">
-                            <?php
-                            if($_SESSION ['role'] == "owner"){
-                                ?> 
-                                <!-- Batasan yang boleh chat -->
-                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#_1">
-                                Tambah barang
-                                </button>
-                                <?php
-                                };
-                                ?>
-                            <a href="laporanstockgudang.php" id="pindahexport" class="btn btn-info">Exportdata</a>
-                            <i class="fas fa-table mr-1"></i>
-                            Data Harga Barang Cosmetic Modern
+                                <!-- Button to Open the Modal -->
+                                <!-- <button type="button" class="btn btn-primary mb-2" data-toggle="modal" data-target="#myModal">
+                                 Tambah Barang Masuk
+                                </button> -->
+                                <!-- End Notifikasi warning -->
+                                <!-- <a href="laporanbarangmasuk.php" id="exportmasuk" class="btn btn-info mb-2">Cetak Laporan</a> -->
+                                <br>
+                                <!-- Validasi Tanggal -->
+                                <br>
+                                <form method="POST">
+                                    <!-- <input type="date" name="tglmulai" class="form-control" placeholder="Tanggal Masuk">
+                                    <br>
+                                    <input type="date" name="tglselesai" class="form-control"> -->
+                                    <br>
+                                    <!-- <button type="submit" name="filter" class="btn btn-info mt-2">Cari Tanggal</button> -->
+                                     <a href="indexx.php" class="btn btn-primary mt-2">Kembali</i></a>
+                                     <a href="laporanexp.php" id="exportexp" class="btn btn-warning mt-2">Cetak barang</a>
+                                </form>
+                                <br>
+                                <!-- End Validasi Tanggal -->
+                                <!-- end Button to Open the Modal  -->
+                                <i class="fas fa-table mr-1"></i>
+                                Data Stock Barang  Masuk Cosmetic Modern
                             </div>
                             <div class="card-body">
-                            <!-- Notifikasi Danger-->
-                            <?php 
-                                $ambilsemuadatastock = mysqli_query($conn,"SELECT * FROM stock WHERE stock <1");
-                                while($fetch=mysqli_fetch_array($ambilsemuadatastock)){
-                                    $barang = $fetch['namabarang'];
-                                    $jumlah = $fetch['stock'];
-                                ?>
-                            <div class="alert alert-danger alert-dismissible fade show">
-                                <button type="button" class="close" data-dismiss="alert">&times;</button>
-                                <strong>Perhatian!</strong> Mohon dilihat <?=$barang;?> tinggal segiini <?=$jumlah;?> 
-                            </div>
-                                <?php 
-                                };
-                                ?>
-                                <!-- End Notifikasi Danger -->
-                                <!-- Notifikasi Warning-->
-                            <?php 
-                                $ambilsemuadatastock = mysqli_query($conn,"SELECT * FROM stock WHERE stock <10 AND stock >0"); //jika stock kurang dari 10 dan lebih dari 0
-                                while($fetch=mysqli_fetch_array($ambilsemuadatastock)){
-                                    $barang = $fetch['namabarang'];
-                                    $jumlah = $fetch['stock'];
-                                
-                                ?>
-                            <div class="alert alert-warning alert-dismissible fade show">
-                                <button type="button" class="close" data-dismiss="alert">&times;</button>
-                                <strong>Perhatikan!</strong> Mohon dilihat <?=$barang;?> tinggal segiini <?=$jumlah;?>
-                            </div>
-                                <?php 
-                                };
-                                ?>
-                                <!-- End Notifikasi warning -->
                                 <div class="table-responsive">
                                     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                         <thead>
                                             <tr>
-                                                <th>Id Barang</th>
-                                                <th>Nama Barang</th>
-                                                <th>jenis Barang</th>
-                                                <th>Stock</th>
-                                                <th>Gambar</th>
-                                                <th>Aksi</th>
+                                                <!-- <th>Id_MasukBarang</th> -->
+                                                <th>ID Detail</th>
+                                                <th>ID Barang</th>
+                                                <th>ID Faktur</th>
+                                                <th>Tanggal EXP</th>
+                                                <th>Tanggal</th>
+                                                <th>QTY</th>
                                             </tr>
                                         </thead>
-                                        <!-- Mulai Field Table -->
                                         <tbody>
                                         <?php
-                                        $ambilsemuadatastock = mysqli_query($conn,"SELECT * FROM stock");
+                                        $idbarang=$_GET['idbarang'];
+                                        
+                                        // Fungsi Filter tanggal
+                                        if(isset($_POST['filter'])){
+                                            $mulaitanggal = $_POST['tglmulai'];
+                                            $selesaitanggal = $_POST['tglselesai'];
+                                            if($mulaitanggal!=null || $selesaitanggal!=null){
+                                                $ambilsemuadatastock = mysqli_query($conn,"SELECT * FROM masuk m, stock s,faktur f, detail d WHERE d.idproduk=m.idbarang and d.idnota=m.idfaktur and d.idproduk tanggal BETWEEN '$mulaitanggal' AND DATE_ADD('$selesaitanggal',INTERVAL 1 DAY) ORDER BY idmasuk DESC");
+                                            }else{
+                                                $ambilsemuadatastock = mysqli_query($conn,"SELECT * FROM masuk m, stock s,faktur f, detail d WHERE d.idproduk=m.idbarang and d.idnota=m.idfaktur and d.idproduk AND tanggal BETWEEN '$mulaitanggal' AND DATE_ADD('$selesaitanggal',INTERVAL 1 DAY) ORDER BY idmasuk DESC");
+                                            }
+                                        }
+                                        // $ambilsemuadatastock = mysqli_query($conn,"SELECT * FROM stock s,faktur f, detail d, masuk m WHERE d.iddetail=f.idfaktur and d.idproduk=s.idbarang and d.idnota=f.idfaktur and d.idproduk='$idbarang'");
+                                        else{
+                                        $ambilsemuadatastock = mysqli_query($conn,"SELECT * FROM stock s,faktur f, detail d WHERE d.idproduk=s.idbarang and d.idnota=f.idfaktur and d.idproduk='$idbarang'");   
+                                        }
                                         $i=1;
                                         while($data=mysqli_fetch_array($ambilsemuadatastock)){
-                                            $namabarang = $data['namabarang'];
-                                            // $keterangan = $data['keterangan'];
-                                            $stock = $data['stock'];
-                                            $jenisbarang =$data['jenisbarang'];
+                                            // $idbarang = $data['idbarang'];
+                                            $idfaktur = $data['idfaktur'];
                                             $idbarang = $data['idbarang'];
-
-                                            // Cek jika gambar tidak ada
-                                            $image = $data['gambar']; //ambil gambar
-                                            if($image == null){
-                                            // Jika tidak ada gambar
-                                            $img = 'Tidak ada photo';
-                                            }else{
-                                            // JIka ada gambar
-                                            $img= '<img src="img/'.$image.'" class="zoomable">';
-                                            }
+                                            $iddetail = $data['iddetail'];
+                                            $tanggal = $data['tanggal'];
+                                            $tanggalexpired =$data['tanggalex'];
+                                            $namabarang = $data['namabarang'];
+                                            $jenisbarang =$data['jenisbarang'];
+                                            $qty = $data['qty'];
                                         ?>
                                         <tr>
-                                            <td><?=$i++;?></td>
-                                            <td><?=$namabarang;?></td>
-                                            <td><?=$jenisbarang;?></td>
-                                            <td><?=$stock;?></td>
-                                            <td><?=$img;?></td>
-                                            <td>
-                                            <!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#edit<?=$idbarang;?>">
-                                            Upload
-                                            </button> -->
-                                            <button type="button" class="btn btn-warning mb-4" data-toggle="modal" data-target="#edit<?=$idbarang;?>">
+                                            <td><?=$iddetail;?></td>
+                                            <td><?=$idbarang;?></td>
+                                            <td><?=$idfaktur;?></td>
+                                            <td><?=$tanggalexpired;?></td>
+                                            <td><?=$tanggal;?></td>
+                                            <td><?=$qty;?></td>
+                                            <!-- <button type="button" class="btn btn-warning mb-2" data-toggle="modal" data-target="#edit<?=$idm;?>">
                                             EDIT
-                                            </button>
-                                            <?php echo "<a href='detail.php?idbarang=$idbarang'><button type='button' class='btn btn-primary mb-4'>
-                                            Detail  
-                                            </button></a>";?>
-                                            <?php
-                                            if($_SESSION['role'] == "owner" || $_SESSION['role'] == "managertoko"){
-                                            ?>
-                                            <?php
-                                            };
-                                            ?>
-                                            </td>
+                                            </button> -->
+                                            <!-- tombol delete -->
+                                            <!-- <button type="button" class="btn btn-danger mb-2" data-toggle="modal" data-target="#delete<?=$idm;?>">
+                                            DELETE
+                                            </button> -->
+                                              <!-- tombol delete -->
+                                            </td> 
                                         </tr>
-                                         <!-- Modal stock Gudang -->
-                                                <!-- The  Tambah barang Modal -->
-                                            <div class="modal fade" id="_1">
-                                            <div class="modal-dialog">
-                                            <div class="modal-content">
-                                                <!-- Modal Header -->
-                                                <div class="modal-header">
-                                                <h4 class="modal-title">Tambah Barang</h4>
-                                                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                                </div>
-                                                <!-- Modal body -->
-                                                <!-- Content 1 -->
-                                                <form method="POST" enctype="multipart/form-data">
-                                                <div class="modal-body">
-                                                <div class="form-group">
-                                                <input class="form-control py-4 mb-2" id="inputEmailAddress" name="namabarang"  type="text"     placeholder="Nama Barang"  value="" required/>
-                                                <input class="form-control py-4 mb-2" id="inputEmailAddress" name="jenisbarang" type="text"     placeholder="Jenis Barang" value="" required/>
-                                                <!-- <input class="form-control py-4 mb-2" id="inputEmailAddress" name="stock"       type="number"   placeholder="Jumlah Stock"  value=""required/> -->
-                                                <input type="file" name="file" class="form-control mb-2">
-                                                <button type="submit" class="btn btn-primary mt-4" name="addnewbarang" >Submit</button>
-                                                </div>
-                                                </div>
-                                                <!-- Modal footer -->
-                                                <div class="modal-footer">
-                                                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                                                </div>
-                                                </form>
-                                            </div>
-                                            </div>
-                                        </div>
                                         <!-- END Selesai Field Table -->
                                         <!-- Aksi CRUD -->
                                         <!-- Modal stock Gudang -->
                                                 <!-- The  Edit Modal -->
-                                                <div class="modal fade" id="edit<?=$idbarang;?>">
+                                                <div class="modal fade" id="edit<?=$idm;?>">
                                                 <div class="modal-dialog">
                                                 <div class="modal-content">
                                                 <!-- Modal Header -->
@@ -390,14 +290,25 @@
                                                 </div>
                                                 <!-- Modal body -->
                                                 <!-- Content 1 -->
-                                                <form method="POST" enctype="multipart/form-data">
+                                                <form method="post">
                                                 <div class="modal-body">
                                                 <div class="form-group">
-                                                <input class="form-control py-4 mb-2" id="inputEmailAddress" name="namabarang"  type="text"     placeholder="Nama Barang"  value="<?=$namabarang;?>" required/>
-                                                <input class="form-control py-4 mb-2" id="inputEmailAddress" name="jenisbarang" type="text"     placeholder="Jenis Barang" value="<?=$jenisbarang;?>" required/>
-                                                <input type="file"name="file" class="form-control" >
+                                                <select name="penerima" class="form-control mb-2">
+                                                <?php
+                                                $ambilsemuadatanya = mysqli_query($conn,"SELECT * FROM  login ");
+                                                while($fetcharray = mysqli_fetch_array($ambilsemuadatanya)){
+                                                        $username = $fetcharray['username'];
+                                                        $idpenerima = $fetcharray['iduser'];
+                                                    ?>
+                                                    <option value="<?=$idpenerima;?>"><?=$username;?></option> 
+                                                    <?php
+                                                    };
+                                                ?>
+                                                </select>
+                                                <input class="form-control py-4 mb-2" id="inputEmailAddress" name="qty" min="1"  type="number"   placeholder="Jumlah Stock"  value="<?=$qty;?>"required/>
                                                 <input type="hidden" name="idbarang" value="<?=$idbarang;?>">
-                                                <button type="submit" class="btn btn-primary mt-2" name="updatebarang" >Submit</button>
+                                                <input type="hidden" name="idmasuk" value="<?=$iddetail;?>">
+                                                <button type="submit" class="btn btn-primary" name="updatebarangmasuk" >Submit</button>
                                                 </div>
                                                 </div>
                                                 <!-- Modal footer -->
@@ -410,7 +321,7 @@
                                         </div>
                                                 <!-- Modal stock Gudang -->
                                                 <!-- The  delete Modal -->
-                                                <div class="modal fade" id="delete<?=$idbarang;?>">
+                                                <div class="modal fade" id="delete<?=$idm;?>">
                                                 <div class="modal-dialog">
                                                 <div class="modal-content">
                                                 <!-- Modal Header -->
@@ -422,11 +333,13 @@
                                                 <!-- Content 1 -->
                                                 <form method="POST">
                                                 <div class="modal-body mb-2">
-                                                Apakah anda yakin ingin menghapus Barang <?=$namabarang;?> Jenis <?=$jenisbarang;?> dengan <?=$stock;?>?
+                                                Apakah anda yakin ingin menghapus Barang <?=$namabarang;?> Jenis <?=$jenisbarang;?> ?
                                                 <input type="hidden" name="idbarang"    value="<?=$idbarang;?>">
+                                                <input type="hidden" name="qty"         value="<?=$qty;?>">
+                                                <input type="hidden" name="iddetail"     value="<?=$idetail;?>">
                                                 <br>
                                                 <br>
-                                                <button type="submit" class="btn btn-danger" name="hapusbarang" >Hapus</button>
+                                                <button type="submit" class="btn btn-danger" name="hapusbarangmasuk" >Hapus</button>
                                                 <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
                                                 </div>
                                                 </div>
@@ -438,41 +351,10 @@
                                             </div>
                                         </div>
                                         </div>
-                                        <!-- Detail Barang -->
-                                        <!-- Modal stock Gudang -->
-                                                <!-- The  Edit Modal -->
-                                                <div class="modal fade" id="detail<?=$idbarang;?>">
-                                                <div class="modal-dialog">
-                                                <div class="modal-content">
-                                                <!-- Modal Header -->
-                                                <div class="modal-header">
-                                                <h4 class="modal-title">Detail Barang</h4>
-                                                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                                </div>
-                                                <!-- Modal body -->
-                                                <!-- Content 1 -->
-                                                <form method="POST" enctype="multipart/form-data">
-                                                <div class="modal-body">
-                                                <div class="form-group">
-                                                <!-- <input class="form-control py-4 mb-2" name="namabarang"  type="text"     placeholder="BATCH"  value="" required/>
-                                                <input class="form-control py-4 mb-2" name="jenisbarang" type="text"     placeholder="TANGGAL" value="" required/>
-                                                <input class="form-control py-4 mb-2" name="jenisbarang" type="number"     placeholder="QTY" value="" required/> -->
-                                                <!-- <input type="file"name="file" class="form-control" > -->
-                                                                                                <!-- <input type="hidden" name="idbarang" value="<?=$idbarang;?>"> -->
-                                               
-                                                </div>
-                                                </div>
-                                                <!-- Modal footer -->
-                                                <div class="modal-footer">
-                                                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                                                </div>
-                                                </form>
-                                            </div>
-                                            </div>
-                                        </div>
-                                        <!-- end Detail Barang -->
                                         <!-- End aksi Crud -->
                                         <?php
+                                            //   var_dump($iddetail, $idbarang, $idfaktur, $tanggalexpired, $tanggal, $qty);
+                                            echo "Error in query: " . mysqli_error($conn);
                                         };
                                         ?>
                                         </tbody>
@@ -495,7 +377,7 @@
                     </div>
                 </footer>
             </div>
-        </div>
+        </div>      
         <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
         <script src="js/scripts.js"></script>
@@ -506,4 +388,66 @@
         <script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js" crossorigin="anonymous"></script>
         <script src="assets/demo/datatables-demo.js"></script>
     </body>
+     <!-- Modal Barang Masuk -->
+                <!-- The Modal -->
+                <div class="modal fade" id="myModal">
+                <div class="modal-dialog">
+                <div class="modal-content">
+                    <!-- Modal Header -->
+                    <div class="modal-header">
+                    <h4 class="modal-title">Tambah Barang Masuk</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <!-- Modal body -->
+                    <form method="POST" >
+                    <div class="modal-body">
+                    <select name="barangnya" class="form-control mb-2">
+                       <?php
+                       $ambilsemuadatanya = mysqli_query($conn,"SELECT * FROM stock ORDER BY namabarang DESC");
+                       while($fetcharray = mysqli_fetch_array($ambilsemuadatanya)){
+                            $namabarangnya = $fetcharray['namabarang'];
+                            $idbarangnya = $fetcharray['idbarang'];
+                        ?>
+                        <option value="<?=$idbarangnya;?>"><?=$namabarangnya;?></option> 
+                        <?php
+                        };
+                       ?>
+                    </select>
+                    <input  type="number" name="qty"            class="form-control mb-2" min="1"  placeholder="Quantity" required  />
+                    <select name="penerima" class="form-control mb-2">
+                       <?php
+                       $ambilsemuadatanya = mysqli_query($conn,"SELECT * FROM  login ");
+                       while($fetcharray = mysqli_fetch_array($ambilsemuadatanya)){
+                            $username = $fetcharray['username'];
+                            $idpenerima = $fetcharray['iduser'];
+                        ?>
+                        <option value="<?=$idpenerima;?>"><?=$username;?></option> 
+                        <?php
+                        };
+                       ?>
+                    </select>
+                     <select name="fakturnya" class="form-control mb-2">
+                       <?php
+                       $ambilsemuadatanya = mysqli_query($conn,"SELECT * FROM faktur");
+                       while($fetcharray = mysqli_fetch_array($ambilsemuadatanya)){
+                            // $supplier = $fetcharray['supplier'];
+                            $idfaktur = $fetcharray['idfaktur'];
+                        ?>
+                        <option value="<?=$idfaktur;?>"><?=$idfaktur;?></option> 
+                        <?php
+                        };
+                       ?>
+                    </select>
+                    <button type="submit" name="barangmasuk"    class="btn btn-primary" >Submit</button>
+                    </div>
+                    <!-- Modal footer -->
+                    <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                    </div>
+                    </form>
+                </div>
+                </div>
+            </div>
+            </div>
+            <!-- Selesai modal barang masuk -->
 </html>

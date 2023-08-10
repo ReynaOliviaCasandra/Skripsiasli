@@ -221,7 +221,7 @@
                                                 <th>Id Barang</th>
                                                 <th>Nama_Barang</th>
                                                 <th>Jenis_Barang</th>
-                                                <th>Tanggal</th>
+                                                <th>Tanggal Exp</th>
                                                 <!-- <th>Penerima</th> -->
                                                 <th>QTY</th>
                                                 <th>Status Barang</th>
@@ -494,6 +494,9 @@
                 </footer>
             </div>
         </div>
+     
+
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
         <script src="js/scripts.js"></script>
@@ -504,6 +507,23 @@
         <script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js" crossorigin="anonymous"></script>
         <script src="assets/demo/datatables-demo.js"></script>
     </body>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js">
+    </script>
+    <script type="text/javascript">
+    $(document).ready(function() {
+        $('#pesananr').change(function() { 
+            var selectedBarang = $(this).val(); 
+            $.ajax({
+                type: 'POST', 
+                url: 'ajax.php',
+                data: 'idbarang=' + selectedBarang, 
+                success: function(response) { 
+                    $('#tanggalex').html(response); 
+                }
+            });
+        });
+    });
+</script>
      <!-- Modal Barang keluar -->
                 <!-- The Modal -->
                 <div class="modal fade" id="myModal">
@@ -515,21 +535,29 @@
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                     </div>
                     <!-- Modal body -->
-                    <form method="POST" >
+                    <form method="POST" action="function.php">
                     <div class="modal-body">
-                    <select name="barangnya" class="form-control mb-2">
-                       <?php
-                       $ambilsemuadatanya = mysqli_query($conn,"SELECT * FROM stock  ORDER BY namabarang DESC");
-                       while($fetcharray = mysqli_fetch_array($ambilsemuadatanya)){
-                            $namabarangnya = $fetcharray['namabarang'];
-                            $idbarangnya = $fetcharray['idbarang'];
-                        ?>
-                        <option value="<?=$idbarangnya;?>"><?=$namabarangnya;?></option> 
-                        <?php
-                        };
-                       ?>
-                    </select>
-                    <input  type="number"  name="qty"            class="form-control mb-2" min="1"  placeholder="Quantity" required  />
+                    <!-- Coding test -->
+                    <div class="form-group">
+                    <label>Pilih Barang:</label>
+                        <select class="form-control" name="pesananr" id="pesananr" required>
+                        <option value="">Pilih barangnya</option>
+                            <?php
+                                $ready = mysqli_query($conn,"SELECT * from stock");
+                                while($f = mysqli_fetch_array($ready)){
+                            ?>
+                        <option value="<?php echo $f['idbarang'] ?>"><?php echo $f['namabarang']; ?></option>
+                            <?php
+                                }
+                            ?>
+                        </select>
+                        <div class="form-group">
+                        <label>Pilih Tanggal:</label>
+                            <select class="form-control" name="tanggalex" id="tanggalex">						
+                            </select>
+                    </div>
+                    <!-- Coding Test -->
+                    <input  type="number"  name="jumlah"            class="form-control mb-2" min="1"  placeholder="Quantity" required  />
                     <button type="submit" name="barangkeluar"    class="btn btn-primary" >Submit</button>
                     </div>
                     <!-- Modal footer -->

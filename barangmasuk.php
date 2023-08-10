@@ -252,7 +252,7 @@
                                             $tanggal = $data['tanggal'];
                                             $namabarang = $data['namabarang'];
                                             $jenisbarang =$data['jenisbarang'];
-                                            $qty = $data['qty'];
+                                            $qty = $data['qtymasuk'];
                                             $keterangan = $data['username'];
                                         ?>
                                         <tr>
@@ -435,8 +435,15 @@
                         };
                        ?>
                     </select>
-                    <button type="submit" name="barangmasuk"    class="btn btn-primary" >Submit</button>
+                    <!-- tanggal --> 
+                    <div class="form-group">
+                        <label for="tanggalex">Tanggal Expired:</label>
+                        <input style="margin-left: 1rem" type="date" name="tanggalex" required>
                     </div>
+                    <!-- Include other input fields here: barangnya, penerima, qty, fakturnya -->
+                    <button type="submit" name="barangmasuk" class="btn btn-primary">Submit</button>
+                    <!-- <button type="submit" name="barangmasuk"    class="btn btn-primary" >Submit</button>
+                    </div> -->
                     <!-- Modal footer -->
                     <div class="modal-footer">
                     <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>

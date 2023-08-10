@@ -1,12 +1,12 @@
 <!-- Fungsi Forgotpassoword -->
 <?php
     require 'function.php';
-
     if(isset($_POST["submit"]))
     {
         // cek apakah data berhasil di kirim atau tidak
         if(forgot($_POST) > 0)
         {
+            die(mysqli_error($conn));
             echo "
                 <script>
                     alert('Tolong verify email anda yang kami telah kirim!');

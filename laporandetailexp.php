@@ -20,7 +20,7 @@ include 'cek.php';
 
 <body>
 <div class="container">
-			<h2>Laporan Harga Barang</h2>
+			<h2>Laporan Detail Barang</h2>
 			<h4>(Inventory Management Cosmetic Modern)</h4>
 				<div class="data-tables datatable-dark">
                 <table class="table table-bordered" id="exportharga" width="100%" cellspacing="0">

@@ -116,7 +116,7 @@ if(isset($_POST['barangmasuk'])){
     $penerima = $_POST['penerima'];
     $qty = $_POST['qty'];
     $fakturnya = $_POST['fakturnya'];
-    $tanggalexpired= $_POST['tanggalex'];   // $info = $_POST['keterangan'];
+    $tanggalexpired= $_POST['tanggalex'];
     $cekstocksekarang = mysqli_query($conn,"SELECT * FROM stock WHERE idbarang='$barangnya'"); 
     $ambildatanya = mysqli_fetch_array($cekstocksekarang);
     $stocksekarang= $ambildatanya['stock'];
@@ -125,54 +125,19 @@ if(isset($_POST['barangmasuk'])){
     $addtodetail = mysqli_query($conn,"INSERT INTO detail (idproduk,idnota,tanggalex,qty) VALUES ('$barangnya','$fakturnya','$tanggalexpired','$qty')");
     $updatestokmasuk = mysqli_query($conn," UPDATE stock set stock='$tambahkanstocksekarangdenganquantity' WHERE idbarang='$barangnya'");
     if($addtomasuk && $addtodetail && $updatestokmasuk ){
-        die(mysqli_error($conn));
+        // die(mysqli_error($conn));
         echo'<script>   
         alert("Sukses Memasukan Barang !");
         window.location.href = "barangmasuk.php"
         </script>';
     } else {
-        die(mysqli_error($conn));
+        // die(mysqli_error($conn));
         echo'<script>   
         alert(" Data tidak masuk !");
         window.location.href = "indexx.php"
         </script>';
     }
 }
-
-// Test
-// if(isset($_POST['barangmasuk'])){
-//     $barangnya = $_POST['barangnya'];
-//     $penerima = $_POST['penerima'];
-//     $qty = $_POST['qty'];
-//     $cekstocksekarang = mysqli_query($conn,"SELECT * FROM stock WHERE idbarang='$barangnya'"); 
-//     $ambildatanya = mysqli_fetch_array($cekstocksekarang);
-//     $stocksekarang = $ambildatanya['stock'];
-//     $tambahkanstocksekarangdenganquantity = $stocksekarang + $qty;
-    
-//     if( $qty>=$stocksekarang ) {
-//         $addtomasuk = mysqli_query($conn, "INSERT INTO masuk (idbarang,penerima, qty) VALUES ('$barangnya','$penerima', '$qty')");
-//         $updatestokmasuk = mysqli_query($conn, "UPDATE stock SET stock='$tambahkanstocksekarangdenganquantity' WHERE idbarang='$barangnya'");
-        
-//         if($addtomasuk && $updatestokmasuk){
-//             // die(mysqli_error($conn));
-//             echo'<script>
-//             alert("Sukses Memasukan Barang !");
-//             window.location.href = "barangmasuk.php";
-//             </script>';
-//         } else {
-//             echo 'gagal';
-//             header('location:indexx.php');
-//         }
-//     } else {
-//         // Jika barang tidak cukup untuk keluar
-//         echo '<script>
-//         alert("Sebentar barang tidak boleh minus!");
-//         window.location.href = "barangmasuk.php";
-//         </script>';
-//     }
-// }
-
-
 // Menambah faktur
 if(isset($_POST['faktur'])){
     $fakturnya = $_POST['fakturnya'];
@@ -220,7 +185,6 @@ if(isset($_POST['faktur'])){
             window.location.href = "faktur.php"
             </script>';
         }
-
     }else{
         // Jika Sudah ada
         echo'<script>
@@ -287,508 +251,7 @@ if(isset($_POST['updatefaktur'])){
         echo 'gagal';
         header('location:indexx.php');
     }
-   
 }
-// test Code
-// if (isset($_POST['barangkeluar'])) {
-//     $barangnya = $_POST['qty'];
-//     $tanggalexpired = $_POST['tanggalex'];
-//     $pesananr = $_POST['pesananr'];
-//     $qty = $_POST['qty'];
-
-//     $currentDate = date("Y-m-d");
-//     $currentYear = date("Y");
-//     $currentMonth = date("m");
-//     $currentDay = date("d");
-    
-//     list($year, $month, $day) = explode('-', $tanggalexpired);
-
-//     if ($year > $currentYear || ($year == $currentYear && $month > $currentMonth) || ($year == $currentYear && $month == $currentMonth && $day >= $currentDay)) {
-//         // Tanggal kadaluarsa masih di masa depan atau hari ini
-        
-//         $cekstocksekarang = mysqli_query($conn, "SELECT * FROM stock WHERE idbarang='$pesananr'");
-//         $ambildatanya = mysqli_fetch_array($cekstocksekarang);
-//         $stocksekarang = $ambildatanya['stock'];
-
-//         if ($stocksekarang >= $qty) {
-//             $tambahkanstocksekarangdenganquantity = $stocksekarang - $qty;
-//             $addtokeluar = mysqli_query($conn, "INSERT INTO keluar (idbarang, qty) VALUES ('$barangnya','$qty')");
-//             $updatestokmasuk = mysqli_query($conn, "UPDATE stock SET stock='$tambahkanstocksekarangdenganquantity' WHERE idbarang='$barangnya'");
-
-//             if ($addtokeluar && $updatestokmasuk) {
-//                 echo '
-//                 <script>
-//                     alert("Selamat Barang Sudah keluar, Silahkan lakukan Aksi selanjutnya !");
-//                     window.location.href = "barangkeluarr.php"; 
-//                 </script>';
-//             } else {
-//                 echo 'gagal';
-//                 header('location: indexx.php');
-//             }
-//         } else {
-//             echo '
-//             <script>
-//                 alert("Sebentar barang stock tidak mencukupi silahkan check lagi yaa !");
-//                 window.location.href = "barangkeluarr.php"; 
-//             </script>';
-//         }
-//     } else {
-//         die(mysqli_error($conn));
-//         // Jika tanggal kadaluarsa sudah terjadi, barang tidak bisa keluar
-//         echo '
-//         <script>
-//             alert("Barang sudah kadaluarsa, tidak bisa keluar !");
-//             window.location.href = "barangkeluarr.php"; 
-//         </script>';
-//     }
-// }
-// Start code 1
-// Menambah Barang keluar
-// if(isset($_POST['barangkeluar'])){
-//     $barangnya = $_POST['pesananr']; // Menggunakan 'pesananr' sebagai ID barang
-//     $qty = $_POST['qty'];
-//     // Mengambil stok saat ini dari database
-//     $cekstocksekarang = mysqli_query($conn, "SELECT * FROM stock WHERE idbarang='$barangnya'"); 
-//     $ambildatanya = mysqli_fetch_array($cekstocksekarang);
-//     $stocksekarang = $ambildatanya['stock'];
-    
-//     if($stocksekarang >= $qty){
-//         // Jika stok cukup untuk keluar
-//         $tambahkanstocksekarangdenganquantity = $stocksekarang - $qty;
-//         $tambahkandetail = $stocksekarang - $qty;
-        
-//         // Menambahkan data keluar dan detail
-//         $addtokeluar = mysqli_query($conn, "INSERT INTO keluar (idbarang, qty) VALUES ('$barangnya', '$qty')");
-//         $addtodetail = mysqli_query($conn, "INSERT INTO detail (idproduk, qty) VALUES ('$barangnya', '$qty')");
-        
-//         // Mengupdate stok dalam database
-//         $updatestokmasuk = mysqli_query($conn, "UPDATE stock SET stock = '$tambahkanstocksekarangdenganquantity' WHERE idbarang = '$barangnya'");
-//         $updatedetail = mysqli_query($conn,    "UPDATE detail SET qty ='$tambahkandetail'WHERE idproduk='$barangnya'");
-//         if($addtokeluar && $addtodetail && $updatestokmasuk){
-//             die(mysqli_error($conn));
-//             echo '
-//             <script>
-//                 alert("Selamat, Barang Sudah keluar. Silahkan lakukan tindakan selanjutnya!");
-//                 window.location.href = "barangkeluarr.php"; 
-//             </script>';
-//         } else {
-//             die(mysqli_error($conn));
-//             echo 'Gagal menambahkan data keluar atau detail';
-//             // header('location:indexx.php');
-//         }
-//     } else {
-//         // Jika stok tidak cukup untuk keluar
-//         die(mysqli_error($conn));
-//         echo '
-//         <script>
-//             alert("Maaf, stok barang tidak mencukupi. Silakan periksa lagi.");
-//             window.location.href = "barangkeluarr.php"; 
-//         </script>';
-//     }
-// }
-// End Test code
-
-// Test Code 2
-// if(isset($_POST['barangkeluar'])){
-//     $barangnya = $_POST['pesananr'];
-//     $qty = $_POST['jumlah'];
-//     $tanggalex = $_POST['tanggalex'];
-    
-//     // echo $tanggalex;
-//     // echo $qty;
-//     // die(mysqli_error($conn));
-
-//     // Mengambil stok saat ini dari tabel stok
-//     $cekstocksekarang = mysqli_query($conn, "SELECT * FROM stock WHERE idbarang='$barangnya'"); 
-//     $ambildatanya = mysqli_fetch_array($cekstocksekarang);
-//     $stocksekarang = $ambildatanya['stock'];
-
-//      // Mengambil stok saat ini dari tabel detail
-//      $cekstocksekarang10 = mysqli_query($conn, "SELECT * FROM detail WHERE idproduk='$barangnya' and iddetail='$tanggalex'"); 
-//      $ambildatanya10 = mysqli_fetch_array($cekstocksekarang10);
-//      $stocksekarang10 = $ambildatanya10['qty'];
-    
-//     if($stocksekarang >= $qty){
-//         $tambahkanstocksekarangdenganquantity = $stocksekarang - $qty;
-//         $tambahkanstocksekarangdenganquantity10 = $stocksekarang10 - $qty;
-
-//         // Menambahkan data keluar
-//         $addtokeluar = mysqli_query($conn, "INSERT INTO keluar (idbarang, qty, tglkeluar) VALUES ('$barangnya', '$qty', NOW())");
-
-//         if($addtokeluar){
-//             // Mengurangi kuantitas di tabel detail
-//             $reduceDetailQty = mysqli_query($conn, "UPDATE detail SET qty = '$tambahkanstocksekarangdenganquantity10' WHERE idproduk = '$barangnya' AND iddetail = '$tanggalex'");
-
-//             // Mengupdate stok dalam database
-//             $updatestokmasuk = mysqli_query($conn, "UPDATE stock SET stock = '$tambahkanstocksekarangdenganquantity' WHERE idbarang = '$barangnya'");
-
-//             if($reduceDetailQty && $updatestokmasuk){
-//                 echo '
-//                 <script>
-//                     alert("Selamat, Barang Sudah keluar. Silahkan lakukan tindakan selanjutnya!");
-//                     window.location.href = "barangkeluarr.php"; 
-//                 </script>';
-//             } else {
-//                 echo 'Gagal mengurangi kuantitas pada tabel detail atau mengupdate stok masuk';
-//             }
-//         } else {
-//             echo 'Gagal menambahkan data keluar';
-//         }
-//     } else {
-//         // Jika stok tidak cukup untuk keluar
-//         echo '
-//         <script>
-//             alert("Maaf, stok barang tidak mencukupi. Silakan periksa lagi.");
-//             window.location.href = "barangkeluarr.php"; 
-//         </script>';
-//     }
-// }
-
-// End Test Code 2
-// test code 3
-// if(isset($_POST['barangkeluar'])){
-//     $barangnya = $_POST['pesananr'];
-//     $qty = $_POST['jumlah'];
-//     $tanggalex = $_POST['tanggalex'];
-
-//     // Mengambil stok saat ini dari tabel stock
-//     $cekstocksekarang = mysqli_query($conn, "SELECT * FROM stock WHERE idbarang='$barangnya'");
-//     $ambildatanya = mysqli_fetch_array($cekstocksekarang);
-//     $stocksekarang = $ambildatanya['stock'];
-
-//     // Mengambil stok saat ini dari tabel detail
-//     $cekstocksekarang10 = mysqli_query($conn, "SELECT * FROM detail WHERE idproduk='$barangnya' and iddetail='$tanggalex'");
-//     $ambildatanya10 = mysqli_fetch_array($cekstocksekarang10);
-//     $stocksekarang10 = $ambildatanya10['qty'];
-
-//     if($stocksekarang >= $qty && $stocksekarang10 >= $qty){
-//         // Jika stok cukup untuk keluar
-//         $tambahkanstocksekarangdenganquantity = $stocksekarang - $qty;
-//         $tambahkanstocksekarangdenganquantity10 = $stocksekarang10 - $qty;
-
-//         // Menambahkan data keluar
-//         $addtokeluar10 = mysqli_query($conn, "INSERT INTO keluar (idbarang, qty) VALUES ('$barangnya', '$qty', NOW())");
-
-//         if($addtokeluar10){
-//             // Mengurangi kuantitas di tabel detail
-//             $reduceDetailQty = mysqli_query($conn, "UPDATE detail SET qty = '$tambahkanstocksekarangdenganquantity10' WHERE idproduk = '$barangnya' AND iddetail = '$tanggalex'");
-
-//             // Mengupdate stok dalam database
-//             $updatestokmasuk = mysqli_query($conn, "UPDATE stock SET stock = '$tambahkanstocksekarangdenganquantity' WHERE idbarang = '$barangnya'");
-
-//             if($reduceDetailQty && $updatestokmasuk){
-//                 echo '
-//                 <script>
-//                     alert("Selamat, Barang Sudah keluar. Silahkan lakukan tindakan selanjutnya!");
-//                     window.location.href = "barangkeluarr.php"; 
-//                 </script>';
-//             } else {
-//                 echo 'Gagal mengurangi kuantitas pada tabel detail atau mengupdate stok masuk: ' . mysqli_error($conn);
-//             }
-//         } else {
-//             echo 'Gagal menambahkan data keluar: ' . mysqli_error($conn);
-//         }
-//     } else {
-//         // Jika stok tidak cukup untuk keluar
-//         echo '
-//         <script>
-//             alert("Maaf, stok barang tidak mencukupi. Silakan periksa lagi.");
-//             window.location.href = "barangkeluarr.php"; 
-//         </script>';
-//     }
-// }
-// end test code 3
-
-
-// code 4 sudah berhasil untuk mengeluarkan barang dengan metode fifo
-// if(isset($_POST['barangkeluar'])){
-//     $barangnya = $_POST['pesananr'];
-//     $qty = $_POST['jumlah'];
-//     $tanggalex = $_POST['tanggalex'];
-
-//     // Mengambil stok saat ini dari tabel stock
-//     $cekstocksekarang = mysqli_query($conn, "SELECT * FROM stock WHERE idbarang='$barangnya'");
-//     $ambildatanya = mysqli_fetch_array($cekstocksekarang);
-//     $stocksekarang = $ambildatanya['stock'];
-
-//     // Mengambil stok saat ini dari tabel detail
-//     $cekstocksekarang10 = mysqli_query($conn, "SELECT * FROM detail WHERE idproduk='$barangnya' and iddetail='$tanggalex'");
-//     $ambildatanya10 = mysqli_fetch_array($cekstocksekarang10);
-//     $stocksekarang10 = $ambildatanya10['qty'];
-
-//     if($stocksekarang >= $qty && $stocksekarang10 >= $qty){
-//         // Jika stok cukup untuk keluar
-//         $tambahkanstocksekarangdenganquantity = $stocksekarang - $qty;
-//         $tambahkanstocksekarangdenganquantity10 = $stocksekarang10 - $qty;
-
-//         // Menambahkan data keluar
-//         $addtokeluar10 = mysqli_query($conn, "INSERT INTO keluar (idbarang, qty, tanggal) VALUES ('$barangnya', '$qty', NOW())");
-
-//         if($addtokeluar10){
-//             // Mengurangi kuantitas di tabel detail
-//             $reduceDetailQty = mysqli_query($conn, "UPDATE detail SET qty = '$tambahkanstocksekarangdenganquantity10' WHERE idproduk = '$barangnya' AND iddetail = '$tanggalex'");
-
-//             // Mengupdate stok dalam database
-//             $updatestokmasuk = mysqli_query($conn, "UPDATE stock SET stock = '$tambahkanstocksekarangdenganquantity' WHERE idbarang = '$barangnya'");
-
-//             if($reduceDetailQty && $updatestokmasuk){
-//                 echo '
-//                 <script>
-//                     alert("Selamat, Barang Sudah keluar. Silahkan lakukan tindakan selanjutnya!");
-//                     window.location.href = "barangkeluarr.php"; 
-//                 </script>';
-//             } else {
-//                 echo 'Gagal mengurangi kuantitas pada tabel detail atau mengupdate stok masuk: ' . mysqli_error($conn);
-//             }
-//         } else {
-//             echo 'Gagal menambahkan data keluar: ' . mysqli_error($conn);
-//         }
-//     } else {
-//         // Jika stok tidak cukup untuk keluar
-//         echo '
-//         <script>
-//             alert("Maaf, stok barang tidak mencukupi. Silakan periksa lagi.");
-//             window.location.href = "barangkeluarr.php"; 
-//         </script>';
-//     }
-// }
-
-// end code 4  sudah berhasil untuk mengeluarkan barang dengan metode fifo
-
-// code 5
-// if(isset($_POST['barangkeluar'])){
-//     $barangnya = $_POST['pesananr'];
-//     $qty = $_POST['jumlah'];
-//     $tanggalex = $_POST['tanggalex'];
-
-//     // Mengambil stok saat ini dari tabel stock
-//     $cekstocksekarang = mysqli_query($conn, "SELECT * FROM stock WHERE idbarang='$barangnya'");
-//     $ambildatanya = mysqli_fetch_array($cekstocksekarang);
-//     $stocksekarang = $ambildatanya['stock'];
-//     $tanggalKadaluarsa = $ambildatanya['tanggal_kadaluarsa']; // Ganti 'tanggal_kadaluarsa' dengan kolom tanggal kadaluarsa pada tabel stock
-
-//     // Mengambil stok saat ini dari tabel detail
-//     $cekstocksekarang10 = mysqli_query($conn, "SELECT * FROM detail WHERE idproduk='$barangnya' and iddetail='$tanggalex'");
-//     $ambildatanya10 = mysqli_fetch_array($cekstocksekarang10);
-//     $stocksekarang10 = $ambildatanya10['qty'];
-
-//     if(strtotime($tanggalex) <= strtotime($tanggalKadaluarsa) && $stocksekarang >= $qty && $stocksekarang10 >= $qty){
-//         // Jika stok cukup untuk keluar dan tanggal belum melewati tanggal kadaluarsa
-//         $tambahkanstocksekarangdenganquantity = $stocksekarang - $qty;
-//         $tambahkanstocksekarangdenganquantity10 = $stocksekarang10 - $qty;
-
-//         // Menambahkan data keluar
-//         $addtokeluar10 = mysqli_query($conn, "INSERT INTO keluar (idbarang, qty, tanggal) VALUES ('$barangnya', '$qty', NOW())");
-
-//         if($addtokeluar10){
-//             // Mengurangi kuantitas di tabel detail
-//             $reduceDetailQty = mysqli_query($conn, "UPDATE detail SET qty = '$tambahkanstocksekarangdenganquantity10' WHERE idproduk = '$barangnya' AND iddetail = '$tanggalex'");
-
-//             // Mengupdate stok dalam database
-//             $updatestokmasuk = mysqli_query($conn, "UPDATE stock SET stock = '$tambahkanstocksekarangdenganquantity' WHERE idbarang = '$barangnya'");
-
-//             if($reduceDetailQty && $updatestokmasuk){
-//                 echo '
-//                 <script>
-//                     alert("Selamat, Barang Sudah keluar. Silahkan lakukan tindakan selanjutnya!");
-//                     window.location.href = "barangkeluarr.php"; 
-//                 </script>';
-//             } else {
-//                 echo 'Gagal mengurangi kuantitas pada tabel detail atau mengupdate stok masuk: ' . mysqli_error($conn);
-//             }
-//         } else {
-//             echo 'Gagal menambahkan data keluar: ' . mysqli_error($conn);
-//         }
-//     } else {
-//         // Jika stok tidak cukup untuk keluar atau tanggal sudah melewati tanggal kadaluarsa
-//         die(mysqli_error($conn));
-//         echo '
-//         <script>
-//             alert("Maaf, stok barang tidak mencukupi atau barang sudah melewati tanggal kadaluarsa. Silakan periksa lagi.");
-//             window.location.href = "barangkeluarr.php"; 
-//         </script>';
-//     }
-// }
-// end code 5
-
-// code 6
-// if (isset($_POST['barangkeluar'])) {
-//     $barangnya = $_POST['pesananr'];
-//     $qty = $_POST['jumlah'];
-//     $tanggalex = $_POST['tanggalex'];
-
-//     // Mengambil stok saat ini dari tabel stock
-//     $cekstocksekarang = mysqli_query($conn, "SELECT * FROM stock WHERE idbarang='$barangnya'");
-//     $ambildatanya = mysqli_fetch_array($cekstocksekarang);
-//     $stocksekarang = $ambildatanya['stock'];
-
-//     // Mengambil tanggal kadarluarsa dari tabel detail
-//     $cekstocksekarang10 = mysqli_query($conn, "SELECT * FROM detail WHERE idproduk='$barangnya' AND iddetail='$tanggalex'");
-//     $ambildatanya10 = mysqli_fetch_array($cekstocksekarang10);
-//     $tanggalkadaluarsa = $ambildatanya10['tanggalex']; // Pastikan ini adalah nama kolom yang benar di tabel detail
-
-//     // Mengambil tanggal sekarang
-//     $tanggalsekarang = date('Y-m-d');
-
-//     if (strtotime($tanggalex) > strtotime($tanggalsekarang)) {
-//         // Barang belum kadarluasa
-//         if ($stocksekarang >= $qty) {
-//             // Jika stok cukup untuk keluar
-//             $tambahkanstocksekarangdenganquantity = $stocksekarang - $qty;
-
-//             // Menambahkan data keluar
-//             $addtokeluar10 = mysqli_query($conn, "INSERT INTO keluar (idbarang, qty, tanggal) VALUES ('$barangnya', '$qty', NOW())");
-
-//             if ($addtokeluar10) {
-//                 // Mengurangi kuantitas di tabel detail
-//                 $reduceDetailQty = mysqli_query($conn, "UPDATE detail SET qty = qty - $qty WHERE idproduk = '$barangnya' AND iddetail = '$tanggalex'");
-
-//                 // Mengupdate stok dalam database
-//                 $updatestokmasuk = mysqli_query($conn, "UPDATE stock SET stock = '$tambahkanstocksekarangdenganquantity' WHERE idbarang = '$barangnya'");
-
-//                 if ($reduceDetailQty && $updatestokmasuk) {
-//                     echo '
-//                     <script>
-//                         alert("Selamat, Barang Sudah keluar. Silahkan lakukan tindakan selanjutnya!");
-//                         window.location.href = "barangkeluarr.php"; 
-//                     </script>';
-//                 } else {
-//                     echo 'Gagal mengurangi kuantitas pada tabel detail atau mengupdate stok masuk: ' . mysqli_error($conn);
-//                 }
-//             } else {
-//                 echo 'Gagal menambahkan data keluar: ' . mysqli_error($conn);
-//             }
-//         } else {
-//             // Stok tidak cukup untuk keluar
-//             echo '
-//             <script>
-//                 alert("Maaf, stok barang tidak mencukupi. Silakan periksa lagi.");
-//                 window.location.href = "barangkeluarr.php"; 
-//             </script>';
-//         }
-//     } else {
-//         // Barang sudah kadarluasa
-//         die(mysqli_error($conn));
-//         echo '
-//         <script>
-//             alert("Maaf, barang sudah kadarluasa. Tidak dapat melakukan pengeluaran.");
-//             window.location.href = "barangkeluarr.php"; 
-//         </script>';
-//     }
-// }
-// end code 6
-
-// code 7
-// if (isset($_POST['barangkeluar'])) {
-//     $barangnya = $_POST['pesananr'];
-//     $qty = $_POST['jumlah'];
-//     $tanggalex = $_POST['tanggalex'];
-
-//     // Mengambil stok saat ini dari tabel stock
-//     $cekstocksekarang = mysqli_query($conn, "SELECT * FROM stock WHERE idbarang='$barangnya'");
-//     $ambildatanya = mysqli_fetch_array($cekstocksekarang);
-//     $stocksekarang = $ambildatanya['stock'];
-
-//     // Mengambil tanggal kadarluarsa dari tabel detail
-//     $cekstocksekarang10 = mysqli_query($conn, "SELECT * FROM detail WHERE idproduk='$barangnya' AND iddetail='$tanggalex'");
-//     $ambildatanya10 = mysqli_fetch_array($cekstocksekarang10);
-//     $tanggalex = $ambildatanya10['tanggalex']; // Pastikan ini adalah nama kolom yang benar di tabel detail
-
-//     // Mengambil tanggal sekarang
-//     $tanggalsekarang = date('Y-m-d');
-
-//     if (strtotime($tanggalsekarang) <= strtotime($tanggalex)) {
-//         // Barang belum kadarluasa
-//         if ($stocksekarang >= $qty) {
-//             // Jika stok cukup untuk keluar
-//             $tambahkanstocksekarangdenganquantity = $stocksekarang - $qty;
-
-//             // Menambahkan data keluar
-//             $addtokeluar10 = mysqli_query($conn, "INSERT INTO keluar (idbarang, qty, tanggal) VALUES ('$barangnya', '$qty', NOW())");
-
-//             if ($addtokeluar10) {
-//                 // Mengurangi kuantitas di tabel detail
-//                 $reduceDetailQty = mysqli_query($conn, "UPDATE detail SET qty = qty - $qty WHERE idproduk = '$barangnya' AND iddetail = '$tanggalex'");
-
-//                 // Mengupdate stok dalam database
-//                 $updatestokmasuk = mysqli_query($conn, "UPDATE stock SET stock = '$tambahkanstocksekarangdenganquantity' WHERE idbarang = '$barangnya'");
-
-//                 if ($reduceDetailQty && $updatestokmasuk) {
-//                     echo '
-//                     <script>
-//                         alert("Selamat, Barang Sudah keluar. Silahkan lakukan tindakan selanjutnya!");
-//                         window.location.href = "barangkeluarr.php"; 
-//                     </script>';
-//                 } else {
-//                     echo 'Gagal mengurangi kuantitas pada tabel detail atau mengupdate stok masuk: ' . mysqli_error($conn);
-//                 }
-//             } else {
-//                 echo 'Gagal menambahkan data keluar: ' . mysqli_error($conn);
-//             }
-//         } else {
-//             // Stok tidak cukup untuk keluar
-//             echo '
-//             <script>
-//                 alert("Maaf, stok barang tidak mencukupi. Silakan periksa lagi.");
-//                 window.location.href = "barangkeluarr.php"; 
-//             </script>';
-//         }
-//     } else {
-//         // Barang sudah kadarluasa
-//         echo '
-//         <script>
-//             alert("Maaf, barang sudah kadarluasa. Tidak dapat melakukan pengeluaran.");
-//             window.location.href = "barangkeluarr.php"; 
-//         </script>';
-//     }
-// }
-
-
-// code 7
-
-//Menambah Barang keluar
-// if(isset($_POST['barangkeluar'])){
-//     $barangnya = $_POST['qty']; //barangnyaa
-//     // $iddetail=$_POST['iddetail'];
-//     $tanggalexpired= $_POST['tanggalex'];
-//     // $idbarang =$_POST['idbarang']; //idbarang
-//     $pesananr=$_POST['pesananr'];
-//     // $penerima = $_POST['penerima'];
-//     $qty = $_POST['qty'];
-//     $cekstocksekarang = mysqli_query($conn,"SELECT * FROM stock WHERE idbarang='$pesananr'"); 
-//     $ambildatanya = mysqli_fetch_array($cekstocksekarang);
-//     $stocksekarang= $ambildatanya['stock'];
-//     if($stocksekarang >= $qty){
-//         // Jika barangnya cukup untuk keluar
-//         $tambahkanstocksekarangdenganquantity = $stocksekarang-$qty;
-//         $addtokeluar = mysqli_query($conn," INSERT INTO keluar (idbarang,qty) VALUES ('$barangnya','$qty')");
-//         $addtodetail = mysqli_query($conn," INSERT INTO detail (idproduk,qty) VALUES ('$barangnya','$qty')");
-//         $updatestokmasuk = mysqli_query($conn," UPDATE stock set stock='$tambahkanstocksekarangdenganquantity' WHERE idbarang='$barangnya'");
-       
-//         if($addtokeluar && $updatestokmasuk){
-//             // header('location: BARANGKELUARR.php');
-//             die(mysqli_error($conn));
-//             echo'
-//             <script>
-//                 alert(" Selamat Barang Sudah keluar, Silahkan lakukan Aksi selanjutnya !");
-//                 window.location.href = "barangkeluarr.php"; 
-//             </script>';
-//         } else {
-//             die(mysqli_error($conn));
-//             echo 'gagal';
-//             header('location:indexx.php');
-//         }
-//     }else{
-//         die(mysqli_error($conn));
-//         // Jika barang tidak cukup untuk keluar
-//         echo'
-//         <script>
-//             alert("Sebentar barang stock tidak mencukupi silahkan check lagi yaa !");
-//             window.location.href = "barangkeluarr.php"; 
-//         </script>';
-//     }
-// };
-
 
 // Codinga FIX Saksi Carolus dan yoanthan
 if (isset($_POST['barangkeluar'])) {
@@ -855,75 +318,6 @@ if (isset($_POST['barangkeluar'])) {
     }
 }
 
-// Codinga FIX Saksi Carolus dan yoanthan
-
-// 100
-// if (isset($_POST['barangkeluar'])) {
-//     $barangnya = $_POST['pesananr'];
-//     $qty = $_POST['jumlah'];
-//     $tanggalex = $_POST['tanggalex'];
-
-//     // Mengambil stok saat ini dari tabel stock
-//     $cekstocksekarang = mysqli_query($conn, "SELECT * FROM stock WHERE idbarang='$barangnya'");
-//     $ambildatanya = mysqli_fetch_array($cekstocksekarang);
-//     $stocksekarang = $ambildatanya['stock'];
-
-//     // Mengambil tanggal kadarluarsa dari tabel detail
-//     $cekstocksekarang10 = mysqli_query($conn, "SELECT * FROM detail WHERE idproduk='$barangnya' AND iddetail='$tanggalex'");
-//     $ambildatanya10 = mysqli_fetch_array($cekstocksekarang10);
-//     $tanggalkadaluarsa = $ambildatanya10['tanggalkadaluarsa']; // Ganti 'tanggalkadaluarsa' dengan kolom tanggal kadaluarsa pada tabel detail
-
-//     // Mengambil tanggal sekarang
-//     $tanggalsekarang = date('Y-m-d');
-
-//     if (strtotime($tanggalkadaluarsa) > strtotime($tanggalsekarang)) {
-//         // Barang belum kadarluasa
-//         if ($stocksekarang >= $qty) {
-//             // Jika stok cukup untuk keluar
-//             $tambahkanstocksekarangdenganquantity = $stocksekarang - $qty;
-
-//             // Menambahkan data keluar
-//             $addtokeluar10 = mysqli_query($conn, "INSERT INTO keluar (idbarang, qty, tanggal) VALUES ('$barangnya', '$qty', NOW())");
-
-//             if ($addtokeluar10) {
-//                 // Mengurangi kuantitas di tabel detail
-//                 $reduceDetailQty = mysqli_query($conn, "UPDATE detail SET qty = qty - $qty WHERE idproduk = '$barangnya' AND iddetail = '$tanggalex'");
-
-//                 // Mengupdate stok dalam database
-//                 $updatestokmasuk = mysqli_query($conn, "UPDATE stock SET stock = '$tambahkanstocksekarangdenganquantity' WHERE idbarang = '$barangnya'");
-
-//                 if ($reduceDetailQty && $updatestokmasuk) {
-//                     echo '
-//                     <script>
-//                         alert("Selamat, Barang Sudah keluar. Silahkan lakukan tindakan selanjutnya!");
-//                         window.location.href = "barangkeluarr.php"; 
-//                     </script>';
-//                 } else {
-//                     echo 'Gagal mengurangi kuantitas pada tabel detail atau mengupdate stok masuk: ' . mysqli_error($conn);
-//                 }
-//             } else {
-//                 echo 'Gagal menambahkan data keluar: ' . mysqli_error($conn);
-//             }
-//         } else {
-//             // Stok tidak cukup untuk keluar
-//             echo '
-//             <script>
-//                 alert("Maaf, stok barang tidak mencukupi. Silakan periksa lagi.");
-//                 window.location.href = "barangkeluarr.php"; 
-//             </script>';
-//         }
-//     } else {
-//         // Barang sudah kadarluasa
-//         echo '
-//         <script>
-//             alert("Maaf, barang sudah kadarluasa. Tidak dapat melakukan pengeluaran.");
-//             window.location.href = "barangkeluarr.php"; 
-//         </script>';
-//     }
-// }
-
-// 200
-
 // Update Info  Stock Barang
 if(isset($_POST['updatebarang'])){
     $idbarang = $_POST['idbarang'];
@@ -958,23 +352,7 @@ if(isset($_POST['updatebarang'])){
         header('location:indexx.php');
     }
 }
-// Update Harga Barang
-// if(isset($_POST['updatehargabarang'])){
-//     $idbarang = $_POST['idbarang'];
-//     $namabarang =$_POST['namabarang'];
-//     $jenisbarang =$_POST['jenisbarang'];
-//     $hargabarang =$_POST['Harga'];
-//     $update = mysqli_query($conn,"UPDATE stock set namabarang='$namabarang',jenisbarang='$jenisbarang',Harga='$hargabarang' WHERE idbarang='$idbarang'");
-//     if($update<0){
-//         echo'<script>
-//         alert(" Selamat Harga barang Sudah ter-input!");
-//         window.location.href = "stockharga.php"
-//         </script>';
-//     } else {
-//         echo 'gagal';
-//         header('location:indexx.php');
-//     }
-// }
+
 // test
 if(isset($_POST['updatehargabarang'])){
     $idbarang = $_POST['idbarang'];
@@ -1058,65 +436,6 @@ if(isset($_POST['barangretur'])){
     }
 };
 
-// Test Code Barang retur detail 1
-// if(isset($_POST['barangretur'])){
-//     $barangnya = $_POST['barangnya'];
-//     $keterangan = $_POST['penerima'];
-//     $qty = $_POST['qty'];
-//     $status = $_POST['status'];
-//     $fakturnya = $_POST['fakturnya'];
-
-//     // Mengambil stok saat ini dari tabel stock
-//     $cekstocksekarang = mysqli_query($conn, "SELECT * FROM stock WHERE idbarang='$barangnya'");
-//     $ambildatanya = mysqli_fetch_array($cekstocksekarang);
-//     $stocksekarang = $ambildatanya['stock'];
-
-//     // Mengambil stok saat ini dari tabel detail
-//     $cekstocksekarang10 = mysqli_query($conn, "SELECT * FROM detail WHERE idproduk='$barangnya' and iddetail='$fakturnya'");
-//     $ambildatanya10 = mysqli_fetch_array($cekstocksekarang10);
-//     $stocksekarang10 = $ambildatanya10['qty'];
-
-//     if($stocksekarang >= $qty && $stocksekarang10 >= $qty){
-//         // Jika stok cukup untuk keluar
-//         $tambahkanstocksekarangdenganquantity = $stocksekarang - $qty;
-//         $tambahkanstocksekarangdenganquantity10 = $stocksekarang10 - $qty;
-
-//         // Menambahkan data retur
-//         $addtoretur = mysqli_query($conn, "INSERT INTO retur (idbarang, idfaktur, qty, status, penerima) VALUES ('$barangnya', '$fakturnya', '$qty', '$status', '$keterangan')");
-
-//         if($addtoretur){
-//             // Mengurangi kuantitas di tabel detail
-//             $reduceDetailQty = mysqli_query($conn, "UPDATE detail SET qty = '$tambahkanstocksekarangdenganquantity10' WHERE idproduk = '$barangnya' AND iddetail = '$fakturnya'");
-
-//             // Mengupdate stok dalam database
-//             $updatestokmasuk = mysqli_query($conn, "UPDATE stock SET stock = '$tambahkanstocksekarangdenganquantity' WHERE idbarang = '$barangnya'");
-
-//             if($reduceDetailQty && $updatestokmasuk){
-//                 echo '
-//                 <script>
-//                     alert("Sukses Memasukan Data !");
-//                     window.location.href = "retur.php";
-//                 </script>';
-//             } else {
-//                 echo 'Gagal mengurangi kuantitas pada tabel detail atau mengupdate stok masuk: ' . mysqli_error($conn);
-//             }
-//         } else {
-//             echo 'Gagal menambahkan data retur: ' . mysqli_error($conn);
-//         }
-//     } else {
-//         // Jika stok tidak cukup untuk keluar
-//         echo '
-//         <script>
-//             alert("Sebentar, barang stock tidak mencukupi atau barang sudah tidak tersedia. Silakan periksa lagi.");
-//             window.location.href = "retur.php";
-//         </script>';
-//     }
-// }
-
-// ent Test Code Barang retur detail 1
-
-
-
 // new Harga Barang
 if(isset($_POST['hargabarang'])){
     $namabarang= $_POST['namabarang'];
@@ -1172,7 +491,7 @@ if(isset($_POST['updatebarangmasuk'])){
     $updatedata1 = mysqli_query($conn,"UPDATE masuk set qty='$qty',penerima='$keterangan' WHERE idmasuk='$idm'");
         //cek apakah berhasil
         if ($updatedata1 && $queryx){
-            die(mysqli_error($conn));
+            // die(mysqli_error($conn));
             echo " <div class='alert alert-success'>
                 <strong>Success!</strong> Selamat Barang Sudah Masuk in 3 seconds.
             </div>
@@ -1438,7 +757,7 @@ if(isset($_POST['matikanrole'])){
     $status = $_POST['status'];
     $role = $_POST['role'];
     $cekreq = mysqli_query($conn,"UPDATE login SET status=2  WHERE  iduser='$iduser'");
-    die(mysqli_error($conn));
+    // die(mysqli_error($conn));
     if($cekreq){
         // berhasil
         // header("Location:approval.php");
@@ -1451,13 +770,12 @@ if(isset($_POST['matikanrole'])){
     }
 }
 
-
 if(isset($_POST['aktifrole'])){
     $iduser = $_POST['iduser'];
     $status = $_POST['status'];
     $role = $_POST['role'];
     $cekreq = mysqli_query($conn,"UPDATE login SET status=1  WHERE  iduser='$iduser'");
-    die(mysqli_error($conn));
+    // die(mysqli_error($conn));
     if($cekreq){
         // berhasil
         // header("Location:approval.php");
@@ -1798,8 +1116,6 @@ function change_password($data)
             }
         }
     }
-
 // Cetak Kadarluasa
-
 // END Cetak Kadarluasa
 ?>

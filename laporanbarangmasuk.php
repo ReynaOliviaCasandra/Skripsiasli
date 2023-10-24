@@ -42,10 +42,10 @@ include 'cek.php';
                                          $i=1;
                                          while($data=mysqli_fetch_array($ambilsemuadatastock)){
                                             $idbarang = $data['idbarang'];
-                                             $tanggal = $data['tanggal'];
+                                             $tanggal = $data['tanggalex'];
                                              $namabarang = $data['namabarang'];
                                              $jenisbarang =$data['jenisbarang'];
-                                             $qty = $data['qty'];
+                                             $qty = $data['qtymasuk'];
                                              $keterangan = $data['username'];
                                          ?>
                                          <tr>

@@ -199,24 +199,13 @@
                                     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                         <thead>
                                             <tr>
-                                                <th>idsupplier</th>
-                                                <th>NamaSales</th>
+                                                <th>Id Supplier</th>
+                                                <th>Nama Sales</th>
                                                 <th>Supplier</th>
                                                 <th>Kontak</th> 
                                                 <th>Aksi</th>
                                             </tr>
                                         </thead>
-                                        <!-- <tfoot>
-                                            <tr>
-                                                <th>Name</th>
-                                                <th>Position</th>
-                                                <th>Office</th>
-                                                <th>Age</th>
-                                                <th>Start date</th>
-                                                <th>Salary</th>
-                                            </tr>
-                                        </tfoot> -->
-                                        <!-- Mulai Field Table -->
                                         <tbody>
                                         <?php
                                         $ambilsemuadatasales = mysqli_query($conn,"SELECT * FROM supplier");
@@ -231,7 +220,7 @@
                                             <td><?=$i++;?></td>
                                             <td><?=$nama;?></td>
                                             <td><?=$usaha;?></td>
-                                            <td><?=$kontak;?></td>
+                                            <td><a href="https://api.whatsapp.com/send?phone=<?=$kontak;?>">Hubungi Sales</a></td>
                                             <td>
                                              <!-- Fungsi  Hak Akes Halaman -->
                                              <?php
@@ -243,9 +232,9 @@
                                             <?php
                                             }
                                             ?>
-                                            <!-- <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#delete<?=$idsales;?>">
+                                            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#delete<?=$idsales;?>">
                                             DELETE
-                                            </td> -->
+                                            </td>
                                         </tr>
                                         <!-- END Selesai Field Table -->
                                         <!-- Aksi CRUD -->
@@ -297,8 +286,9 @@
                                                 <input type="hidden" name="idsupplier"      value="<?=$idsales;?>">
                                                 <input type="hidden" name="nama"            value="<?=$nama;?>">
                                                 <input type="hidden" name="supplier"        value="<?=$usaha;?>">
-                                                <input type="hidden" name="kontak"          value="<?=$kontak;?>">
-                                                <br>
+                                                <input type="hidden" name="kontak"          href="<?=$kontak;?>">
+                                                <a href="https://wa.me/081218170845">Hubungi Saya</a>
+                                                <br>`
                                                 <br>
                                                 <button type="submit" class="btn btn-danger" name="hapusales" >Hapus</button>
                                                 <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
